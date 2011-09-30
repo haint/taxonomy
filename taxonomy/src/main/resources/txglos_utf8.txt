@@ -1,0 +1,309 @@
+[Term] /--/ [Terv] /--/ [Expl] /--/ [Exam]
+[root cap] /--/ [ ] /--/ [cap-like structure at tipcovers & protects growing point] /--/ [ ] /--/ 
+[meristematic zone] /--/ [ ] /--/ [(root) growing point producing new cells for root cap] /--/ [ ] /--/ 
+[zone of elongation] /--/ [ ] /--/ [root zone behind growing point] /--/ [ ] /--/ 
+[root hair zone] /--/ [ ] /--/ [zone where most water absortion occurs] /--/ [ ] /--/ 
+[zone of mature cel] /--/ [ ] /--/ [(root) zone forming bulk of rootcells not undergoing further change] /--/ [ ] /--/ 
+[primary] /--/ [ ] /--/ [(root) = tap root: first root formed by growth of radicle, itself vertical] /--/ [ ] /--/ 
+[secondary] /--/ [ ] /--/ [(root) borne on primary roothorizonal or oblique] /--/ [ ] /--/ 
+[adventitious] /--/ [ ] /--/ [root system produced from any other part of plant except radicle] /--/ [ ] /--/ 
+[fleshy] /--/ [(củ) mập] /--/ [(root) swollen and fleshy with stored food] /--/ [ ] /--/ 
+[conical] /--/ [ ] /--/ [when thread-like secondary roots found throughout length] /--/ [carrot] /--/ 
+[fusiform] /--/ [ ] /--/ [(root) spindle-like: thickest in middlenarrow towards base & apex] /--/ [ ] /--/ 
+[napiform] /--/ [ ] /--/ [(root) very thick root at basealmost spherical] /--/ [turnip] /--/ 
+[tuberous] /--/ [ ] /--/ [(root) not assuming any definite form] /--/ [ ] /--/ 
+[aerophores] /--/ [ ] /--/ [= pneumatophore] /--/ [ ] /--/ 
+[respitarory] /--/ [ ] /--/ [= pneumatophore] /--/ [ ] /--/ 
+[buttress] /--/ [ ] /--/ [ horizontal root arising jointly from base of tap root and trunk] /--/ [rubber] /--/ 
+[plank] /--/ [ ] /--/ [= buttress] /--/ [ ] /--/ 
+[reproductive] /--/ [ ] /--/ [(root) adventitious buds on tap root that can grow to form new plant] /--/ [ ] /--/ 
+[mycorrhizal] /--/ [ ] /--/ [(root) having fungal hyphae that help in obtaining nutriens] /--/ [pines] /--/ 
+[fibrous] /--/ [ ] /--/ [(root) underground in groups at base of erect stem or nodes of horiz. stem] /--/ [grains] /--/ 
+[fasciculated] /--/ [ ] /--/ [roots in clusters or groups] /--/ [ ] /--/ 
+[palmate] /--/ [dạng rẽ quạt] /--/ [(root)  branched like palm] /--/ [some oorchids] /--/ 
+[moniliform] /--/ [ ] /--/ [(root) swollen at regular intervals like beads of necklace] /--/ [ ] /--/ 
+[annulated] /--/ [ ] /--/ [thickened root with series of ring-like outgrowths] /--/ [ ] /--/ 
+[stilt] /--/ [ ] /--/ [(root) short, developing obliquely from basal nodes of stem] /--/ [maize] /--/ 
+[brace] /--/ [ ] /--/ [= root, stilt] /--/ [ ] /--/ 
+[pillar] /--/ [ ] /--/ [(root) pillar-like, supporting heavy horizontal branches] /--/ [banyan] /--/ 
+[epiphytic] /--/ [ ] /--/ [(root) thick, irregular, devoid of root cap, root hair covered by spongy tissue] /--/ [ ] /--/ 
+[hygroscopic] /--/ [ ] /--/ [= epyphitic] /--/ [ ] /--/ 
+[photosynthetic] /--/ [ ] /--/ [(root) green, helping in manufacturing food, some fixed to rock] /--/ [ ] /--/ 
+[assimilatory] /--/ [ ] /--/ [photosynthetic root] /--/ [ ] /--/ 
+[root, clinging] /--/ [ ] /--/ [= climbing] /--/ [ ] /--/ 
+[climbing] /--/ [ ] /--/ [adventitious roots of climbers, hold support by clawsswollen discs or sticky juice at tip] /--/ [ ] /--/ 
+[pulvinus] /--/ [ ] /--/ [(leaf base) swollen] /--/ [mango] /--/ 
+[sheating] /--/ [ ] /--/ [(leaf base) expanded, covers stem partitially or completely] /--/ [ ] /--/ 
+[stipules] /--/ [ ] /--/ [2 small flat green or scaly lateral outgrowths at leaf base] /--/ [ ] /--/ 
+[petiole] /--/ [cuống lá] /--/ [stalk of leaf lifting lamina above stem] /--/ [ ] /--/ 
+[adaxial] /--/ [ ] /--/ [leaf upper surface] /--/ [ ] /--/ 
+[abaxial] /--/ [ ] /--/ [leaf lower surface] /--/ [ ] /--/ 
+[reticulate] /--/ [hình mạng] /--/ [veins forming reticulum see: network] /--/ [ ] /--/ 
+[pinnate] /--/ [ ] /--/ [(leaf veins) with one midrib gives off lateral veins] /--/ [ ] /--/ 
+[unicostate] /--/ [ ] /--/ [= pinnate] /--/ [ ] /--/ 
+[palmate] /--/ [dạng rẽ quạt] /--/ [(leaf veins) with many equally strong veins from tip of petiole] /--/ [ ] /--/ 
+[convergent] /--/ [ ] /--/ [(leaf veins) with ribs convergING towards apex] /--/ [ ] /--/ 
+[divergent] /--/ [ ] /--/ [(leaf veins) with ribs diverge outwards from petiole tip towards margins] /--/ [ ] /--/ 
+[imparipinnate] /--/ [số thứ diệp lẻ] /--/ [(leaf) when pinane odd in number] /--/ [ ] /--/ 
+[bipinnate] /--/ [ ] /--/ [leaf divided twice] /--/ [ ] /--/ 
+[pinnae] /--/ [thứ diệp / lá phụ cấp 2] /--/ [leaflets of bipinnate leaf] /--/ [ ] /--/ 
+[pinnules] /--/ [tam diệp / lá phụ cấp 2] /--/ [leaflets of tripinnate leaf] /--/ [ ] /--/ 
+[rachis] /--/ [sóng lá] /--/ [axis of pinnae] /--/ [ ] /--/ 
+[rachilla] /--/ [ ] /--/ [axix of pinnule] /--/ [ ] /--/ 
+[rachule] /--/ [ ] /--/ [= rachilla] /--/ [ ] /--/ 
+[tripinnate] /--/ [tam diệp] /--/ [(leaf) divided thrice] /--/ [Melia azedarach] /--/ 
+[decompound] /--/ [ ] /--/ [(leaf) divided more than thrize] /--/ [carrot] /--/ 
+[palmate compound] /--/ [ ] /--/ [when petiole bears leaflets at its tip] /--/ [ ] /--/ 
+[multifoliolate] /--/ [ ] /--/ [(leaf) divided into 5 or more leaflets] /--/ [Bombax] /--/ 
+[digitate] /--/ [ ] /--/ [= multifoliate] /--/ [ ] /--/ 
+[ternate] /--/ [ ] /--/ [= trifoliolate] /--/ [ ] /--/ 
+[binate] /--/ [ ] /--/ [2 leaflets side by side] /--/ [ ] /--/ 
+[unifoliolate] /--/ [ ] /--/ [single leaflet separate from petiole by constriction] /--/ [Citrus] /--/ 
+[interpetiolar] /--/ [ ] /--/ [when adjacent stipules of 2 leaves fuse together, appearing in between 2 petioles] /--/ [ ] /--/ 
+[petiolar] /--/ [ ] /--/ [when stipules united with petiole for some distance, appear as 2 small basal wings] /--/ [rose] /--/ 
+[ochreate] /--/ [ ] /--/ [when stipules fused on both outer & inner margins to form sheath around stem] /--/ [ ] /--/ 
+[bud scale] /--/ [ ] /--/ [(leaf) stipules of young leaves fused to form large scale, fall down as leaves unfold] /--/ [banyan] /--/ 
+[stipule, foliaceous] /--/ [ ] /--/ [(stipule) large & green, look like leaves] /--/ [pea] /--/ 
+[stipular spine] /--/ [ ] /--/ [stipules transformed into spines] /--/ [Acacia] /--/ 
+[stipular tendril] /--/ [ ] /--/ [stipules modified to tendrils] /--/ [ ] /--/ 
+[herbaceous] /--/ [ ] /--/ [(lamina) soft, thin & pliable] /--/ [ ] /--/ 
+[succulent] /--/ [ ] /--/ [thick & fleshy] /--/ [ ] /--/ 
+[coriaceous] /--/ [ ] /--/ [(lamina) leathery, thich & tough] /--/ [ ] /--/ 
+[glaucous] /--/ [(phiến lá) láng bóng] /--/ [(lamina) shiny & smooth] /--/ [ ] /--/ 
+[glabrous] /--/ [(phiến lá) láng mờ] /--/ [(lamina) smooth but dull] /--/ [eucalyptus leaf] /--/ 
+[sub-glabrous] /--/ [ ] /--/ [glabrous with few hairs] /--/ [ ] /--/ 
+[scabrous] /--/ [nhám] /--/ [rough to touch] /--/ [ ] /--/ 
+[spinous] /--/ [ ] /--/ [(lamina) spiny] /--/ [ ] /--/ 
+[glutinous] /--/ [ ] /--/ [(lamina) covered with sticky substance] /--/ [tobacco leaf] /--/ 
+[rugose] /--/ [nhăn] /--/ [wrinkled] /--/ [ ] /--/ 
+[mealy] /--/ [ ] /--/ [(lamina) covered with small scales or powder of wax] /--/ [ ] /--/ 
+[pubescent] /--/ [ ] /--/ [(hairs) short & soft] /--/ [ ] /--/ 
+[pilose] /--/ [ ] /--/ [(hairs) long & scattered] /--/ [ ] /--/ 
+[villous] /--/ [dày & rậm] /--/ [(hairs) long, soft, dense] /--/ [ ] /--/ 
+[tomentose] /--/ [ ] /--/ [(hairs) soft but tangled] /--/ [ ] /--/ 
+[hirsute] /--/ [ ] /--/ [(hairs) stiff but fine] /--/ [ ] /--/ 
+[hispid] /--/ [ ] /--/ [(hairs) bristly] /--/ [ ] /--/ 
+[floccose] /--/ [ ] /--/ [hairs forming detachable locks] /--/ [ ] /--/ 
+[ổc] /--/ [ ] /--/ [hairs on margins] /--/ [ ] /--/ 
+[acicular] /--/ [(phiến) hình kim] /--/ [(lamina) needdle-shaped] /--/ [pines leaves] /--/ 
+[linear] /--/ [hình hẹp] /--/ [(lamina) long, narrow & flat] /--/ [grass leaves] /--/ 
+[lanceolate] /--/ [hình giáo] /--/ [(lamina) more tapering towards apexless towards base] /--/ [ ] /--/ 
+[oblanceolate] /--/ [hình giáo ngược] /--/ [lanceolate reverse: more tapering towards base] /--/ [ ] /--/ 
+[elliptic] /--/ [hình trái xoan] /--/ [L=1.5-2W, apex and base tapering in the same way, widest point at middle] /--/ [ ] /--/ 
+[ovate] /--/ [hình trứng, đáy rộng] /--/ [egg-shaped: round at base, tapering towards apex] /--/ [banyan leaf] /--/ 
+[obovate] /--/ [hình trứng ngược, đáy hẹ] /--/ [ovate reverse: round at apex, tapering towards base] /--/ [ ] /--/ 
+[subulate] /--/ [ ] /--/ [longnarrow & tapering from base to apex] /--/ [ ] /--/ 
+[oblong] /--/ [tròn dài] /--/ [almost rectangular, with 2 margins in parallel] /--/ [banana leaf] /--/ 
+[rhomboid] /--/ [phiến hình bánh bò] /--/ [4 sides, with 2 sides of opposite halves in parallel] /--/ [ ] /--/ 
+[rhombate] /--/ [ ] /--/ [= rhomboid] /--/ [ ] /--/ 
+[cordate] /--/ [hình tim] /--/ [(lamina) heart-shaped, like ovate but base notched] /--/ [ ] /--/ 
+[obcordate] /--/ [hình tim ngược] /--/ [cordate reverse: heart-shaped with apex notched] /--/ [Bauhinia leaf] /--/ 
+[orbicular] /--/ [gần như hình tròn] /--/ [almost round] /--/ [lotus leaf] /--/ 
+[rotund] /--/ [ ] /--/ [= orbicular] /--/ [ ] /--/ 
+[reniform] /--/ [ ] /--/ [kidney-shaped] /--/ [Centella asiatica] /--/ 
+[unate] /--/ [hình lưỡi liềm] /--/ [sickled-shaped] /--/ [ ] /--/ 
+[spatulate] /--/ [ ] /--/ [spoon-shaped: round at apex & narrow towards base] /--/ [ ] /--/ 
+[cuneate] /--/ [ ] /--/ [(lamina) wedge-shaped] /--/ [Pistia leaf] /--/ 
+[deltoid] /--/ [phiến hình tam giác] /--/ [(lamina) triangular] /--/ [ ] /--/ 
+[hastate] /--/ [phiến hình mũi tên] /--/ [(lamina) arrowhead-shaped with 2 lobes pointing outwards] /--/ [ ] /--/ 
+[sagittate] /--/ [hình đầu tên] /--/ [arrowhead-shaped with 2 lobes pointing inwards] /--/ [ ] /--/ 
+[lyrate] /--/ [hình đàn lyre] /--/ [lyre-shaped terminal lobes large & round, lateral lobes smaller towards base] /--/ [ ] /--/ 
+[runcinate] /--/ [ ] /--/ [(lamina) terminal lobe large & pointed; smaller lobes pointed towards base] /--/ [ ] /--/ 
+[oblique] /--/ [2 thùy bất xứng] /--/ [2 halves unequal] /--/ [ ] /--/ 
+[falcate] /--/ [ ] /--/ [(lamina) flat & narrow sickle-shaped] /--/ [eucalyptus leaf] /--/ 
+[sinuate] /--/ [ ] /--/ [(margin) deeply undulated] /--/ [ ] /--/ 
+[serrate] /--/ [rìa răng cưa] /--/ [(margin) toothed, teeth directed upwards] /--/ [ ] /--/ 
+[biserrate] /--/ [ ] /--/ [(margin) serrate with each tooth toothed again (castor)] /--/ [ ] /--/ 
+[dentate] /--/ [ ] /--/ [(margin) serrate with teeth directed outwards] /--/ [ ] /--/ 
+[retroserrate] /--/ [ ] /--/ [(margin) = runcinateserrate, with teeth directed backward] /--/ [ ] /--/ 
+[crenate] /--/ [rìa răng tròn] /--/ [(margin) with teeth rounded] /--/ [ ] /--/ 
+[lobed] /--/ [ ] /--/ [(margin) incised with incisions more than size of teeth] /--/ [ ] /--/ 
+[obtuse] /--/ [tù] /--/ [slightly rounded] /--/ [ ] /--/ 
+[acute] /--/ [nhọn] /--/ [pointed, 2 straight margins forming acute angle] /--/ [ ] /--/ 
+[caudate] /--/ [tận cùng bằng đuôi] /--/ [pointed & drawn out like a tail] /--/ [ ] /--/ 
+[cuspidate] /--/ [tận cùng bằng mũi] /--/ [ending in a pointed apex] /--/ [date palm leaf] /--/ 
+[mucronate] /--/ [có kim nhọn ngắn] /--/ [apex pointed suddenly from almost rounded region to have a sharp point] /--/ [ ] /--/ 
+[acuminate] /--/ [nhọn hoắt] /--/ [slightly elongated acute apex with tapering sides] /--/ [ ] /--/ 
+[tendrillar] /--/ [tận cùng bằng dây quấn] /--/ [long thin sensitive & capable of coiling around a support] /--/ [ ] /--/ 
+[cirrhose] /--/ [ ] /--/ [having non-sensitive tendril-like apices] /--/ [banana leaf] /--/ 
+[truncate] /--/ [cụt /  vát] /--/ [almost flat] /--/ [ ] /--/ 
+[retuse] /--/ [tròn] /--/ [rounded but slightly notched] /--/ [ ] /--/ 
+[emarginate] /--/ [ ] /--/ [rounded but with deep notch] /--/ [Oxalis leaf] /--/ 
+[bracteate] /--/ [ ] /--/ [having bracts] /--/ [ ] /--/ 
+[ebracteate] /--/ [ ] /--/ [having no bract] /--/ [ ] /--/ 
+[sessile] /--/ [ ] /--/ [having no petiole or pedicel, leaf/flower attached directly to branch] /--/ [ ] /--/ 
+[thalamus] /--/ [ ] /--/ [base of flower proper] /--/ [ ] /--/ 
+[torus] /--/ [ ] /--/ [= thalamus] /--/ [ ] /--/ 
+[corolla] /--/ [tràng hoa / vành] /--/ [collective of petals] /--/ [ ] /--/ 
+[androecium] /--/ [ ] /--/ [see: stamen] /--/ [ ] /--/ 
+[cupulate] /--/ [hình cái cốc] /--/ [cup-shaped] /--/ [Gossypum flower] /--/ 
+[infundibuliform] /--/ [ ] /--/ [funnel-shaped] /--/ [ ] /--/ 
+[globose] /--/ [ ] /--/ [globe-like] /--/ [ ] /--/ 
+[tubular] /--/ [hình ống] /--/ [tube-like] /--/ [ ] /--/ 
+[bilabiate] /--/ [ ] /--/ [(corolla) 2-lipped] /--/ [ ] /--/ 
+[saccate] /--/ [ ] /--/ [(calyx) inner sepals pouched or concave from inside] /--/ [mustard flower] /--/ 
+[pappus] /--/ [ ] /--/ [(calyx) formed into hairs] /--/ [ ] /--/ 
+[petaloid] /--/ [ ] /--/ [(calyx) colored like petals] /--/ [ ] /--/ 
+[cruciform] /--/ [ ] /--/ [(corolla) 4 free unguiculate (clawed) petals at 4 corners of a cross] /--/ [ ] /--/ 
+[caryophyllaceous] /--/ [ ] /--/ [(corolla) 5 unguiculate petals] /--/ [ ] /--/ 
+[rosaceous] /--/ [ ] /--/ [(corolla) 5 or more free petals sessile or sub-sessile, spread out like a saucer] /--/ [ ] /--/ 
+[papilionaceous] /--/ [ ] /--/ [(corolla) butterfly-like] /--/ [ ] /--/ 
+[urceolate] /--/ [ ] /--/ [urn-shaped] /--/ [ ] /--/ 
+[hypocrateriform] /--/ [ ] /--/ [salver-shaped] /--/ [Ipomaea quamoclit] /--/ 
+[rotate] /--/ [ ] /--/ [(corolla) short tube, limbs place transversely spoke-like] /--/ [ ] /--/ 
+[ringent] /--/ [ ] /--/ [(bilabiate) lips open] /--/ [ ] /--/ 
+[personate] /--/ [ ] /--/ [(bilabiate) lips close] /--/ [ ] /--/ 
+[spurred] /--/ [ ] /--/ [drawn out into spur = beak-like] /--/ [ ] /--/ 
+[ligutate] /--/ [ ] /--/ [(bilabiate) short & narrow tube below, expanded strap-like] /--/ [ ] /--/ 
+[corolla, aestivation] /--/ [ ] /--/ [arrangement of petals in bud condition] /--/ [ ] /--/ 
+[valvate] /--/ [ ] /--/ [(aestivation) margins of petals touch each other without overlapping] /--/ [ ] /--/ 
+[twisted] /--/ [ ] /--/ [(aestivation) 1 margin overlaps margin of adjacent petal] /--/ [ ] /--/ 
+[imbricate] /--/ [xếp lợp] /--/ [(aestivation, petals) evenly overlapping] /--/ [ ] /--/ 
+[bulb, quincuncial] /--/ [ ] /--/ [imbricate proper] /--/ [ ] /--/ 
+[epipetalous] /--/ [ ] /--/ [(stamen) fused with petals] /--/ [ ] /--/ 
+[epyphyllous] /--/ [ ] /--/ [(stamen) fused with sepals] /--/ [ ] /--/ 
+[inserted] /--/ [ ] /--/ [(stamen) projecting shorter than corolla] /--/ [ ] /--/ 
+[exserted] /--/ [ ] /--/ [(stamen) projecting out of corolla] /--/ [ ] /--/ 
+[antipetalous] /--/ [ ] /--/ [(stamen) opposite petals] /--/ [ ] /--/ 
+[polyandrous] /--/ [ ] /--/ [(stamen) free, with equal or unequal lengths] /--/ [ ] /--/ 
+[alternipetalous] /--/ [ ] /--/ [common, stamens alternate with petals (common)] /--/ [ ] /--/ 
+[basifixed] /--/ [ ] /--/ [(anther) fixed directly at filament top] /--/ [mustard] /--/ 
+[innate] /--/ [ ] /--/ [= basifixed] /--/ [ ] /--/ 
+[adnate] /--/ [ ] /--/ [(filament) running throughout length of anther] /--/ [ ] /--/ 
+[dorsifixed] /--/ [ ] /--/ [(filament) filament firmly fixed to back of anther] /--/ [ ] /--/ 
+[versatile] /--/ [ ] /--/ [(filament) filament attached to back of anther which can swing freely] /--/ [ ] /--/ 
+[longitudinal] /--/ [ ] /--/ [(dehiscence) long slits lengthwise, may be laterorse, introrse or extrorse] /--/ [ ] /--/ 
+[laterorse] /--/ [ ] /--/ [(dehiscence) longitudinal slits on sides] /--/ [ ] /--/ 
+[introrse] /--/ [ ] /--/ [(dehiscence) longitudinal slits formed towards inner side or center of flower] /--/ [ ] /--/ 
+[extrorse] /--/ [ ] /--/ [(dehiscence) longitudinal slits lie towards outer sides of petals] /--/ [ ] /--/ 
+[transverse] /--/ [ ] /--/ [(dehiscence) lobes burst by slits breathwise roughly in middle] /--/ [ ] /--/ 
+[valvular] /--/ [ ] /--/ [(dehiscence) lobes irregularly open by valves] /--/ [ ] /--/ 
+[irregular] /--/ [ ] /--/ [(dehiscence) anther wall breaks irregularly] /--/ [ ] /--/ 
+[terminal] /--/ [ ] /--/ [(carpel origin) apical, most common] /--/ [ ] /--/ 
+[ateral] /--/ [ ] /--/ [(carpel origin) arising from 1 side of ovary] /--/ [mango] /--/ 
+[gynobasic] /--/ [ ] /--/ [(carpel origin) arising from midbasal part of ovary] /--/ [ ] /--/ 
+[monocarpellary] /--/ [ ] /--/ [(gynaecium) with 1 carpel] /--/ [ ] /--/ 
+[apocarpous] /--/ [ ] /--/ [(gynaecium) polycarpellary, with many free carpels] /--/ [ ] /--/ 
+[polycarpellary] /--/ [ ] /--/ [(gynaecium) polycarpellary, with fused carpels] /--/ [ ] /--/ 
+[marginal] /--/ [ ] /--/ [(placentation) in mococarpellary, ovary bears logitudinal placenta] /--/ [ ] /--/ 
+[parietal] /--/ [đính phôi trắc mô] /--/ [(placentation) 2 or more placentae attached to ovary wall. in syncarpous pistils with uniocular ovar] /--/ [ ] /--/ 
+[axile] /--/ [đính phôi trung trục] /--/ [(placentation) ovary partitioned into 2 or more chambers, placentae in center of ovary at place of u] /--/ [ ] /--/ 
+[central] /--/ [đính phôi trung tâm] /--/ [(placentation) ovules borne around central column running throughout ovary] /--/ [ ] /--/ 
+[basal] /--/ [đính phôi từ đáy] /--/ [(placentation) ovary unilocular having 1 placenta bearing 1 ovule] /--/ [ ] /--/ 
+[apical] /--/ [đính phôi treo] /--/ [(placentation) ovule attached to tip of chamber & hangs down] /--/ [ ] /--/ 
+[superficial] /--/ [ ] /--/ [(placentation) pistil moocarpellary or syncarpous, ovules on whole inner surface of ovary] /--/ [ ] /--/ 
+[hypogyny] /--/ [ ] /--/ [(thalamus) thalamus below gynaecium, either convex, conical or elongated] /--/ [ ] /--/ 
+[perigyny] /--/ [ ] /--/ [(thalamus) thalamus periphery forms hypanthium , apex in center & bears 1 or more pistils] /--/ [ ] /--/ 
+[disc-shaped] /--/ [ ] /--/ [(thalamus) periginy gynaecium attached to disc center] /--/ [ ] /--/ 
+[cup-shaped] /--/ [ ] /--/ [(thalamus) periginy gynaecium arises from cup bottom] /--/ [ ] /--/ 
+[flask-shaped] /--/ [ ] /--/ [(thalamus) periginy gynaecium produced from flask bottom] /--/ [ ] /--/ 
+[epigyny] /--/ [ ] /--/ [(thalamus) thalamus in form of hollow flask, gynaecium produced from bottom of flask] /--/ [ ] /--/ 
+[simple raceme] /--/ [ ] /--/ [indefinite inflorescence, growing point remains active] /--/ [ ] /--/ 
+[corymb] /--/ [ngù] /--/ [(inflorescence) broad flat-topped cluster, outer pedicels long, shorter toward center] /--/ [ ] /--/ 
+[corymbose] /--/ [ ] /--/ [(inflorescence) intermediate between raceme and corymb] /--/ [ ] /--/ 
+[umbel] /--/ [tán] /--/ [indefinite inflorescence, peduncle suppressed, reduced to a point where flowers develop] /--/ [ ] /--/ 
+[involucre] /--/ [ ] /--/ [(umbel) with whorl of bracts at base of flowers] /--/ [ ] /--/ 
+[centripetal] /--/ [ ] /--/ [(umbel) with youngest flowers in center] /--/ [ ] /--/ 
+[spike] /--/ [gié / hoa tự hình bông] /--/ [flowers sessile, peduncle elongated , sessile flowers attached directly to a common axis] /--/ [ ] /--/ 
+[spikelet] /--/ [ ] /--/ [flowers sessile, small, few-flowered spikes surrounded at base by two glumes (scales)] /--/ [ ] /--/ 
+[catkin] /--/ [ ] /--/ [(inflorescence) flowers sessile, peduncle elongated, compact, unisexual spike] /--/ [oak,] /--/ 
+[amentum] /--/ [ ] /--/ [= catkin] /--/ [ ] /--/ 
+[capitulum] /--/ [ ] /--/ [indefinite inflorescence, peduncle compressed to convex upright column, or receptacle] /--/ [concave disc] /--/ 
+[racemose head] /--/ [ ] /--/ [= capitulum] /--/ [ ] /--/ 
+[tubular] /--/ [hoa ống] /--/ [(floret) capitulum with petals form a tube] /--/ [ ] /--/ 
+[ligulate] /--/ [hoa môi] /--/ [(floret) capitulum with petals form tongue-shaped structure] /--/ [ ] /--/ 
+[homogamous] /--/ [ ] /--/ [(capitulum) only one type of petal form (florets) exists] /--/ [ ] /--/ 
+[heterogamous] /--/ [ ] /--/ [(capitulum) both types of petal form (florets) exist] /--/ [ ] /--/ 
+[hypanthodium] /--/ [ ] /--/ [(inflorescence) peduncle flattened, flask-shaped fleshy receptacle] /--/ [Ficus] /--/ 
+[cyme] /--/ [xim] /--/ [definite inflorescence, growing point used up to form a flower] /--/ [ ] /--/ 
+[helicoid] /--/ [ ] /--/ [(cyme) uniparous, successive lateral branches arise on same side, so flowers borne only on 1 si] /--/ [ ] /--/ 
+[scorpioid] /--/ [ ] /--/ [(cyme) uniparous cyme, flowers borned alternately on both sides] /--/ [ ] /--/ 
+[biparous] /--/ [ ] /--/ [(cyme) main axis ends in flower, two lateral branches also end in lateral flowers] /--/ [ ] /--/ 
+[dichasial cyme] /--/ [ ] /--/ [= biparous] /--/ [ ] /--/ 
+[multiparous] /--/ [ ] /--/ [(cyme) more than 2 lateral branches continue inflorescence growth, parent axis ends in flower] /--/ [ ] /--/ 
+[polychasial] /--/ [ ] /--/ [= multiparous] /--/ [ ] /--/ 
+[cymode head] /--/ [ ] /--/ [formed by condensation of compound axis. flowers are sessile or sub-sessile] /--/ [ ] /--/ 
+[achenial fruit] /--/ [ ] /--/ [single fruit, single seeded; may be achene, cypsela, nut or samara] /--/ [ ] /--/ 
+[achene] /--/ [quả bế] /--/ [dry indehiscent fruit with 1 seed attached to ovary wall at only 1 point] /--/ [ ] /--/ 
+[caryposis] /--/ [quả dĩnh] /--/ [dry one-seeded fruit in which ovary wall remains joined with seed in a single grain] /--/ [rice, wheat, corn] /--/ 
+[cypsela] /--/ [ ] /--/ [(fruit) pericarp fused with thalamus to form fruit fruit wall. many have pappus (crown of hairs)] /--/ [ ] /--/ 
+[nut] /--/ [quả kiên] /--/ [single fruit, has a hard woody or sometimes leathery pericarp] /--/ [ ] /--/ 
+[samara] /--/ [quả dực / quả có cánh] /--/ [one-seeded dry fruit with pericarp grows out into wings] /--/ [maple, 'Hopea'] /--/ 
+[capsular fruit] /--/ [ ] /--/ [= capsule] /--/ [ ] /--/ 
+[pod] /--/ [quả đậu] /--/ [fruit formed from superior & uniocular ovary of monocarpellary pistil, dehisces dorsally & ventrally] /--/ [peas, beans] /--/ 
+[follicle] /--/ [quả đại / manh nang] /--/ [(fruit) like pod, but dehisces from only 1 suture into 2 shells attached together] /--/ [ ] /--/ 
+[siliqua] /--/ [ ] /--/ [capsule dehisces by 4 lines into 2 shells & 1 wall between bearing seeds] /--/ [ ] /--/ 
+[silicula] /--/ [quả giác] /--/ [(fruit) capsule few-seeded, shortened & flattened] /--/ [ ] /--/ 
+[capsule] /--/ [quả nang] /--/ [(fruit) many-seeded & dry, pericarp splits open to expose seeds] /--/ [ ] /--/ 
+[porous] /--/ [ ] /--/ [(dehiscence) dehiscence occurs by pores at tip] /--/ [poppy] /--/ 
+[dehiscence of teeth] /--/ [ ] /--/ [dehiscence by apical teeth] /--/ [ ] /--/ 
+[tranverse] /--/ [ ] /--/ [(dehiscence) in form of transverse circular line, causing separation of a lid from top of fruit] /--/ [cock's comb] /--/ 
+[loculicidal] /--/ [ ] /--/ [(dehiscence) longitudinal, slits occur along midribs (dorsal sutures) of fused carpels] /--/ [ ] /--/ 
+[septicidal] /--/ [ ] /--/ [(dehiscence) longitudinal , slits open along middle of septa] /--/ [ ] /--/ 
+[dseptifragal] /--/ [ ] /--/ [(dehiscence) longitudinal either loculicidal or septicidal, seeds exposed & attached to central colu] /--/ [ ] /--/ 
+[berry] /--/ [quả mọng / quả phì] /--/ [(fruit) with pericarp divided into epicarp, (soft) mesocarp, endocarp] /--/ [papaya] /--/ 
+[baccate] /--/ [ ] /--/ [= berry] /--/ [ ] /--/ 
+[drupe] /--/ [quả hạch / quả nhân cứng] /--/ [(fruit) generally one-seeded, outer skin thin, middle meat or fibers, inside skin thick covering see] /--/ [mango, coconut] /--/ 
+[stone fruit] /--/ [quả hạch / quả nhân cứng] /--/ [= drupe] /--/ [ ] /--/ 
+[pome] /--/ [quả táo] /--/ [accessory or false fruit, develops from inferior & compound ovary] /--/ [apple] /--/ 
+[dehiscence] /--/ [ ] /--/ [the way lobes of anther open to expose pollen grains] /--/ [ ] /--/ 
+[calyx] /--/ [đài hoa] /--/ [collective of sepals] /--/ [ ] /--/ 
+[sucker] /--/ [ ] /--/ [parasitic roots, penetrate host to absorb host's nutrients] /--/ [ ] /--/ 
+[thalamus] /--/ [đế hoa] /--/ [base of flower proper] /--/ [ ] /--/ 
+[gynaecium] /--/ [bộ nhụy] /--/ [collective of carpels] /--/ [ ] /--/ 
+[carpel] /--/ [lá noãn / tâm bì] /--/ [female organ of flower, consists of ovary, style & stigma] /--/ [ ] /--/ 
+[stigma] /--/ [núm nhụy / nướm] /--/ [terminal portion of pistil, secreting stigma fluid] /--/ [ ] /--/ 
+[bract] /--/ [lá bắc] /--/ [leaf-like growth often on pedicel] /--/ [ ] /--/ 
+[bractiole] /--/ [lá bắc nhỏ] /--/ [small leaf-like sometimes on pedicel] /--/ [ ] /--/ 
+[aestivation] /--/ [tràng xếp] /--/ [arrangement of petals in bud condition] /--/ [ ] /--/ 
+[placentation] /--/ [ ] /--/ [arrangement of ovules (placentae)] /--/ [ ] /--/ 
+[raceme] /--/ [hoa tự hình chùm] /--/ [rachis along which flowers grow on pedicel, blooming indefinitely from base to apex] /--/ [ ] /--/ 
+[peduncle] /--/ [cuống hoa tự] /--/ [axis of entire inflorescence] /--/ [ ] /--/ 
+[stamen] /--/ [nhị / nhụy] /--/ [male organ of flower, consist of filament and anther containing pollen grains] /--/ [ ] /--/ 
+[filament] /--/ [chỉ nhị] /--/ [part of male organ in flower, bearing anther] /--/ [ ] /--/ 
+[anther] /--/ [bao phấn] /--/ [part of male organ in flower, contains pollen grains] /--/ [ ] /--/ 
+[bilabiate] /--/ [ ] /--/ [form of petal having 2 lips] /--/ [ ] /--/ 
+[gamosepalous] /--/ [ ] /--/ [(calyx) sepals fused together] /--/ [petunia] /--/ 
+[campanulate] /--/ [ ] /--/ [bell-shaped] /--/ [ ] /--/ 
+[ovule] /--/ [ ] /--/ [outgrowth of placenta] /--/ [ ] /--/ 
+[cymose] /--/ [ ] /--/ [= cyme] /--/ [ ] /--/ 
+[uniparous] /--/ [ ] /--/ [(cyme) terminal bud of main axis develops into a flower, may be helicoid or scorpiod] /--/ [ ] /--/ 
+[ochrea] /--/ [ ] /--/ [stipule forming a sheath covering stem] /--/ [ ] /--/ 
+[stipule] /--/ [lá bẹ] /--/ [lateral outgrowth of leaf base] /--/ [ ] /--/ 
+[repand] /--/ [rìa dợn sóng] /--/ [(margin) shallowy undulated] /--/ [ ] /--/ 
+[sinuate] /--/ [ ] /--/ [(margin) deeply undulated] /--/ [ ] /--/ 
+[biserrate] /--/ [ ] /--/ [(margin) toothed, with each tooth toothed again, e.g. castor] /--/ [ ] /--/ 
+[dentate] /--/ [ ] /--/ [(margin) toothed, with teeth directed outwards] /--/ [ ] /--/ 
+[renate] /--/ [ ] /--/ [(margin) toothed, with teeth rounded] /--/ [ ] /--/ 
+[spiny] /--/ [ ] /--/ [(margin) = spinous, with spines or pickles] /--/ [ ] /--/ 
+[pistil] /--/ [ ] /--/ [free unit of carpel (female organ)] /--/ [ ] /--/ 
+[syconium] /--/ [sung] /--/ [hollow compound fruit with a small spore in genus 'Ficus'] /--/ [ ] /--/ 
+[sepal] /--/ [cánh đài / lá đài] /--/ [ ] /--/ [ ] /--/ 
+[spadix] /--/ [bông mo] /--/ [spike or catkin of small flowers with peduncle thick & fleshy, usually enclosed in spathe] /--/ [ ] /--/ 
+[petal] /--/ [cánh tràng] /--/ [ ] /--/ [ ] /--/ 
+[capitulum] /--/ [hoa đầu] /--/ [dense cluster of sessile flowers attached to peduncle compressed as a common receptacle] /--/ [asters] /--/ 
+[dioecious] /--/ [biệt chu] /--/ [having male flowers on one plant, female flowers on another plant] /--/ [ ] /--/ 
+[monoecious] /--/ [đồng chu] /--/ [having separate male flowers and female flowers on same plant] /--/ [corn] /--/ 
+[raceme, compound] /--/ [chùm kép] /--/ [axis branching, each branch bearing flowers] /--/ [ ] /--/ 
+[inflorescence] /--/ [cụm hoa / hoa tự] /--/ [the arrangement of flowers on an axis] /--/ [ ] /--/ 
+[pedicel] /--/ [cuống hoa] /--/ [the stalk of a single flower] /--/ [ ] /--/ 
+[stoma] /--/ [khí khổng] /--/ [a microscopic opening in the epidermis, serving for gaseous exchange] /--/ [ ] /--/ 
+[pneumatophore] /--/ [phế căn] /--/ [porous, woody specialized branch growing upright into air from buried roots] /--/ [Rhizophora] /--/ 
+[acorn] /--/ [quả kiên / quả giẻ] /--/ [(fruit) like those of chestnut] /--/ [family 'Fagaceae'] /--/ 
+[glomerule] /--/ [xim đơn / xim co] /--/ [compact cyme with dense flowers] /--/ [ ] /--/ 
+[involucel] /--/ [tổng bao] /--/ [secondary involucre, ring of bracts at base of each segment of a cluster] /--/ [asters] /--/ 
+[broadly elliptical] /--/ [phiến hình bầu dục] /--/ [(lamina) apex and base tapering in the same way, widest point at middle] /--/ [ ] /--/ 
+[spathe] /--/ [mo] /--/ [a large leaf-like part enclosing a cluster] /--/ [ ] /--/ 
+[calcar] /--/ [cựa] /--/ [downward extended, hollow part of calyx or corolla] /--/ [ ] /--/ 
+[panicle] /--/ [hoa tự hình chùy] /--/ [= compound raceme, a raceme bearing smaller racemes] /--/ [ ] /--/ 
+[ovary] /--/ [bầu / bầu nhụy] /--/ [ ] /--/ [ ] /--/ 
+[style] /--/ [vòi nhụy] /--/ [the contricted part above ovary] /--/ [ ] /--/ 
+[perianth] /--/ [bao hoa] /--/ [outer envelope of flower, formed by calyx and corolla] /--/ [ ] /--/ 
+[convolute] /--/ [xếp vặn] /--/ [(petals) rolled in spiral form with the coils falling one upon another] /--/ [ ] /--/ 
+[valvate] /--/ [xếp van / xếp đều] /--/ [(petals) meeting without overlapping] /--/ [ ] /--/ 
+[lac insect] /--/ [cánh kiến] /--/ [which produces sticklac for industry, as medicine] /--/ [ ] /--/ 
+[carinate] /--/ [ ] /--/ [having a ridge down the middle; keel-shaped] /--/ [ ] /--/ 
+[fimbriate] /--/ [ ] /--/ [with a fringe of hairs, fibers] /--/ [ ] /--/ 
+[rugose] /--/ [ ] /--/ [having wrinkles; ridged; corrugated] /--/ [ ] /--/ 
+[lamina] /--/ [phiến lá] /--/ [ ] /--/ [ ] /--/ 
+[oval] /--/ [hình soan] /--/ [ ] /--/ [ ] /--/

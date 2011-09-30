@@ -1,0 +1,41 @@
+[Inde]
+[arthropod] /--/ 
+[fish, marine] /--/ 
+[alga] /--/ 
+[mammal, terrestrial] /--/ 
+[mollusk, freshwater] /--/ 
+[amphibian, marine] /--/ 
+[reptile, marine] /--/ 
+[mushroom] /--/ 
+[fungus] /--/ 
+[bacteria] /--/ 
+[herb, emergent] /--/ 
+[cactus] /--/ 
+[crustacean, freshwater] /--/ 
+[bird, marine] /--/ 
+[fern] /--/ 
+[fish, freshwater] /--/ 
+[bird, water] /--/ 
+[mammal, aquatic] /--/ 
+[bird, terrestrial] /--/ 
+[insect] /--/ 
+[tree, erect] /--/ 
+[shrub] /--/ 
+[herb, submergent] /--/ 
+[herb, floating] /--/ 
+[tree, climbing] /--/ 
+[tree, prostrating] /--/ 
+[herb, epiphytic] /--/ 
+[tree, epiphytic] /--/ 
+[tree, creeping] /--/ 
+[reptile, freshwater] /--/ 
+[reptile, terrestrial] /--/ 
+[amphibian, freshwater] /--/ 
+[herb, erect] /--/ 
+[bird, arboreal] /--/ 
+[equinoderm] /--/ 
+[mollusk, marine] /--/ 
+[mollusk, terrestrial] /--/ 
+[crustacean, marine] /--/ 
+[herb, prostrating] /--/ 
+[herb, climbing] /--/

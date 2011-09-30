@@ -1,0 +1,56 @@
+TxEng
+	- INDO
+	- KING
+	- FAMI
+	- ENGT
+TxViet
+	- INDO
+	- KING
+	- FAMI
+	- VIET
+TxGlos
+	- TERM
+	- TERV
+	- EXPL
+	- EXAM
+TxKeyW
+	- KEYW
+	- EXPL
+TxIndex
+	- INDE
+TxGenu
+	- KING
+	- GENU
+	- GENE
+	- GENV
+	- DESC
+TxFami
+	- KING
+	- FAMI
+	- FAME
+	- FAMV
+	- DESC
+TxMain
+	- IDNO
+   - KING
+   - FAMI
+   - FAM2
+   - INDE
+   - GENU
+   - GEN2
+   - GEN3
+   - SPEC
+   - SPE2
+   - SPE3
+   - GSOS
+   - GSO2
+   - ENG1
+   - ENG2
+   - VIE1
+   - VIE2
+   - KEYW
+   - UTIM
+   - UDAT
+   - REFS
+   - DESC
+	

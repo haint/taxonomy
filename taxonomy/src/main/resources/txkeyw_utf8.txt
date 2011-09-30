@@ -1,0 +1,92 @@
+[Keyw] /--/ [Expl]
+[bee-keeping] /--/ [ ] /--/ 
+[handicraft] /--/ [ ] /--/ 
+[fuelwood] /--/ [ ] /--/ 
+[charcoal] /--/ [ ] /--/ 
+[med.] /--/ [medicinal] /--/ 
+[natl symb:] /--/ [national symbol] /--/ 
+[relig.:] /--/ [religious significance] /--/ 
+[refor.] /--/ [planted for reforestation] /--/ 
+[cult.] /--/ [cultivated, cultured] /--/ 
+[expl.] /--/ [exploited] /--/ 
+[hybr.] /--/ [hybrid, hybridized] /--/ 
+[(timber)] /--/ [use: wood] /--/ 
+[constr.] /--/ [construction] /--/ 
+[insecticide] /--/ [ ] /--/ 
+[roofing] /--/ [ ] /--/ 
+[shade] /--/ [planted to provide shade for roads...] /--/ 
+[hedge] /--/ [ ] /--/ 
+[spice] /--/ [used as a spice] /--/ 
+[resin] /--/ [ ] /--/ 
+[delicacy] /--/ [ ] /--/ 
+[E] /--/ [endangered] /--/ 
+[T] /--/ [threatened] /--/ 
+[endemic] /--/ [ ] /--/ 
+[green manure] /--/ [ ] /--/ 
+[stuffing] /--/ [used to stuff pillows etc.] /--/ 
+[utensil] /--/ [ ] /--/ 
+[Pr.] /--/ [protected] /--/ 
+[edible] /--/ [consumed, not extensively] /--/ 
+[pet] /--/ [ ] /--/ 
+[fiber] /--/ [ ] /--/ 
+[garden] /--/ [also: ornamental / hedge] /--/ 
+[pulp] /--/ [used to make paper] /--/ 
+[narcotic] /--/ [ ] /--/ 
+[nw pr.] /--/ [non-wood products] /--/ 
+[ind.] /--/ [industrial] /--/ 
+[veg.] /--/ [vegetable] /--/ 
+[pois.] /--/ [poisonous, toxic] /--/ 
+[grafting] /--/ [used in grafting 2 species on same plant] /--/ 
+[latex] /--/ [ ] /--/ 
+[oil] /--/ [ ] /--/ 
+[essence] /--/ [ ] /--/ 
+[fish pois.] /--/ [used as fish poison] /--/ 
+[syn:] /--/ [synonym] /--/ 
+[lawn] /--/ [ ] /--/ 
+[wood] /--/ [provide wood, timber] /--/ 
+[soil conserv.] /--/ [soil conservation] /--/ 
+[firebreak] /--/ [ ] /--/ 
+[fodder] /--/ [ ] /--/ 
+[tanning] /--/ [ ] /--/ 
+[roadside] /--/ [roadsides as habitats; see: shade] /--/ 
+[dyeing] /--/ [ ] /--/ 
+[food] /--/ [used extensively as food] /--/ 
+[vector] /--/ [disease carrier] /--/ 
+[comm.] /--/ [commercial, sold on large scale] /--/ 
+[world:] /--/ [global situation] /--/ 
+[meat] /--/ [ ] /--/ 
+[tealeaf] /--/ [used in tealeaf flavoring] /--/ 
+[bonsai] /--/ [used to make bonsai] /--/ 
+[silkworm] /--/ [ ] /--/ 
+[dike prot.] /--/ [dike protection] /--/ 
+[pest] /--/ [unwanted, undesirable] /--/ 
+[distillation] /--/ [alcoho- making] /--/ 
+[breeding] /--/ [used for breeding varieties] /--/ 
+[obs.] /--/ [observed] /--/ 
+[orn.] /--/ [ornamental] /--/ 
+[crossing] /--/ [crossed, used in crossing] /--/ 
+[cut flower] /--/ [ ] /--/ 
+[perfume] /--/ [ ] /--/ 
+[extract] /--/ [ ] /--/ 
+[(carving)] /--/ [use: handicraft] /--/ 
+[(threatened)] /--/ [use: rare] /--/ 
+[precious] /--/ [rare, endangered, threatened, vulnerable] /--/ 
+[leather] /--/ [ ] /--/ 
+[(hide)] /--/ [use: leather] /--/ 
+[souvenir] /--/ [collected as souvenir] /--/ 
+[coastal] /--/ [ ] /--/ 
+[mangrove] /--/ [ ] /--/ 
+[settlement] /--/ [occurs near human settlements] /--/ 
+[seasoning] /--/ [food seasoning, flavoring] /--/ 
+[paddy] /--/ [paddy fields as habitats] /--/ 
+[plantation shade] /--/ [shading trees for tea, coffee trees...] /--/ 
+[appliance] /--/ [ ] /--/ 
+[natl. flow.] /--/ [national flower] /--/ 
+[indi.] /--/ [indicator] /--/ 
+[furniture] /--/ [ ] /--/ 
+[lac insect] /--/ [for sticklac used in industry, medicine] /--/ 
+[wildlife trade] /--/ [ ] /--/ 
+[in-house] /--/ [ ] /--/ 
+[urban] /--/ [cities and towns as habitats] /--/ 
+[Rs.] /--/ [preserved] /--/ 
+[(firewood)] /--/ [use: fuelwood] /--/
