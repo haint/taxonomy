@@ -1,0 +1,3 @@
+- Create new model Variant and adding field to Genus, Species, NaturalObject
+- Implement equals method for model
+- Complete generate origin database and initial sql script

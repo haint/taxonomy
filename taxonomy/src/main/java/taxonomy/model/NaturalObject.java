@@ -44,9 +44,9 @@ public class NaturalObject implements IModel
    
    private Set<String> species;
    
-   private Set<String> indecies;
+   private Set<Index> indecies;
    
-   private Set<String> tags;
+   private Set<Tag> tags;
    
    private Date createDate;
    
@@ -114,27 +114,27 @@ public class NaturalObject implements IModel
       species.add(sp);
    }
    
-   public Iterator<String> getIndeciesIterator()
+   public Iterator<Index> getIndeciesIterator()
    {
-      if(indecies == null) indecies = new HashSet<String>();
+      if(indecies == null) indecies = new HashSet<Index>();
       return indecies.iterator();
    }
    
-   public void addIndex(String index) 
+   public void addIndex(Index index) 
    {
-      if(indecies == null) indecies = new HashSet<String>();
+      if(indecies == null) indecies = new HashSet<Index>();
       indecies.add(index);
    }
    
-   public Iterator<String> getTagIterator()
+   public Iterator<Tag> getTagIterator()
    {
-      if(tags == null) tags = new HashSet<String>();
+      if(tags == null) tags = new HashSet<Tag>();
       return tags.iterator();
    }
    
-   public void addTag(String tag)
+   public void addTag(Tag tag)
    {
-      if(tags == null) tags = new HashSet<String>();
+      if(tags == null) tags = new HashSet<Tag>();
       tags.add(tag);
    }
 

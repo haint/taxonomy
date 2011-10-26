@@ -33,10 +33,6 @@ public class Species implements IModel
    
    private String name;
    
-   private String oldName;
-   
-   private String synonymName;
-   
    public void setId(int id)
    {
       this.id = id;
