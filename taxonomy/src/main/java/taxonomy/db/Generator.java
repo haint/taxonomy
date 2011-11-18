@@ -16,8 +16,6 @@
  */
 package taxonomy.db;
 
-import sun.misc.IOUtils;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -29,53 +27,65 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import sun.misc.IOUtils;
+
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
- *
- * @datOct 3, 2011
- * For field multi value we will use seperator is '::' (ignore dash)
- * In text data fields separate by '/--/' 
+ * 
+ * @datOct 3, 2011 For field multi value we will use seperator is '::' (ignore
+ *         dash) In text data fields separate by '/--/'
  */
 @Deprecated
 public class Generator
 {
    final static String SEPARATOR = "/--/";
 
-   final static String resourceDir = System.getProperty("taxonomy.resources.dir", "./");
+   final static String resourceDir = System.getProperty("taxonomy.resources.dir", "target/");
 
-   final static String dbDir = System.getProperty("taxonomy.db.dir", "./");
+   final static String dbDir = System.getProperty("taxonomy.db.dir", "target/");
 
-   static List<String> findResources(List<String> holder, File file, FileFilter filter) throws Exception {
-      if(file.isDirectory()) {
+   static List<String> findResources(List<String> holder, File file, FileFilter filter) throws Exception
+   {
+      if (file.isDirectory())
+      {
          File[] childs = file.listFiles();
-         for(int i = 0; i < childs.length; i++)
+         for (int i = 0; i < childs.length; i++)
             findResources(holder, childs[i], filter);
-      } else if(filter.accept(file)) holder.add(file.getCanonicalPath());
+      }
+      else if (filter.accept(file))
+         holder.add(file.getCanonicalPath());
       return holder;
    }
 
-   static void initTable() throws Exception 
+   static void initTable() throws Exception
    {
       Class.forName("org.sqlite.JDBC");
       Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
 
-      try {
+      try
+      {
          Statement statement = con.createStatement();
          InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("createTable.sql");
          byte[] bytes = IOUtils.readFully(is, is.available(), false);
          statement.executeUpdate(new String(bytes));
-      } catch(SQLException ex){
+      }
+      catch (SQLException ex)
+      {
          throw new RuntimeException(ex);
-      } finally {
+      }
+      finally
+      {
          con.close();
       }
    }
 
-   static void genDataIndex(InputStream is) throws Exception 
+   static void genDataIndex(InputStream is) throws Exception
    {
       Class.forName("org.sqlite.JDBC");
       Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
@@ -83,14 +93,15 @@ public class Generator
       String line = reader.readLine();
       Set<String> holder = new HashSet<String>();
       StringBuilder b = new StringBuilder();
-      while((line = reader.readLine()) != null)
+      while ((line = reader.readLine()) != null)
       {
          line = line.substring(1, line.indexOf(']')).trim();
          String[] subLine = line.split(",");
-         for(String s : subLine) holder.add(s.trim());
+         for (String s : subLine)
+            holder.add(s.trim());
       }
 
-      for(String s : holder)
+      for (String s : holder)
       {
          b.append("INSERT INTO INDEX_ VALUES (NULL, '" + s + "');\n");
       }
@@ -108,7 +119,7 @@ public class Generator
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
       String line = reader.readLine();
       StringBuilder b = new StringBuilder();
-      while((line = reader.readLine()) != null)
+      while ((line = reader.readLine()) != null)
       {
          line = line.substring(0, line.lastIndexOf(']') + 1).trim();
          String[] subLine = line.split("/--/");
@@ -130,108 +141,38 @@ public class Generator
       StringBuilder b = new StringBuilder();
       Class.forName("org.sqlite.JDBC");
       Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
-      while((line = reader.readLine()) != null)
+      while ((line = reader.readLine()) != null)
       {
-         line = line.substring(0, line.lastIndexOf(']') + 1).trim();
-         String[] subLine = line.split("/--/");
-         String name = subLine[0].substring(subLine[0].indexOf('[') + 1, subLine[0].indexOf(']'));
-         String name_vn = subLine[1].substring(subLine[1].indexOf('[') + 1, subLine[1].indexOf(']'));
-         String explain = subLine[2].substring(subLine[2].indexOf('[') + 1, subLine[2].indexOf(']'));
-         explain = explain.replaceAll("\'", "\'\'");
-         String exam = subLine[3].substring(subLine[3].indexOf('[') + 1, subLine[3].indexOf(']'));
-         exam = exam.replaceAll("\'", "\'\'");
-
-         Statement st = con.createStatement();
-         if(!name_vn.equals(" ")) 
-         {
-            String query = "INSERT INTO LOCALES VALUES (NULL, 'vn', '" + name_vn + "');";
-            st.executeUpdate(query);
-            b.append(query).append('\n');
-            ResultSet rs  = st.executeQuery("SELECT last_insert_rowid()  FROM LOCALES");
-            rs.next();
-            int locale_id = rs.getInt(1);
-            query = "INSERT INTO GLOSSARY VALUES (NULL, '" + name + "', '" + locale_id + "', '" + explain+ "', '" + exam + "');";
-            b.append(query).append('\n');
-         } else {
-            String query = "INSERT INTO GLOSSARY VALUES (NULL, '" + name + "', ' ', '" + explain+ "', '" + exam + "');";
-            b.append(query).append('\n');
-            System.out.println(query);
-            st.executeUpdate(query);
-         }
-      } 
+         Util.insertGlossary(b, line, con);
+      }
       FileOutputStream os = new FileOutputStream(resourceDir + "insertGlossary.sql", false);
       os.write(b.toString().getBytes("UTF-8"));
       os.close();
       con.close();
    }
-   
-   static void genDataFamilyAndGenus(InputStream is, String table) throws Exception 
+
+   static void genDataFamilyAndGenus(InputStream is, String table) throws Exception
    {
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
       String line = reader.readLine();
       StringBuilder b = new StringBuilder();
       Class.forName("org.sqlite.JDBC");
       Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
-      while((line = reader.readLine()) != null)
+      while ((line = reader.readLine()) != null)
       {
-         line = line.substring(0, line.lastIndexOf(']') + 1).trim();
-         String[] subLine = line.split("/--/");
-         
-         int king_id = 0;
-         String king = subLine[0].substring(subLine[0].indexOf('[') + 1, subLine[0].indexOf(']'));
-         if(king.equals("B")) king_id = 1;
-         else if(king.equals("Z")) king_id = 2;
-         
-         String name = subLine[1].substring(subLine[1].indexOf('[') + 1, subLine[1].indexOf(']'));
-         String name_en = subLine[2].substring(subLine[2].indexOf('[') + 1, subLine[2].indexOf(']'));
-         name_en = name_en.replaceAll("\'", "\'\'");
-         String name_vn = subLine[3].substring(subLine[3].indexOf('[') + 1, subLine[3].indexOf(']'));
-         String desc = subLine[4].substring(subLine[4].indexOf('[') + 1, subLine[4].indexOf(']'));
-         desc = desc.replaceAll("\'", "\'\'");
-         
-         StringBuilder locale_ids = new StringBuilder();
-         Statement st = con.createStatement();
-         if(!name_en.equals(" "))
-         {
-            String query = "INSERT INTO LOCALES VALUES (NULL, 'en', '" + name_en + "');";
-            System.out.println(query);
-            st.executeUpdate(query);
-            b.append(query).append('\n');
-            ResultSet rs  = st.executeQuery("SELECT last_insert_rowid()  FROM LOCALES");
-            rs.next();
-            int locale_id = rs.getInt(1);
-            if(locale_ids.length() > 0) locale_ids.append("::").append(locale_id);
-            else locale_ids.append(locale_id);
-         } 
-         if(!name_vn.equals(" "))
-         {
-            String query = "INSERT INTO LOCALES VALUES (NULL, 'vn', '" + name_vn + "');";
-            st.executeUpdate(query);
-            b.append(query).append('\n');
-            ResultSet rs  = st.executeQuery("SELECT last_insert_rowid()  FROM LOCALES");
-            rs.next();
-            int locale_id = rs.getInt(1);
-            if(locale_ids.length() > 0) locale_ids.append("::").append(locale_id);
-            else locale_ids.append(locale_id);
-         }
-         String query = null;
-         if("FAMILY".equals(table)) 
-            query = "INSERT INTO " + table + " VALUES (NULL, " + king_id + ",'" + name + "', '" + locale_ids.toString() + "', '" + desc + "', ' ');";
-         else if("GENUS".equals(table))
-            query = "INSERT INTO " + table + " VALUES (NULL, " + king_id + ",'" + name + "', '" + locale_ids.toString() + "', '" + desc + "', ' ', ' ');";
-         b.append(query).append('\n');
-         System.out.println(query);
-         st.executeUpdate(query);
+         Util.insertFamilyAndGenus(b, line, table, con);
       }
       String outFile = null;
-      if("FAMILY".equals(table)) outFile = "insertFamily.sql";
-      else if("GENUS".equals(table)) outFile = "insertGenus.sql";
+      if ("FAMILY".equals(table))
+         outFile = "insertFamily.sql";
+      else if ("GENUS".equals(table))
+         outFile = "insertGenus.sql";
       FileOutputStream os = new FileOutputStream(resourceDir + outFile, false);
       os.write(b.toString().getBytes("UTF-8"));
       os.close();
       con.close();
    }
-   
+
    static void genDataObject(InputStream is) throws Exception
    {
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -239,74 +180,143 @@ public class Generator
       StringBuilder b = new StringBuilder();
       Class.forName("org.sqlite.JDBC");
       Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
-      while((line = reader.readLine()) != null)
+      int count = 0;
+      while ((line = reader.readLine()) != null)
       {
          line = line.substring(0, line.lastIndexOf(']') + 1).trim();
          String[] subLine = line.split("/--/");
-         String King = subLine[1]; String Fami = subLine[2];  String Fam2 = subLine[3];  String Inde = subLine[4]; String Genu = subLine[5];  String Gen2 = subLine[6];
-         String Gen3 = subLine[7];  String Spec = subLine[8];  String Spe2 = subLine[9]; String Spe3 = subLine[10]; String Gsos = subLine[11]; String Gso2 = subLine[12];
-         String Eng1 = subLine[13]; String Eng2 = subLine[14]; String Vie1 = subLine[15]; String Vie2 = subLine[16]; String Keyw = subLine[17]; String Utim = subLine[18];
-         String Udat = subLine[19]; String Refs = subLine[20]; String Desc = subLine[21];
-         
+         String King = subLine[1];
+         String Fami = subLine[2];
+         String Fam2 = subLine[3];
+         String Inde = subLine[4];
+         String Genu = subLine[5];
+         String Gen2 = subLine[6];
+         String Gen3 = subLine[7];
+         String Spec = subLine[8];
+         String Spe2 = subLine[9];
+         String Spe3 = subLine[10];
+         String Gsos = subLine[11];
+         String Gso2 = subLine[12];
+         String Eng1 = subLine[13];
+         String Eng2 = subLine[14];
+         String en_name = buildName(Eng1.substring(2, Eng1.length() - 2).trim() ,Eng2.substring(2, Eng2.length() - 2).trim());
+         String Vie1 = subLine[15];
+         String Vie2 = subLine[16];
+         String vn_name = buildName(Vie1.substring(2, Vie1.length() - 2).trim(),Vie2.substring(2, Vie2.length() - 2).trim());
+         String Keyw = subLine[17];
+         String Utim = subLine[18];
+         String Udat = subLine[19];
+         String Refs = subLine[20];
+         Refs = Refs.substring(2, Refs.length() - 2).trim();
+         Refs = Refs.replaceAll("\'", "\'\'");
+         String Desc = subLine[21];
+         Desc = Desc.substring(2, Desc.length() - 2).trim();
+         Desc = Desc.replaceAll("\'", "\'\'");
+
          //
          int king_id = 0;
-         if(King.equals("B")) king_id = 1;
-         else if(King.equals("Z")) king_id = 2;
-         String familyIds  = buildFamilyIds(con, Fami, Fam2);
-         String indexIds = buildIndexIds(con, Inde);
-         int genusId = buildGenusId(con, Genu);
-         int specId = buildSpecId(con, Spec);
+         if (King.equals("B"))
+            king_id = 1;
+         else if (King.equals("Z"))
+            king_id = 2;
+         String familyIds = Util.buildFamilyIds(con, Fami, Fam2);
+         String indexIds = Util.buildIndexIds(con, Inde);
+         int genusId = Util.buildGenusSpeciesId(con, Genu, Gen2, Gen3, Gsos, Gso2, "GENUS");
+         int specId = Util.buildGenusSpeciesId(con, Spec, Spe2, Spe3, Gsos, Gso2, "SPECIES");
          String tagId = buildTagId(con, Keyw);
+         String createDate = buildCreateDate(con, Utim, Udat);
+         System.out.println("Insert into [Object] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
+         con.createStatement().executeUpdate(
+            "Insert into [Object] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
+         count++;
       }
+      System.out.println("Total lines: " + count);
    }
    
-   static String buildFamilyIds(Connection con, String Fami, String Fam2) throws Exception
+   static String buildName(String name1, String name2)
    {
       StringBuilder b = new StringBuilder();
-      con.createStatement().executeQuery("Select ID from FAMILY");
-      return b.toString();
+      if(!name1.equals(" ") && !name1.isEmpty())
+      {
+         b.append(name1);
+      }
+      if(!name2.equals(" ") && !name2.isEmpty())
+      {
+         b.append("::").append(name2);
+      }
+      String tmp = b.toString();
+      tmp = tmp.replaceAll("\'", "\'\'");
+      return tmp;
    }
    
-   static String buildIndexIds(Connection con, String Inde)
+   static String buildCreateDate(Connection con, String Utim, String Udat) throws Exception 
    {
-      StringBuilder b = new StringBuilder();
-      return b.toString();
-   }
-   
-   static int buildGenusId(Connection con, String Genu)
-   {
-      return -1;
-   }
-   
-   static int buildSpecId(Connection con, String Spec)
-   {
-      return -1;
-   }
-   
-   static String buildTagId(Connection con, String Keyw)
-   {
-      StringBuilder b = new StringBuilder();
-      return b.toString();
-   }
-   
-   static void buildGenusVariant(Connection con, int genId, String Gen2, String Gen3)
-   {
+      SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+      Utim = Utim.substring(2, Utim.length() - 2).trim();
+      Udat = Udat.substring(2, Udat.length() - 2).trim();
       
-   }
-   
-   static void buildSpeciesVariant(Connection con, int specId, String Spe2, String Spe3)
-   {
+      int hour = 0;
+      int minute = 0;
+      int second = 0;
+      if(!Utim.equals(" ") && !Utim.isEmpty()) {
+         String[] args1 = Utim.split(":");
+         hour = Integer.valueOf(args1[0]);
+         minute = Integer.valueOf(args1[1]);
+         second = Integer.valueOf(args1[2]);
+      }
       
+      int month = 0;
+      int day = 0;
+      int year = 0;
+      if(!Udat.equals(" ") && !Udat.isEmpty())
+      {
+         String[] args2 = Udat.split("/");
+         month = Integer.valueOf(args2[0]) - 1;
+         day = Integer.valueOf(args2[1]);
+         year = Integer.valueOf(args2[2]) + 1900;
+      }
+      
+      Calendar cal = Calendar.getInstance();
+      cal.set(year, month, day, hour, minute, second);
+      
+      return dateFormat.format(cal.getTimeInMillis());
    }
    
+   static String buildTagId(Connection con, String Keyw) throws Exception
+   {
+      StringBuilder b = new StringBuilder();
+      String[] tags = Keyw.split("/");
+      for(int i = 0; i < tags.length; i++) {
+         String tag = tags[i].trim();
+         tag = tag.replaceAll("\'", "\'\'");
+         ResultSet rs = con.createStatement().executeQuery("Select ID from TAG where Name = '" + tag + "'");
+         if(rs.next()) 
+         {
+            if(i > 0) b.append("::");
+            b.append(rs.getInt(1));
+         }
+         else
+         {
+            con.createStatement().executeUpdate("Insert into Tag values(NULL, '" + tag + "', NULL)");
+            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from Tag");
+            if(i > 0) b.append("::");
+            b.append(tmp.getInt(1));
+         }
+            
+      }
+      return b.toString();
+   }
+
    public static void main(String[] args) throws Exception
    {
-      Generator.initTable();
-      Generator.genDataIndex(Thread.currentThread().getContextClassLoader().getResourceAsStream("txinde_utf8.txt"));
-      Generator.genDataTag(Thread.currentThread().getContextClassLoader().getResourceAsStream("txkeyw_utf8.txt"));
-      Generator.genDataGlossary(Thread.currentThread().getContextClassLoader().getResourceAsStream("txglos_utf8.txt"));
-      Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txfami_utf8.txt"), "FAMILY");
-      Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txgenu_utf8.txt"), "GENUS");
+//       Generator.initTable();
+//       Generator.genDataIndex(Thread.currentThread().getContextClassLoader().getResourceAsStream("txinde_utf8.txt"));
+//       Generator.genDataTag(Thread.currentThread().getContextClassLoader().getResourceAsStream("txkeyw_utf8.txt"));
+//       Generator.genDataGlossary(Thread.currentThread().getContextClassLoader().getResourceAsStream("txglos_utf8.txt"));
+//       Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txfami_utf8.txt"),
+//       "FAMILY");
+//       Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txgenu_utf8.txt"),
+//       "GENUS");
       Generator.genDataObject(Thread.currentThread().getContextClassLoader().getResourceAsStream("txmain_utf8.txt"));
    }
 }

@@ -1,14 +1,8 @@
 package taxonomy;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -44,16 +38,11 @@ public class AppTest
     public void testApp()
     {
        try {
-          String dbDir = "target";
+          String dbDir = "target/";
           Class.forName("org.sqlite.JDBC");
           Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
        } catch(Exception e) {
           throw new RuntimeException(e);
        }
-    }
-    
-    public void testDownload()
-    {
-       
     }
 }

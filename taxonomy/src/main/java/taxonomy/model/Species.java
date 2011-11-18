@@ -59,7 +59,7 @@ public class Species implements IModel
       return name;
    }
    
-   public void addSpecies(Variant variant)
+   public void addVariant(Variant variant)
    {
       if(this.specs == null) specs = new HashSet<Variant>();
       specs.add(variant);

@@ -31,7 +31,7 @@ public class Genus extends Family
    
    private Set<Variant> variant;
    
-   public void addSpecies(Variant variant)
+   public void addVariant(Variant variant)
    {
       if(this.variant == null) this.variant = new HashSet<Variant>();
       this.variant.add(variant);

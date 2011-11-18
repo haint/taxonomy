@@ -16,20 +16,38 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy;
+package taxonomy.factory;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.List;
+
+import taxonomy.model.IModel;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
  * @version $Id$
  *
  */
-public class Main
+public abstract class AbstractFactory<T extends IModel>
 {
-   public static void main(String[] args) throws Exception
+   public static enum OrderType {
+      ASC, DESC
+   };
+   
+   protected static AbstractFactory<?> INSTANCE;
+   
+   public AbstractFactory()
    {
-      
    }
+   
+   public abstract T getModelById(String id) throws Exception;
+   
+   public abstract List<T> getModelsFromRange(int from, int to) throws Exception;
+   
+   public abstract List<T> getModelsFromRange(int from, int to, String orderBy, OrderType orderType) throws Exception;
+   
+   public abstract T insert(T model) throws Exception;
+   
+   public abstract T update(T model) throws Exception;
+   
+   public abstract T delete(T model) throws Exception;
 }
