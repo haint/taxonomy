@@ -37,6 +37,8 @@ import java.util.Set;
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
  * @datOct 3, 2011
+ * For field multi value we will use seperator is '::' (ignore dash)
+ * In text data fields separate by '/--/' 
  */
 @Deprecated
 public class Generator
@@ -212,7 +214,11 @@ public class Generator
             if(locale_ids.length() > 0) locale_ids.append("::").append(locale_id);
             else locale_ids.append(locale_id);
          }
-         String query = "INSERT INTO " + table + " VALUES (NULL, " + king_id + ",'" + name + "', '" + locale_ids.toString() + "', '" + desc + "', ' ');";
+         String query = null;
+         if("FAMILY".equals(table)) 
+            query = "INSERT INTO " + table + " VALUES (NULL, " + king_id + ",'" + name + "', '" + locale_ids.toString() + "', '" + desc + "', ' ');";
+         else if("GENUS".equals(table))
+            query = "INSERT INTO " + table + " VALUES (NULL, " + king_id + ",'" + name + "', '" + locale_ids.toString() + "', '" + desc + "', ' ', ' ');";
          b.append(query).append('\n');
          System.out.println(query);
          st.executeUpdate(query);
@@ -237,9 +243,62 @@ public class Generator
       {
          line = line.substring(0, line.lastIndexOf(']') + 1).trim();
          String[] subLine = line.split("/--/");
+         String King = subLine[1]; String Fami = subLine[2];  String Fam2 = subLine[3];  String Inde = subLine[4]; String Genu = subLine[5];  String Gen2 = subLine[6];
+         String Gen3 = subLine[7];  String Spec = subLine[8];  String Spe2 = subLine[9]; String Spe3 = subLine[10]; String Gsos = subLine[11]; String Gso2 = subLine[12];
+         String Eng1 = subLine[13]; String Eng2 = subLine[14]; String Vie1 = subLine[15]; String Vie2 = subLine[16]; String Keyw = subLine[17]; String Utim = subLine[18];
+         String Udat = subLine[19]; String Refs = subLine[20]; String Desc = subLine[21];
+         
+         //
+         int king_id = 0;
+         if(King.equals("B")) king_id = 1;
+         else if(King.equals("Z")) king_id = 2;
+         String familyIds  = buildFamilyIds(con, Fami, Fam2);
+         String indexIds = buildIndexIds(con, Inde);
+         int genusId = buildGenusId(con, Genu);
+         int specId = buildSpecId(con, Spec);
+         String tagId = buildTagId(con, Keyw);
       }
    }
-
+   
+   static String buildFamilyIds(Connection con, String Fami, String Fam2) throws Exception
+   {
+      StringBuilder b = new StringBuilder();
+      con.createStatement().executeQuery("Select ID from FAMILY");
+      return b.toString();
+   }
+   
+   static String buildIndexIds(Connection con, String Inde)
+   {
+      StringBuilder b = new StringBuilder();
+      return b.toString();
+   }
+   
+   static int buildGenusId(Connection con, String Genu)
+   {
+      return -1;
+   }
+   
+   static int buildSpecId(Connection con, String Spec)
+   {
+      return -1;
+   }
+   
+   static String buildTagId(Connection con, String Keyw)
+   {
+      StringBuilder b = new StringBuilder();
+      return b.toString();
+   }
+   
+   static void buildGenusVariant(Connection con, int genId, String Gen2, String Gen3)
+   {
+      
+   }
+   
+   static void buildSpeciesVariant(Connection con, int specId, String Spe2, String Spe3)
+   {
+      
+   }
+   
    public static void main(String[] args) throws Exception
    {
       Generator.initTable();
@@ -248,5 +307,6 @@ public class Generator
       Generator.genDataGlossary(Thread.currentThread().getContextClassLoader().getResourceAsStream("txglos_utf8.txt"));
       Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txfami_utf8.txt"), "FAMILY");
       Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txgenu_utf8.txt"), "GENUS");
+      Generator.genDataObject(Thread.currentThread().getContextClassLoader().getResourceAsStream("txmain_utf8.txt"));
    }
 }

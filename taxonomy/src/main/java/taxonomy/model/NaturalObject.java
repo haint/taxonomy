@@ -29,9 +29,6 @@ import java.util.Set;
 public class NaturalObject implements IModel
 {
 
-   /**
-    * 
-    */
    private static final long serialVersionUID = 5736627780873122909L;
    
    private int id;
@@ -40,13 +37,17 @@ public class NaturalObject implements IModel
    
    private Set<Family> families;
    
-   private Set<Genus> genuses;
+   private Genus genus;
    
-   private Set<String> species;
+   private Species species;
    
    private Set<Index> indecies;
    
    private Set<Tag> tags;
+   
+   private Set<String> enNames;
+   
+   private Set<String> vnNames;
    
    private Date createDate;
    
@@ -90,28 +91,24 @@ public class NaturalObject implements IModel
       families.add(family);
    }
    
-   public Iterator<Genus> getGenusIterator()
+   public Genus getGenus()
    {
-      if(genuses == null) genuses = new HashSet<Genus>();
-      return genuses.iterator();
+      return genus;
    }
    
-   public void addGenus(Genus genus)
+   public void setGenus(Genus genus)
    {
-      if(genuses == null) genuses = new HashSet<Genus>();
-      genuses.add(genus);
+      this.genus = genus;
    }
    
-   public Iterator<String> getSpeciesIterator()
+   public Species getSpecies()
    {
-      if(species == null) species = new HashSet<String>();
-      return species.iterator();
+      return species;
    }
    
-   public void addSpecies(String sp)
+   public void setSpecies(Species sp)
    {
-      if(species == null) species = new HashSet<String>();
-      species.add(sp);
+      this.species = sp;
    }
    
    public Iterator<Index> getIndeciesIterator()
@@ -136,6 +133,30 @@ public class NaturalObject implements IModel
    {
       if(tags == null) tags = new HashSet<Tag>();
       tags.add(tag);
+   }
+   
+   public void addEnName(String name)
+   {
+      if(enNames == null) enNames = new HashSet<String>();
+      enNames.add(name);
+   }
+   
+   public Iterator<String> getEnNameIterator()
+   {
+      if(enNames == null) enNames = new HashSet<String>();
+      return enNames.iterator();
+   }
+   
+   public void addVnName(String name)
+   {
+      if(vnNames == null) vnNames = new HashSet<String>();
+      vnNames.add(name);
+   }
+   
+   public Iterator<String> getVnNameIterator()
+   {
+      if(vnNames == null) vnNames = new HashSet<String>();
+      return vnNames.iterator();
    }
 
    public Date getCreateDate()

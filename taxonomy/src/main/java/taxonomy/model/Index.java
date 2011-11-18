@@ -24,9 +24,6 @@ package taxonomy.model;
 public class Index implements IModel
 {
 
-   /**
-    * 
-    */
    private static final long serialVersionUID = 3781976025222578709L;
    
    private int id;
@@ -51,5 +48,12 @@ public class Index implements IModel
    public void setValue(String value)
    {
       this.value = value;
+   }
+   
+   public boolean equals(Object obj)
+   {
+      Index other = (Index) obj;
+      if(this.getId() == other.getId()) return true;
+      return false;
    }
 }

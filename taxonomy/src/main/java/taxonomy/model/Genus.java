@@ -16,6 +16,10 @@
  */
 package taxonomy.model;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
@@ -23,34 +27,20 @@ package taxonomy.model;
  */
 public class Genus extends Family
 {
-
-   /**
-    * 
-    */
    private static final long serialVersionUID = -8073066850805682441L;
    
-   private String oldName;
+   private Set<Variant> variant;
    
-   private String synonymName;
-
-   public void setOldName(String oldName)
+   public void addSpecies(Variant variant)
    {
-      this.oldName = oldName;
+      if(this.variant == null) this.variant = new HashSet<Variant>();
+      this.variant.add(variant);
    }
    
-   public String getOldName()
+   public Iterator<Variant> getVariantIterator()
    {
-      return oldName;
-   }
-   
-   public void setSynonymName(String synonymName)
-   {
-      this.synonymName = synonymName;
-   }
-   
-   public String getSynonymName()
-   {
-      return synonymName;
+      if(this.variant == null) variant = new HashSet<Variant>();
+      return variant.iterator();
    }
    
    public boolean equals(Object obj)

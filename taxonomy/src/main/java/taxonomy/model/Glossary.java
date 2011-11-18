@@ -27,10 +27,6 @@ import java.util.Map;
  */
 public class Glossary implements IModel
 {
-
-   /**
-    * 
-    */
    private static final long serialVersionUID = 4239408774009926225L;
    
    private int id;
@@ -93,5 +89,12 @@ public class Glossary implements IModel
    {
       if(localeTerm == null) localeTerm = new HashMap<Locale, String>();
       return localeTerm.put(locale, name);
+   }
+   
+   public boolean equals(Object obj)
+   {
+      Glossary other = (Glossary) obj;
+      if(this.getId() == other.getId()) return true;
+      return false;
    }
 }

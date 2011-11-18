@@ -16,13 +16,9 @@
  */
 package taxonomy.model;
 
-import java.io.File;
-import java.net.URI;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
@@ -32,16 +28,13 @@ import java.util.Set;
 public class Family implements IModel
 {
 
-   /**
-    * 
-    */
    private static final long serialVersionUID = -7257088502916236613L;
    
    private int id;
    
    private Kingdom king;
    
-   private String scienseName;
+   private String name;
    
    private Map<Locale, String> localeName;
    
@@ -70,14 +63,14 @@ public class Family implements IModel
       this.king = king;
    }
 
-   public String getScienseName()
+   public String getName()
    {
-      return scienseName;
+      return name;
    }
 
-   public void setScienseName(String scienseName)
+   public void setName(String scienseName)
    {
-      this.scienseName = scienseName;
+      this.name = scienseName;
    }
    
    public String getDescription()
@@ -102,13 +95,6 @@ public class Family implements IModel
       return localeName.put(locale, name);
    }
    
-   public boolean equals(Object obj)
-   {
-      Family other = (Family) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
-   }
-   
    public void setAvatar(String path)
    {
       this.avartar = path;
@@ -117,5 +103,12 @@ public class Family implements IModel
    public String getAvatar()
    {
       return avartar;
+   }
+   
+   public boolean equals(Object obj)
+   {
+      Family other = (Family) obj;
+      if(this.getId() == other.getId()) return true;
+      return false;
    }
 }

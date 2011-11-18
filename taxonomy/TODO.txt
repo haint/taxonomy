@@ -1,3 +1,4 @@
-- Create new model Variant and adding field to Genus, Species, NaturalObject
+- Create new model Variant and adding field to Genus, Species, NaturalObject [DONE]
 - Implement equals method for model
 - Complete generate origin database and initial sql script
+- Create Helper for interaction database

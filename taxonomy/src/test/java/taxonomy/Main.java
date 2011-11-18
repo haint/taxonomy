@@ -16,56 +16,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.model;
+package taxonomy;
 
-public class Variant implements IModel
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+/**
+ * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
+ * @version $Id$
+ *
+ */
+public class Main
 {
-   private static final long serialVersionUID = -3236544642574185057L;
-   
-   private int id;
-   
-   private String value;
-   
-   public static enum Type {
-      OLD, SYNONYM
-   }
-   
-   private Type type;
-   
-   public void setId(int id)
+   public static void main(String[] args) throws Exception
    {
-      this.id = id;
-   }
-
-   public int getId()
-   {
-      return id;
-   }
-   
-   public void setValue(String value)
-   {
-      this.value = value;
-   }
-   
-   public String getValue()
-   {
-      return value;
-   }
-   
-   public void setType(Type type)
-   {
-      this.type = type;
-   }
-   
-   public String getType()
-   {
-      return type.toString();
-   }
-   
-   public boolean equals(Object obj)
-   {
-      Variant other = (Variant) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
+      
    }
 }

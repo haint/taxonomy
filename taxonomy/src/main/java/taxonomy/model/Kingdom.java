@@ -61,4 +61,11 @@ public class Kingdom implements IModel
    {
       this.code = code;
    }
+   
+   public boolean equals(Object obj)
+   {
+      Kingdom other = (Kingdom) obj;
+      if(this.getId() == other.getId()) return true;
+      return false;
+   }
 }

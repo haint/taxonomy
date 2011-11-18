@@ -24,9 +24,6 @@ package taxonomy.model;
 public class Tag implements IModel
 {
 
-   /**
-    * 
-    */
    private static final long serialVersionUID = -8020436895534685813L;
    
    private int id;
@@ -63,5 +60,12 @@ public class Tag implements IModel
    public void setExplaintion(String explain) 
    {
       this.explain = explain;
+   }
+   
+   public boolean equals(Object obj)
+   {
+      Tag other = (Tag) obj;
+      if(this.getId() == other.getId()) return true;
+      return false;
    }
 }

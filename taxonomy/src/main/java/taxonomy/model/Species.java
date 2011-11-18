@@ -16,6 +16,10 @@
  */
 package taxonomy.model;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
@@ -32,6 +36,8 @@ public class Species implements IModel
    private int id;
    
    private String name;
+   
+   private Set<Variant> specs;
    
    public void setId(int id)
    {
@@ -53,23 +59,22 @@ public class Species implements IModel
       return name;
    }
    
-   public void setOldName(String oldName)
+   public void addSpecies(Variant variant)
    {
-      this.oldName = oldName;
+      if(this.specs == null) specs = new HashSet<Variant>();
+      specs.add(variant);
    }
    
-   public String getOldName()
+   public Iterator<Variant> getSpecIterator()
    {
-      return oldName;
+      if(this.specs == null) specs = new HashSet<Variant>();
+      return specs.iterator();
    }
    
-   public void setSynonymName(String synonymName)
+   public boolean equals(Object obj)
    {
-      this.synonymName = synonymName;
-   }
-   
-   public String getSynonymName()
-   {
-      return synonymName;
+      Species other = (Species) obj;
+      if(this.getId() == other.getId()) return true;
+      return false;
    }
 }
