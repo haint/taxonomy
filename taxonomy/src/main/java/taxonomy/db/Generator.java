@@ -33,8 +33,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import sun.misc.IOUtils;
-
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  * 
@@ -72,8 +70,7 @@ public class Generator
       {
          Statement statement = con.createStatement();
          InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("createTable.sql");
-         byte[] bytes = IOUtils.readFully(is, is.available(), false);
-         statement.executeUpdate(new String(bytes));
+         statement.executeUpdate(Main.getStringFromInputStream(is));
       }
       catch (SQLException ex)
       {
@@ -177,7 +174,7 @@ public class Generator
    {
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
       String line = reader.readLine();
-      StringBuilder b = new StringBuilder();
+//      StringBuilder b = new StringBuilder();
       Class.forName("org.sqlite.JDBC");
       Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
       int count = 0;
@@ -185,7 +182,7 @@ public class Generator
       {
          line = line.substring(0, line.lastIndexOf(']') + 1).trim();
          String[] subLine = line.split("/--/");
-         String King = subLine[1];
+         String King = subLine[1].trim();
          String Fami = subLine[2];
          String Fam2 = subLine[3];
          String Inde = subLine[4];
@@ -215,10 +212,14 @@ public class Generator
 
          //
          int king_id = 0;
-         if (King.equals("B"))
+         if (King.equals("[B]"))
             king_id = 1;
-         else if (King.equals("Z"))
+         else if (King.equals("[Z]"))
             king_id = 2;
+         else 
+        	 throw new IllegalStateException("Kingdom code: " + King + " invalid");
+         //
+         
          String familyIds = Util.buildFamilyIds(con, Fami, Fam2);
          String indexIds = Util.buildIndexIds(con, Inde);
          int genusId = Util.buildGenusSpeciesId(con, Genu, Gen2, Gen3, Gsos, Gso2, "GENUS");
@@ -309,14 +310,14 @@ public class Generator
 
    public static void main(String[] args) throws Exception
    {
-//       Generator.initTable();
-//       Generator.genDataIndex(Thread.currentThread().getContextClassLoader().getResourceAsStream("txinde_utf8.txt"));
-//       Generator.genDataTag(Thread.currentThread().getContextClassLoader().getResourceAsStream("txkeyw_utf8.txt"));
-//       Generator.genDataGlossary(Thread.currentThread().getContextClassLoader().getResourceAsStream("txglos_utf8.txt"));
-//       Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txfami_utf8.txt"),
-//       "FAMILY");
-//       Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txgenu_utf8.txt"),
-//       "GENUS");
+       Generator.initTable();
+       Generator.genDataIndex(Thread.currentThread().getContextClassLoader().getResourceAsStream("txinde_utf8.txt"));
+       Generator.genDataTag(Thread.currentThread().getContextClassLoader().getResourceAsStream("txkeyw_utf8.txt"));
+       Generator.genDataGlossary(Thread.currentThread().getContextClassLoader().getResourceAsStream("txglos_utf8.txt"));
+       Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txfami_utf8.txt"),
+       "FAMILY");
+       Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txgenu_utf8.txt"),
+       "GENUS");
       Generator.genDataObject(Thread.currentThread().getContextClassLoader().getResourceAsStream("txmain_utf8.txt"));
    }
 }

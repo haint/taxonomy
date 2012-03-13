@@ -18,13 +18,14 @@
  */
 package taxonomy.db;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import sun.misc.IOUtils;
 
 
 /**
@@ -38,6 +39,17 @@ public class Main
 
    final static String dbDir = System.getProperty("taxonomy.db.dir", "target/");
    
+   public static String getStringFromInputStream(InputStream is) throws IOException {
+  	 BufferedInputStream bis = new BufferedInputStream(is);
+  	 ByteArrayOutputStream baos  = new ByteArrayOutputStream();
+  	 byte[] buff = new byte[1024];
+  	 int available = -1;
+  	 while((available = bis.read(buff)) > -1) {
+  		 baos.write(buff, 0, available);
+  	 }
+  	 return new String(baos.toByteArray(), "UTF-8");
+   }
+   
    public static void main(String[] args) throws Exception
    {
       Class.forName("org.sqlite.JDBC");
@@ -47,28 +59,22 @@ public class Main
       {
          Statement statement = con.createStatement();
          InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("createTable.sql");
-         byte[] bytes = IOUtils.readFully(is, is.available(), false);
-         statement.executeUpdate(new String(bytes));
+         statement.executeUpdate(getStringFromInputStream(is));
          
-         is = Thread.currentThread().getContextClassLoader().getSystemResourceAsStream("insertIndex.sql");
-         bytes = IOUtils.readFully(is, is.available(), false);
-         statement.executeUpdate(new String(bytes));
+         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertIndex.sql");
+         statement.executeUpdate(getStringFromInputStream(is));
          
-         is = Thread.currentThread().getContextClassLoader().getSystemResourceAsStream("insertTag.sql");
-         bytes = IOUtils.readFully(is, is.available(), false);
-         statement.executeUpdate(new String(bytes));
+         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertTag.sql");
+         statement.executeUpdate(getStringFromInputStream(is));
          
-         is = Thread.currentThread().getContextClassLoader().getSystemResourceAsStream("insertGlossary.sql");
-         bytes = IOUtils.readFully(is, is.available(), false);
-         statement.executeUpdate(new String(bytes));
+         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGlossary.sql");
+         statement.executeUpdate(getStringFromInputStream(is));
          
-         is = Thread.currentThread().getContextClassLoader().getSystemResourceAsStream("insertFamily.sql");
-         bytes = IOUtils.readFully(is, is.available(), false);
-         statement.executeUpdate(new String(bytes));  
+         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertFamily.sql");
+         statement.executeUpdate(getStringFromInputStream(is));  
          
-         is = Thread.currentThread().getContextClassLoader().getSystemResourceAsStream("insertGenus.sql");
-         bytes = IOUtils.readFully(is, is.available(), false);
-         statement.executeUpdate(new String(bytes));
+         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGenus.sql");
+         statement.executeUpdate(getStringFromInputStream(is));
       }
       catch (SQLException ex)
       {
