@@ -18,6 +18,9 @@
  */
 package taxonomy.factory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import taxonomy.model.Family;
 import taxonomy.model.Genus;
 import taxonomy.model.Glossary;
@@ -36,33 +39,31 @@ import taxonomy.model.Variant;
  */
 public class TaxonomyFactory
 {
-   final public static TaxonomyFactory instance = new TaxonomyFactory();
+   private static TaxonomyFactory instance;
    
-   public static TaxonomyFactory getInstance() {
-      return instance;
+   private final Map<Class, IModelFactory<?>>	factories;
+   
+   private TaxonomyFactory() {
+   	factories = new HashMap<Class, IModelFactory<?>>();
+   	factories.put(Genus.class, new GenusModelFactory());
+   	factories.put(Family.class, new FamilyModelFactory());
+   	factories.put(Glossary.class, new GlossaryModelFactory());
+   	factories.put(Index.class, new IndexModelFactory());
+   	factories.put(Kingdom.class, new KingdomModelFactory());
+   	factories.put(NaturalObject.class, new NaturalObjectModelFactory());
+   	factories.put(Species.class, new SpeciesModelFactory());
+   	factories.put(Tag.class, new TagModelFactory());
+   	factories.put(Variant.class, new VariantModelFactory());
    }
    
-   public static AbstractFactory<?> getFactory(Class<?> clazz) throws Exception{
-      if(clazz.isInstance(Genus.class)) {
-         return ModelGenusFactory.INSTANCE;
-      } else if(clazz.isInstance(Family.class)) {
-         return ModelFamilyFactory.INSTANCE;
-      } else if(clazz.isInstance(Glossary.class)) {
-         return ModelGlossaryFactory.INSTANCE;
-      } else if(clazz.isInstance(Index.class)) {
-         return ModelIndexFactory.INSTANCE;
-      } else if(clazz.isInstance(Kingdom.class)) {
-         return ModelKingdomFactory.INSTANCE;
-      } else if(clazz.isInstance(NaturalObject.class)) {
-         return ModelNaturalObjectFactory.INSTANCE;
-      } else if(clazz.isInstance(Species.class)) {
-         return ModelSpeciesFactory.INSTANCE;
-      } else if(clazz.isInstance(Tag.class)) {
-         return ModelTagFactory.INSTANCE;
-      } else if(clazz.isInstance(Variant.class)) {
-         return ModelVariantFactory.INSTANCE;
-      } else {
-         throw new Exception("Unsupported model type: " + clazz.getCanonicalName());
-      }
+   public static TaxonomyFactory getInstance() {
+      return instance == null ? (instance = new TaxonomyFactory()) : instance;
+   }
+   
+   public IModelFactory<?> getFactory(Class<?> clazz) {
+   	IModelFactory<?> factory = factories.get(clazz);
+   	if(factory == null)
+         throw new UnsupportedOperationException("Unsupported model type: " + clazz.getCanonicalName());
+   	return factory;
    }
 }

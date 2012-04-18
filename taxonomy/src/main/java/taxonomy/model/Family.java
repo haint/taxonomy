@@ -17,6 +17,7 @@
 package taxonomy.model;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
@@ -58,7 +59,7 @@ public class Family implements IModel
       return king;
    }
 
-   public void setKing(Kingdom king)
+   public void setKingdom(Kingdom king)
    {
       this.king = king;
    }
@@ -89,10 +90,18 @@ public class Family implements IModel
       return localeName.get(locale);
    }
    
+   public Iterator<Map.Entry<Locale, String>> getLocales() {
+   	return localeName.entrySet().iterator();
+   }
+   
    public String setLocaleName(Locale locale, String name)
    {
       localeName = new HashMap<Locale, String>();
       return localeName.put(locale, name);
+   }
+   
+   public void setLocaleName(Map<Locale,String> locales) {
+   	this.localeName = locales;
    }
    
    public void setAvatar(String path)

@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2011 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -16,38 +15,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.factory;
+package taxonomy.test;
 
 import java.util.List;
 
-import taxonomy.model.IModel;
+import taxonomy.factory.FamilyModelFactory;
+import taxonomy.factory.TaxonomyFactory;
+import taxonomy.model.Family;
+import junit.framework.TestCase;
 
 /**
- * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
+ * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
+ * Apr 18, 2012
  */
-public abstract class AbstractFactory<T extends IModel>
-{
-   public static enum OrderType {
-      ASC, DESC
-   };
-   
-   protected static AbstractFactory<?> INSTANCE;
-   
-   public AbstractFactory()
-   {
-   }
-   
-   public abstract T getModelById(String id) throws Exception;
-   
-   public abstract List<T> getModelsFromRange(int from, int to) throws Exception;
-   
-   public abstract List<T> getModelsFromRange(int from, int to, String orderBy, OrderType orderType) throws Exception;
-   
-   public abstract T insert(T model) throws Exception;
-   
-   public abstract T update(T model) throws Exception;
-   
-   public abstract T delete(T model) throws Exception;
+public class SimpleTestCase extends TestCase {
+
+	public void testFamilyModel() throws Exception {
+		FamilyModelFactory factory = (FamilyModelFactory) TaxonomyFactory.getInstance().getFactory(Family.class);
+		assertNotNull(factory);
+		Family family = factory.getModelById("1");
+		assertNotNull(family);
+		assertEquals(family.getId(), 1);
+		List<Family> list = factory.getAll();
+		assertNotNull(list);
+	}
 }
