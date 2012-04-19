@@ -20,11 +20,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import taxonomy.annotation.Table;
+
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
  * @datOct 3, 2011
  */
+@Table("[Genus]")
 public class Genus extends Family
 {
    private static final long serialVersionUID = -8073066850805682441L;

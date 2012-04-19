@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2011 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -16,40 +15,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.factory;
+package taxonomy.test.annotation;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import taxonomy.model.Kingdom;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
+ * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
+ * Apr 19, 2012
  */
-public class KingdomModelFactory extends AbstractModelFactory<Kingdom>
-{
-   @Override
-   public Kingdom insert(Kingdom model) throws SQLException
-   {
-      return null;
-   }
-
-   @Override
-   public Kingdom update(Kingdom model) throws SQLException
-   {
-      return null;
-   }
-
-   @Override
-   public Kingdom delete(Kingdom model) throws SQLException
-   {
-      return null;
-   }
-
-	@Override
-	public Kingdom mapToModel(ResultSet result) throws SQLException {
-		return null;
-	}
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Fields {
+	String value();
+	Class<?> mapTo();
 }

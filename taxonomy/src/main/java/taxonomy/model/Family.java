@@ -16,18 +16,21 @@
  */
 package taxonomy.model;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
+
+import taxonomy.annotation.ManyToOne;
+import taxonomy.annotation.OneToMany;
+import taxonomy.annotation.OneToOne;
+import taxonomy.annotation.Table;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
  * @datOct 3, 2011
  */
+@Table("[Family]")
 public class Family implements IModel
 {
 
@@ -39,67 +42,83 @@ public class Family implements IModel
    
    private String name;
    
-   private Set<Locales> locales;
+   private Set<Locale> locales;
    
    private String desc;
    
    private String avartar;
    
 
+   @OneToOne("ID")
    public int getId() 
    {
       return id;
    }
    
+   @OneToOne("ID")
    public void setId(int id)
    {
       this.id = id;
    }
    
-   public Kingdom getKing()
+   @OneToOne("KINGDOM_ID")
+   public Kingdom getKingdom()
    {
       return king;
    }
-
+   
+   @OneToOne("KINGDOM_ID")
    public void setKingdom(Kingdom king)
    {
       this.king = king;
    }
 
+   @OneToOne("NAME")
    public String getName()
    {
       return name;
    }
 
+   @OneToOne("NAME")
    public void setName(String scienseName)
    {
       this.name = scienseName;
    }
    
+   @OneToOne("DESCRIPTION")
    public String getDescription()
    {
       return desc;
    }
    
+   @OneToOne("DESCRIPTION")
    public void setDescription(String desc)
    {
       this.desc = desc;
    }
  
-   
-   public Iterator<Locales> getLocales() {
+   @ManyToOne(field = "LOCALE_IDS", model = Locale.class)
+   public Iterator<Locale> getLocales() {
    	return locales.iterator();
    }
    
-   public void setLocaleName(Set<Locales> locales) {
+   @OneToMany(field = "LOCALE_IDS", model = Locale.class)
+   public void setLocaleName(Set<Locale> locales) {
    	this.locales = locales;
    }
    
+   public void addLocale(Locale locale) {
+   	if(locales == null) locales = new HashSet<Locale>();
+   	locales.add(locale);
+   }
+   
+   @OneToOne("AVATAR")
    public void setAvatar(String path)
    {
       this.avartar = path;
    }
    
+   @OneToOne("AVATAR")
    public String getAvatar()
    {
       return avartar;

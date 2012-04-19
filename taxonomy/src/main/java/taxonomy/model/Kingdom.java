@@ -16,11 +16,15 @@
  */
 package taxonomy.model;
 
+import taxonomy.annotation.OneToOne;
+import taxonomy.annotation.Table;
+
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
  * @datOct 3, 2011
  */
+@Table("[Kingdom]")
 public class Kingdom implements IModel
 {
 
@@ -32,31 +36,37 @@ public class Kingdom implements IModel
    
    private String code;
 
+   @OneToOne("ID")
    public int getId()
    {
       return id;
    }
 
+   @OneToOne("ID")
    public void setId(int id)
    {
       this.id = id;
    }
-
+   
+   @OneToOne("NAME")
    public String getName()
    {
       return name;
    }
 
+   @OneToOne("NAME")
    public void setName(String name)
    {
       this.name = name;
    }
 
+   @OneToOne("CODE")
    public String getCode()
    {
       return code;
    }
 
+   @OneToOne("CODE")
    public void setCode(String code)
    {
       this.code = code;

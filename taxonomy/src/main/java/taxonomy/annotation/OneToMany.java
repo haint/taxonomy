@@ -15,38 +15,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.util;
+package taxonomy.annotation;
 
-import java.lang.reflect.Method;
-import java.sql.ResultSet;
-import java.util.HashSet;
-import java.util.Set;
-
-import taxonomy.db.TaxonomyConnector;
-import taxonomy.model.Family;
-import taxonomy.model.Locale;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
- * Apr 18, 2012
+ * Apr 19, 2012
  */
-public class LocaleResolver {
-	
-	public static Set<Locale> resolve(String locale_ids) throws Exception {
-		if(locale_ids == null || locale_ids.trim().isEmpty()) return null;
-		Set<Locale> holder = new HashSet<Locale>();
-		String condition = locale_ids.replaceAll("::", " OR ID = ");
-		TaxonomyConnector connector = new TaxonomyConnector();
-		ResultSet rs = connector.select("Select * from LOCALES where ID = " + condition);
-		while(rs.next()) {
-			Locale l = new Locale();
-			l.setId(rs.getInt("ID"));
-			l.setName(rs.getString("NAME"));
-			l.setValue(rs.getString("VALUE"));
-			holder.add(l);
-		}
-		return holder;
-	}
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface OneToMany {
+	String field();
+	Class<?> model();
 }

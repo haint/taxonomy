@@ -15,12 +15,16 @@
  */
 package taxonomy.model;
 
+import taxonomy.annotation.OneToOne;
+import taxonomy.annotation.Table;
+
 /**
  * Author : Nguyen Thanh Hai
  *          haithanh0809@gmail.com
  * Apr 19, 2012  
  */
-public class Locales implements IModel {
+@Table("Locales")
+public class Locale implements IModel {
 
 	private static final long	serialVersionUID	= 2378720725851305514L;
 	
@@ -30,26 +34,32 @@ public class Locales implements IModel {
 	
 	private String value;
 	
+	@OneToOne("ID")
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	@Override
+	@OneToOne("ID")
 	public int getId() {
 		return id;
 	}
-	
+
+	@OneToOne("NAME")
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	@OneToOne("NAME")
 	public String getName() {
 		return name;
 	}
 	
+	@OneToOne("VALUE")
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
+	@OneToOne("VALUE")
 	public String getValue() {
 		return value;
 	}

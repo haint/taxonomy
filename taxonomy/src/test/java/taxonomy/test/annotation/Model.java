@@ -15,38 +15,40 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.util;
+package taxonomy.test.annotation;
 
-import java.lang.reflect.Method;
-import java.sql.ResultSet;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
-import taxonomy.db.TaxonomyConnector;
-import taxonomy.model.Family;
-import taxonomy.model.Locale;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
- * Apr 18, 2012
+ * Apr 19, 2012
  */
-public class LocaleResolver {
+public class Model {
+
+	String foo;
 	
-	public static Set<Locale> resolve(String locale_ids) throws Exception {
-		if(locale_ids == null || locale_ids.trim().isEmpty()) return null;
-		Set<Locale> holder = new HashSet<Locale>();
-		String condition = locale_ids.replaceAll("::", " OR ID = ");
-		TaxonomyConnector connector = new TaxonomyConnector();
-		ResultSet rs = connector.select("Select * from LOCALES where ID = " + condition);
-		while(rs.next()) {
-			Locale l = new Locale();
-			l.setId(rs.getInt("ID"));
-			l.setName(rs.getString("NAME"));
-			l.setValue(rs.getString("VALUE"));
-			holder.add(l);
-		}
-		return holder;
+	Set<Model2> bar;
+	
+	@Field("Foo_")
+	public void setFoo(String foo) {
+		this.foo = foo;
+	}
+	
+	@Field("Foo_")
+	public String getFoo() {
+		return foo;
+	}
+	
+	@Fields(mapTo = Model2.class, value = "Bar_IDs")
+	public void setBar(Set<Model2> bar) {
+		this.bar = bar;
+	}
+	
+	@Fields(mapTo = Model2.class, value = "Bar_IDs")
+	public Set<Model2> getBar() {
+		return bar;
 	}
 }

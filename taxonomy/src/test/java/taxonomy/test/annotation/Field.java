@@ -15,35 +15,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.factory;
+package taxonomy.test.annotation;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-
-import taxonomy.factory.AbstractModelFactory.OrderType;
-import taxonomy.model.IModel;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
- * Apr 18, 2012
+ * Apr 19, 2012
  */
-interface IModelFactory<T extends IModel> {
 
-	public T mapToModel(ResultSet result) throws SQLException;
-   
-   public  T getModelById(String id) throws SQLException;
-   
-   public List<T> getModelsFromRange(int from, int to) throws SQLException;
-   
-   public LinkedList<T> getModelsFromRange(int from, int to, String orderBy, OrderType orderType) throws SQLException;
-   
-   public T insert(T model) throws SQLException;
-   
-   public T update(T model) throws SQLException;
-   
-   public T delete(T model) throws SQLException;
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Field {
+	String value();
 }
