@@ -43,20 +43,20 @@ public class Util
       Statement st = con.createStatement();
       if (!name_vn.equals(" "))
       {
-         String query = "INSERT INTO LOCALES VALUES (NULL, 'vn', '" + name_vn + "');";
+         String query = "INSERT INTO [Locales] VALUES (NULL, 'vn', '" + name_vn + "');";
          st.executeUpdate(query);
          b.append(query).append('\n');
-         ResultSet rs = st.executeQuery("SELECT last_insert_rowid()  FROM LOCALES");
+         ResultSet rs = st.executeQuery("SELECT last_insert_rowid()  FROM [Locales]");
          rs.next();
          int locale_id = rs.getInt(1);
          query =
-            "INSERT INTO GLOSSARY VALUES (NULL, '" + name + "', '" + locale_id + "', '" + explain + "', '" + exam
+            "INSERT INTO [Glossary] VALUES (NULL, '" + name + "', '" + locale_id + "', '" + explain + "', '" + exam
                + "');";
          b.append(query).append('\n');
       }
       else
       {
-         String query = "INSERT INTO GLOSSARY VALUES (NULL, '" + name + "', ' ', '" + explain + "', '" + exam + "');";
+         String query = "INSERT INTO [Glossary] VALUES (NULL, '" + name + "', ' ', '" + explain + "', '" + exam + "');";
          b.append(query).append('\n');
          //System.out.println(query);
          st.executeUpdate(query);
@@ -86,11 +86,11 @@ public class Util
       Statement st = con.createStatement();
       if (!name_en.equals(" "))
       {
-         String query = "INSERT INTO LOCALES VALUES (NULL, 'en', '" + name_en + "');";
+         String query = "INSERT INTO [Locales] VALUES (NULL, 'en', '" + name_en + "');";
          //System.out.println(query);
          st.executeUpdate(query);
          b.append(query).append('\n');
-         ResultSet rs = st.executeQuery("SELECT last_insert_rowid()  FROM LOCALES");
+         ResultSet rs = st.executeQuery("SELECT last_insert_rowid()  FROM [Locales]");
          rs.next();
          int locale_id = rs.getInt(1);
          if (locale_ids.length() > 0)
@@ -100,10 +100,10 @@ public class Util
       }
       if (!name_vn.equals(" "))
       {
-         String query = "INSERT INTO LOCALES VALUES (NULL, 'vn', '" + name_vn + "');";
+         String query = "INSERT INTO [Locales] VALUES (NULL, 'vn', '" + name_vn + "');";
          st.executeUpdate(query);
          b.append(query).append('\n');
-         ResultSet rs = st.executeQuery("SELECT last_insert_rowid()  FROM LOCALES");
+         ResultSet rs = st.executeQuery("SELECT last_insert_rowid()  FROM [Locales]");
          rs.next();
          int locale_id = rs.getInt(1);
          if (locale_ids.length() > 0)
@@ -112,11 +112,11 @@ public class Util
             locale_ids.append(locale_id);
       }
       String query = null;
-      if ("FAMILY".equals(table))
+      if ("[Family]".equals(table))
          query =
             "INSERT INTO " + table + " VALUES (NULL, " + king_id + ",'" + name + "', '" + locale_ids.toString()
                + "', '" + desc + "', ' ');";
-      else if ("GENUS".equals(table))
+      else if ("[Genus]".equals(table))
          query =
             "INSERT INTO " + table + " VALUES (NULL, " + king_id + ",'" + name + "', '" + locale_ids.toString()
                + "', '" + desc + "', ' ', ' ');";
@@ -145,8 +145,8 @@ public class Util
             variantType = 1;
          else if (gsos.equals("O"))
             variantType = 2;
-         con.createStatement().executeUpdate("Insert into Variant values(NULL, '" + value2 + "', " + variantType + ")");
-         ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from Variant");
+         con.createStatement().executeUpdate("Insert into [Variant] values(NULL, '" + value2 + "', " + variantType + ")");
+         ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from [Variant]");
          if (tmp.next())
             variant1 = tmp.getInt(1);
       }
@@ -157,8 +157,8 @@ public class Util
             variantType = 1;
          else if (gso2.equals("O"))
             variantType = 2;
-         con.createStatement().executeUpdate("Insert into Variant values(NULL, '" + value3 + "', " + variantType + ")");
-         ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from Variant");
+         con.createStatement().executeUpdate("Insert into [Variant] values(NULL, '" + value3 + "', " + variantType + ")");
+         ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from [Variant]");
          if (tmp.next())
             variant2 = tmp.getInt(1);
       }
@@ -174,16 +174,16 @@ public class Util
          if ("GENUS".equalsIgnoreCase(table))
          {
             con.createStatement().executeUpdate(
-               "Insert into Genus values(NULL, 1, '" + value1 + "', NULL, NULL, NULL, '" + b.toString() + "')");
-            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() FROM Genus");
+               "Insert into [Genus] values(NULL, 1, '" + value1 + "', NULL, NULL, NULL, '" + b.toString() + "')");
+            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() FROM [Genus]");
             tmp.next();
             genId = tmp.getInt(1);
          }
-         else if ("SPECIES".equalsIgnoreCase(table))
+         else if ("[Species]".equalsIgnoreCase(table))
          {
             con.createStatement().executeUpdate(
-               "Insert into SPECIES values(NULL,'" + value1 + "', '" + b.toString() + "')");
-            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() FROM Species");
+               "Insert into [Species] values(NULL,'" + value1 + "', '" + b.toString() + "')");
+            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() FROM [Species]");
             tmp.next();
             genId = tmp.getInt(1);
          }
@@ -202,12 +202,12 @@ public class Util
       StringBuilder b = new StringBuilder();
       Fami = Fami.substring(2, Fami.length() - 2);
       Fam2 = Fam2.substring(2, Fam2.length() - 2);
-      ResultSet rs = con.createStatement().executeQuery("Select ID from FAMILY where NAME = '" + Fami + "'");
+      ResultSet rs = con.createStatement().executeQuery("Select ID from [Family] where NAME = '" + Fami + "'");
 
       int id = 0;
       if (!rs.next())
       {
-         con.createStatement().executeUpdate("Insert into FAMILY values(NULL, 1, '" + Fami + "', NULL, NULL, NULL)");
+         con.createStatement().executeUpdate("Insert into [Family] values(NULL, 1, '" + Fami + "', NULL, NULL, NULL)");
       }
       else
       {
@@ -219,12 +219,12 @@ public class Util
          return b.toString();
       else
       {
-         rs = con.createStatement().executeQuery("Select ID from FAMILY where NAME = '" + Fam2 + "'");
+         rs = con.createStatement().executeQuery("Select ID from [Family] where NAME = '" + Fam2 + "'");
 
          if (!rs.next())
          {
-            con.createStatement().executeUpdate("Insert into FAMILY values(NULL, 1, '" + Fami + "', NULL, NULL, NULL)");
-            ResultSet tmp = con.createStatement().executeQuery("SELECT last_insert_rowid()  FROM FAMILY");
+            con.createStatement().executeUpdate("Insert into [Family] values(NULL, 1, '" + Fami + "', NULL, NULL, NULL)");
+            ResultSet tmp = con.createStatement().executeQuery("SELECT last_insert_rowid()  FROM [Family]");
             tmp.next();
             id = tmp.getInt(1);
          }
@@ -248,12 +248,12 @@ public class Util
       {
          String index = indecies[i].trim();
          index = index.replaceAll("\'", "\'\'");
-         ResultSet rs = con.createStatement().executeQuery("Select ID from INDEX_ where [VALUE] = '" + index + "'");
+         ResultSet rs = con.createStatement().executeQuery("Select ID from [Index] where [VALUE] = '" + index + "'");
          int id = 0;
          if (!rs.next())
          {
-            con.createStatement().executeUpdate("Insert into INDEX_ values(NULL, '" + index + "')");
-            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from INDEX_");
+            con.createStatement().executeUpdate("Insert into [Index] values(NULL, '" + index + "')");
+            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from [Index]");
             tmp.next();
             id = tmp.getInt(1);
          }

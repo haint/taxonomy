@@ -55,26 +55,28 @@ public class Main
       Class.forName("org.sqlite.JDBC");
       Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
 
+//  	 Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+//  	 Connection con = DriverManager.getConnection("jdbc:odbc:taxonomy","","");
       try
       {
          Statement statement = con.createStatement();
          InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("createTable.sql");
          statement.executeUpdate(getStringFromInputStream(is));
          
-         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertIndex.sql");
-         statement.executeUpdate(getStringFromInputStream(is));
-         
-         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertTag.sql");
-         statement.executeUpdate(getStringFromInputStream(is));
-         
-         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGlossary.sql");
-         statement.executeUpdate(getStringFromInputStream(is));
-         
-         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertFamily.sql");
-         statement.executeUpdate(getStringFromInputStream(is));  
-         
-         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGenus.sql");
-         statement.executeUpdate(getStringFromInputStream(is));
+//         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertIndex.sql");
+//         statement.executeUpdate(getStringFromInputStream(is));
+//         
+//         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertTag.sql");
+//         statement.executeUpdate(getStringFromInputStream(is));
+//         
+//         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGlossary.sql");
+//         statement.executeUpdate(getStringFromInputStream(is));
+//         
+//         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertFamily.sql");
+//         statement.executeUpdate(getStringFromInputStream(is));  
+//         
+//         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGenus.sql");
+//         statement.executeUpdate(getStringFromInputStream(is));
       }
       catch (SQLException ex)
       {

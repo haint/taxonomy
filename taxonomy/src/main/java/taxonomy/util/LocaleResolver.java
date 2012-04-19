@@ -17,12 +17,14 @@
  */
 package taxonomy.util;
 
+import java.lang.reflect.Method;
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 import taxonomy.db.TaxonomyConnector;
+import taxonomy.model.Family;
+import taxonomy.model.Locales;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -31,18 +33,23 @@ import taxonomy.db.TaxonomyConnector;
  * Apr 18, 2012
  */
 public class LocaleResolver {
+	
+	{
+	}
 
-	public static Map<Locale, String> resolve(String locale_ids) throws Exception {
+	public static Set<Locales> resolve(String locale_ids) throws Exception {
 		if(locale_ids == null || locale_ids.trim().isEmpty()) return null;
-		Map<Locale, String> map = new HashMap<Locale, String>();
+		Set<Locales> holder = new HashSet<Locales>();
 		String condition = locale_ids.replaceAll("::", " OR ID = ");
 		TaxonomyConnector connector = new TaxonomyConnector();
 		ResultSet rs = connector.select("Select * from LOCALES where ID = " + condition);
 		while(rs.next()) {
-			String locale = rs.getString("NAME");
-			String value = rs.getString("VALUE");
-			map.put(new Locale(locale), value);
+			Locales l = new Locales();
+			l.setId(rs.getInt("ID"));
+			l.setName(rs.getString("NAME"));
+			l.setValue(rs.getString("VALUE"));
+			holder.add(l);
 		}
-		return map;
+		return holder;
 	}
 }

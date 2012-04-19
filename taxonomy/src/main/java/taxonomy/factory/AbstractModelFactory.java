@@ -18,10 +18,14 @@
  */
 package taxonomy.factory;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import taxonomy.db.TaxonomyConnector;
+import taxonomy.model.Family;
 import taxonomy.model.IModel;
 
 /**
@@ -50,4 +54,29 @@ abstract class AbstractModelFactory<T extends IModel> implements IModelFactory<T
    public List<T> getAll() throws SQLException {
    	return getModelsFromRange(0, 20);
    }
+   
+   public T getModelById(String id) throws SQLException
+   {
+   	String table = getClass().getSimpleName().substring(0, getClass().getSimpleName().indexOf("ModelFactory"));
+   	ResultSet result = connector.select("Select * from [" + table + "] where ID = " +id);
+      return mapToModel(result);
+   }
+
+   public List<T> getModelsFromRange(int from, int to) throws SQLException
+   {
+   	String table = getClass().getSimpleName().substring(0, getClass().getSimpleName().indexOf("ModelFactory"));
+   	ResultSet rs = connector.select("Select * from [" + table + "] limit " + from + "," + to);
+   	List<T> holder = new ArrayList<T>();
+   	T t = null;
+   	while((t = mapToModel(rs)) != null) {
+   		holder.add(t);
+   	}
+      return holder;
+   }
+
+   public LinkedList<T> getModelsFromRange(int from, int to, String orderBy, AbstractModelFactory.OrderType orderType) throws SQLException
+   {
+      return null;
+   }
+
 }

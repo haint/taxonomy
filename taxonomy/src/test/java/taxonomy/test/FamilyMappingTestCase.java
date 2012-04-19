@@ -30,9 +30,9 @@ import junit.framework.TestCase;
  *
  * Apr 18, 2012
  */
-public class SimpleTestCase extends TestCase {
+public class FamilyMappingTestCase extends TestCase {
 
-	public void testFamilyModel() throws Exception {
+	public void testSelect() throws Exception {
 		FamilyModelFactory factory = (FamilyModelFactory) TaxonomyFactory.getInstance().getFactory(Family.class);
 		assertNotNull(factory);
 		Family family = factory.getModelById("1");
@@ -40,5 +40,6 @@ public class SimpleTestCase extends TestCase {
 		assertEquals(family.getId(), 1);
 		List<Family> list = factory.getAll();
 		assertNotNull(list);
+		assertEquals(list.size(), 20);
 	}
 }

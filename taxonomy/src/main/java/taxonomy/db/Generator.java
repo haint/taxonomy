@@ -100,7 +100,7 @@ public class Generator
 
       for (String s : holder)
       {
-         b.append("INSERT INTO INDEX_ VALUES (NULL, '" + s + "');\n");
+         b.append("INSERT INTO [Index] VALUES (NULL, '" + s + "');\n");
       }
       FileOutputStream os = new FileOutputStream(resourceDir + "insertIndex.sql", false);
       os.write(b.toString().getBytes("UTF-8"));
@@ -122,7 +122,7 @@ public class Generator
          String[] subLine = line.split("/--/");
          String name = subLine[0].substring(subLine[0].indexOf('[') + 1, subLine[0].indexOf(']'));
          String explain = subLine[1].substring(subLine[1].indexOf('[') + 1, subLine[1].indexOf(']'));
-         b.append("INSERT INTO TAG VALUES (NULL, '" + name + "', '" + explain + "');\n");
+         b.append("INSERT INTO [Tag] VALUES (NULL, '" + name + "', '" + explain + "');\n");
       }
       FileOutputStream os = new FileOutputStream(resourceDir + "insertTag.sql", false);
       os.write(b.toString().getBytes("UTF-8"));
@@ -160,9 +160,9 @@ public class Generator
          Util.insertFamilyAndGenus(b, line, table, con);
       }
       String outFile = null;
-      if ("FAMILY".equals(table))
+      if ("[Family]".equals(table))
          outFile = "insertFamily.sql";
-      else if ("GENUS".equals(table))
+      else if ("[Genus]".equals(table))
          outFile = "insertGenus.sql";
       FileOutputStream os = new FileOutputStream(resourceDir + outFile, false);
       os.write(b.toString().getBytes("UTF-8"));
@@ -200,6 +200,7 @@ public class Generator
          String Vie1 = subLine[15];
          String Vie2 = subLine[16];
          String vn_name = buildName(Vie1.substring(2, Vie1.length() - 2).trim(),Vie2.substring(2, Vie2.length() - 2).trim());
+         System.out.println(vn_name);
          String Keyw = subLine[17];
          String Utim = subLine[18];
          String Udat = subLine[19];
@@ -222,13 +223,13 @@ public class Generator
          
          String familyIds = Util.buildFamilyIds(con, Fami, Fam2);
          String indexIds = Util.buildIndexIds(con, Inde);
-         int genusId = Util.buildGenusSpeciesId(con, Genu, Gen2, Gen3, Gsos, Gso2, "GENUS");
-         int specId = Util.buildGenusSpeciesId(con, Spec, Spe2, Spe3, Gsos, Gso2, "SPECIES");
+         int genusId = Util.buildGenusSpeciesId(con, Genu, Gen2, Gen3, Gsos, Gso2, "[Genus]");
+         int specId = Util.buildGenusSpeciesId(con, Spec, Spe2, Spe3, Gsos, Gso2, "[Species]");
          String tagId = buildTagId(con, Keyw);
          String createDate = buildCreateDate(con, Utim, Udat);
-         System.out.println("Insert into [Object] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
+         System.out.println("Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
          con.createStatement().executeUpdate(
-            "Insert into [Object] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
+            "Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
          count++;
       }
       System.out.println("Total lines: " + count);
@@ -290,7 +291,7 @@ public class Generator
       for(int i = 0; i < tags.length; i++) {
          String tag = tags[i].trim();
          tag = tag.replaceAll("\'", "\'\'");
-         ResultSet rs = con.createStatement().executeQuery("Select ID from TAG where Name = '" + tag + "'");
+         ResultSet rs = con.createStatement().executeQuery("Select ID from [Tag] where Name = '" + tag + "'");
          if(rs.next()) 
          {
             if(i > 0) b.append("::");
@@ -298,8 +299,8 @@ public class Generator
          }
          else
          {
-            con.createStatement().executeUpdate("Insert into Tag values(NULL, '" + tag + "', NULL)");
-            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from Tag");
+            con.createStatement().executeUpdate("Insert into [Tag] values(NULL, '" + tag + "', NULL)");
+            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from [Tag]");
             if(i > 0) b.append("::");
             b.append(tmp.getInt(1));
          }
@@ -315,9 +316,9 @@ public class Generator
        Generator.genDataTag(Thread.currentThread().getContextClassLoader().getResourceAsStream("txkeyw_utf8.txt"));
        Generator.genDataGlossary(Thread.currentThread().getContextClassLoader().getResourceAsStream("txglos_utf8.txt"));
        Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txfami_utf8.txt"),
-       "FAMILY");
+       "[Family]");
        Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txgenu_utf8.txt"),
-       "GENUS");
+       "[Genus]");
       Generator.genDataObject(Thread.currentThread().getContextClassLoader().getResourceAsStream("txmain_utf8.txt"));
    }
 }

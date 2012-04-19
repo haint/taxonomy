@@ -20,6 +20,7 @@ package taxonomy.factory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,25 +35,6 @@ import taxonomy.util.LocaleResolver;
  */
 public class FamilyModelFactory extends AbstractModelFactory<Family>
 {
-   @Override
-   public Family getModelById(String id) throws SQLException
-   {
-   	ResultSet result = connector.select("Select * from FAMILY where ID = " +id);
-      return mapToModel(result);
-   }
-
-   @Override
-   public List<Family> getModelsFromRange(int from, int to) throws SQLException
-   {
-      return null;
-   }
-
-   @Override
-   public LinkedList<Family> getModelsFromRange(int from, int to, String orderBy, AbstractModelFactory.OrderType orderType) throws SQLException
-   {
-      return null;
-   }
-
    @Override
    public Family insert(Family model) throws SQLException
    {
@@ -76,6 +58,7 @@ public class FamilyModelFactory extends AbstractModelFactory<Family>
 		if(!result.next()) return null;
 		int id = result.getInt("ID");
 		String kingdom_id = result.getString("KINGDOM_ID");
+		System.out.println(kingdom_id);
 		String name = result.getString("NAME");
 		String locale_ids = result.getString("LOCALE_IDS");
 		String desc = result.getString("DESCRIPTION");

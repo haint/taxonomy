@@ -20,8 +20,6 @@ package taxonomy.factory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
 import taxonomy.model.Kingdom;
 
@@ -32,24 +30,6 @@ import taxonomy.model.Kingdom;
  */
 public class KingdomModelFactory extends AbstractModelFactory<Kingdom>
 {
-   @Override
-   public Kingdom getModelById(String id) throws SQLException
-   {
-      return null;
-   }
-
-   @Override
-   public List<Kingdom> getModelsFromRange(int from, int to) throws SQLException
-   {
-      return null;
-   }
-
-   @Override
-   public LinkedList<Kingdom> getModelsFromRange(int from, int to, String orderBy, AbstractModelFactory.OrderType orderType) throws SQLException
-   {
-      return null;
-   }
-
    @Override
    public Kingdom insert(Kingdom model) throws SQLException
    {
@@ -68,12 +48,8 @@ public class KingdomModelFactory extends AbstractModelFactory<Kingdom>
       return null;
    }
 
-	/**
-	 * @see taxonomy.factory.IModelFactory#mapToModel(java.sql.ResultSet)
-	 */
 	@Override
 	public Kingdom mapToModel(ResultSet result) throws SQLException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

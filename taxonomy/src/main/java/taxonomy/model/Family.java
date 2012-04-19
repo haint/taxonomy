@@ -18,8 +18,10 @@ package taxonomy.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
@@ -37,7 +39,7 @@ public class Family implements IModel
    
    private String name;
    
-   private Map<Locale, String> localeName;
+   private Set<Locales> locales;
    
    private String desc;
    
@@ -84,24 +86,13 @@ public class Family implements IModel
       this.desc = desc;
    }
  
-   public String getLocaleName(Locale locale)
-   {
-      if(localeName == null) return null;
-      return localeName.get(locale);
+   
+   public Iterator<Locales> getLocales() {
+   	return locales.iterator();
    }
    
-   public Iterator<Map.Entry<Locale, String>> getLocales() {
-   	return localeName.entrySet().iterator();
-   }
-   
-   public String setLocaleName(Locale locale, String name)
-   {
-      localeName = new HashMap<Locale, String>();
-      return localeName.put(locale, name);
-   }
-   
-   public void setLocaleName(Map<Locale,String> locales) {
-   	this.localeName = locales;
+   public void setLocaleName(Set<Locales> locales) {
+   	this.locales = locales;
    }
    
    public void setAvatar(String path)

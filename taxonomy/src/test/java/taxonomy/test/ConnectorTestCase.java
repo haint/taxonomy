@@ -37,7 +37,7 @@ public class ConnectorTestCase extends TestCase {
 	}
 
 	public void testSelect() throws Exception {
-		ResultSet result = connector.select("Select * from LOCALES where ID = 114 OR ID = 115 ");
+		ResultSet result = connector.select("Select * from LOCALES limit 0,20");
 		while(result.next()) {
 			for(int i = 1; i < 10; i++) {
 				try {
