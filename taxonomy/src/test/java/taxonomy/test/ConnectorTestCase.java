@@ -17,10 +17,12 @@
  */
 package taxonomy.test;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
-import taxonomy.db.TaxonomyConnector;
 import junit.framework.TestCase;
 
 /**
@@ -30,14 +32,14 @@ import junit.framework.TestCase;
  * Apr 18, 2012
  */
 public class ConnectorTestCase extends TestCase {
-	private TaxonomyConnector connector;
-	
-	public ConnectorTestCase() throws Exception {
-		connector = new TaxonomyConnector();
-	}
 
 	public void testSelect() throws Exception {
-		ResultSet result = connector.select("Select * from LOCALES limit 0,20");
+		Properties properties = new Properties();
+		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		Class.forName(properties.getProperty("driver"));
+		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
+		
+		ResultSet result = con.createStatement().executeQuery(("Select * from LOCALES limit 0,20"));
 		while(result.next()) {
 			for(int i = 1; i < 10; i++) {
 				try {
@@ -48,5 +50,7 @@ public class ConnectorTestCase extends TestCase {
 				}
 			}
 		}
+		result.close();
+		con.close();
 	}
 }

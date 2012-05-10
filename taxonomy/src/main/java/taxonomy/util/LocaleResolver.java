@@ -17,13 +17,13 @@
  */
 package taxonomy.util;
 
-import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 
-import taxonomy.db.TaxonomyConnector;
-import taxonomy.model.Family;
 import taxonomy.model.Locale;
 
 /**
@@ -38,8 +38,13 @@ public class LocaleResolver {
 		if(locale_ids == null || locale_ids.trim().isEmpty()) return null;
 		Set<Locale> holder = new HashSet<Locale>();
 		String condition = locale_ids.replaceAll("::", " OR ID = ");
-		TaxonomyConnector connector = new TaxonomyConnector();
-		ResultSet rs = connector.select("Select * from LOCALES where ID = " + condition);
+		
+		Properties properties = new Properties();
+		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		Class.forName(properties.getProperty("driver"));
+		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
+		
+		ResultSet rs = con.createStatement().executeQuery(("Select * from LOCALES where ID = " + condition));
 		while(rs.next()) {
 			Locale l = new Locale();
 			l.setId(rs.getInt("ID"));
@@ -47,6 +52,8 @@ public class LocaleResolver {
 			l.setValue(rs.getString("VALUE"));
 			holder.add(l);
 		}
+		rs.close();
+		con.close();
 		return holder;
 	}
 }

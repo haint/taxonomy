@@ -63,20 +63,20 @@ public class Main
          InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("createTable.sql");
          statement.executeUpdate(getStringFromInputStream(is));
          
-//         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertIndex.sql");
-//         statement.executeUpdate(getStringFromInputStream(is));
+         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertIndex.sql");
+         statement.executeUpdate(getStringFromInputStream(is));
+         
+         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertTag.sql");
+         statement.executeUpdate(getStringFromInputStream(is));
+         
+         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGlossary.sql");
+         statement.executeUpdate(getStringFromInputStream(is));
+         
+         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertFamily.sql");
+         statement.executeUpdate(getStringFromInputStream(is));  
 //         
-//         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertTag.sql");
-//         statement.executeUpdate(getStringFromInputStream(is));
-//         
-//         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGlossary.sql");
-//         statement.executeUpdate(getStringFromInputStream(is));
-//         
-//         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertFamily.sql");
-//         statement.executeUpdate(getStringFromInputStream(is));  
-//         
-//         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGenus.sql");
-//         statement.executeUpdate(getStringFromInputStream(is));
+         is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGenus.sql");
+         statement.executeUpdate(getStringFromInputStream(is));
       }
       catch (SQLException ex)
       {
