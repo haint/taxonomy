@@ -17,18 +17,15 @@
  */
 package taxonomy.test;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Properties;
-
-import org.hsqldb.lib.InOutUtil;
+import java.util.Set;
 
 import junit.framework.TestCase;
-import sun.misc.IOUtils;
 import taxonomy.model.Family;
 import taxonomy.model.Kingdom;
 import taxonomy.model.Locale;
@@ -93,11 +90,29 @@ public class FamilyORMTestCase extends TestCase {
 
 		f.setAvatar("avatar");
 		f.setDescription("description");
+		
+		Iterator<Locale> i = f.getLocales();
+		Set<Locale> holder = new HashSet<Locale>();
+		int foo = 0;
+		while(i.hasNext()) {
+			Locale locale = i.next();
+			foo += locale.getId();
+			locale.setId(locale.getId() + 1);
+			holder.add(locale);
+		}
+		f.setLocaleName(holder);
 		ORMTools.update(f, "kingdom", "avatar", "description", "locales");
 		f = (Family)ORMTools.map(Family.class, 1);
 		assertNotNull(f);
 		assertEquals(f.getId(), 1);
 		assertEquals(f.getAvatar(), "avatar");
 		assertEquals(f.getDescription(), "description");
+		
+		i = f.getLocales();
+		int bar = 0;
+		while(i.hasNext()) {
+			bar += i.next().getId();
+		}
+		assertEquals(foo + 2, bar);
 	}
 }
