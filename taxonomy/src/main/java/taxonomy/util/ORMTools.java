@@ -15,7 +15,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.test.annotation;
+package taxonomy.util;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -34,7 +34,7 @@ import taxonomy.annotation.ManyToOne;
 import taxonomy.annotation.OneToMany;
 import taxonomy.annotation.OneToOne;
 import taxonomy.annotation.Table;
-import taxonomy.model.IModel;
+import taxonomy.model.Model;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -44,7 +44,7 @@ import taxonomy.model.IModel;
  */
 public class ORMTools {
 
-	public static void insert(IModel model) throws Exception {
+	public static void insert(Model model) throws Exception {
 		Properties properties = new Properties();
 		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
 		Class.forName(properties.getProperty("driver"));
@@ -65,10 +65,10 @@ public class ORMTools {
 			if (foo != null) {
 				Object value = m.invoke(model, new Object[]{});
 				if(value == null) continue;
-				holder.put(foo.value(), value instanceof IModel ? ((IModel) value).getId() : value);
+				holder.put(foo.value(), value instanceof Model ? ((Model) value).getId() : value);
 			}
 			else if (bar != null) {
-				Iterator<IModel> i = (Iterator<IModel>)m.invoke(model, new Object[]{});
+				Iterator<Model> i = (Iterator<Model>)m.invoke(model, new Object[]{});
 				if (i == null)
 					continue;
 
@@ -112,7 +112,7 @@ public class ORMTools {
 		return b.toString();
 	}
 
-	public static void update(IModel model, String... args) throws Exception {
+	public static void update(Model model, String... args) throws Exception {
 		Properties properties = new Properties();
 		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
 		Class.forName(properties.getProperty("driver"));
@@ -136,10 +136,10 @@ public class ORMTools {
 				ManyToOne bar = m.getAnnotation(ManyToOne.class);
 				if (foo != null) {
 					Object obj = m.invoke(model, new Object[]{});
-					holder.put(foo.value(), obj instanceof IModel ? ((IModel)obj).getId() : obj);
+					holder.put(foo.value(), obj instanceof Model ? ((Model)obj).getId() : obj);
 				}
 				else if (bar != null) {
-					Iterator<IModel> iterator = (Iterator<IModel>)m.invoke(model, new Object[]{});
+					Iterator<Model> iterator = (Iterator<Model>)m.invoke(model, new Object[]{});
 					StringBuilder b = new StringBuilder();
 					while (iterator.hasNext()) {
 						b.append(iterator.next().getId()).append("::");
@@ -166,8 +166,8 @@ public class ORMTools {
 		con.close();
 	}
 
-	public static IModel map(Class<?> clazz, ResultSet rs) throws Exception {
-		IModel obj = (IModel)clazz.newInstance();
+	public static Model map(Class<?> clazz, ResultSet rs) throws Exception {
+		Model obj = (Model)clazz.newInstance();
 		Method[] methods = clazz.getMethods();
 		for (Method m : methods) {
 			if (!m.getName().startsWith("set"))
@@ -178,19 +178,18 @@ public class ORMTools {
 				Object value = rs.getObject(foo.value());
 				Class<?> param = m.getParameterTypes()[0];
 				if (param.getAnnotation(Table.class) != null) {
-					IModel model = map(param, (Integer)value);
+					Model model = map(param, (Integer)value);
 					m.invoke(obj, model);
-				}
-				else {
+				} else {
 					m.invoke(obj, value);
 				}
 			}
 			else if ((bar = m.getAnnotation(OneToMany.class)) != null) {
 				String value = rs.getString(bar.field());
-				Set<IModel> holder = new HashSet<IModel>();
+				Set<Model> holder = new HashSet<Model>();
 				String[] ids = value.split("::");
 				for (String id : ids) {
-					IModel model = map(bar.model(), Integer.parseInt(id.trim()));
+					Model model = map(bar.model(), Integer.parseInt(id.trim()));
 					holder.add(model);
 				}
 				m.invoke(obj, holder);
@@ -199,7 +198,7 @@ public class ORMTools {
 		return obj;
 	}
 
-	public static IModel map(Class<?> clazz, int id) throws Exception {
+	public static Model map(Class<?> clazz, int id) throws Exception {
 		Properties properties = new Properties();
 		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
 		Class.forName(properties.getProperty("driver"));
@@ -209,7 +208,7 @@ public class ORMTools {
 
 		String table = clazz.getAnnotation(Table.class).value();
 		ResultSet rs = con.createStatement().executeQuery(("Select * from " + table + " where ID = " + id));
-		IModel model = map(clazz, rs);
+		Model model = map(clazz, rs);
 		con.close();
 		return model;
 	}

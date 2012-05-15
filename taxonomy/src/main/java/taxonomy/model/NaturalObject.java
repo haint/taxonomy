@@ -16,196 +16,244 @@
  */
 package taxonomy.model;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import taxonomy.annotation.ManyToOne;
+import taxonomy.annotation.OneToMany;
+import taxonomy.annotation.OneToOne;
+import taxonomy.annotation.Table;
+
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
- *
+ * 
  * @datOct 4, 2011
  */
-public class NaturalObject implements IModel
-{
 
-   private static final long serialVersionUID = 5736627780873122909L;
-   
-   private int id;
-   
-   private Kingdom king;
-   
-   private Set<Family> families;
-   
-   private Genus genus;
-   
-   private Species species;
-   
-   private Set<Index> indecies;
-   
-   private Set<Tag> tags;
-   
-   private Set<String> enNames;
-   
-   private Set<String> vnNames;
-   
-   private Date createDate;
-   
-   private Date modifyDate;
-   
-   private String references;
-   
-   private String desc;
-   
-   private String avatar;
+@Table("[NaturalObject]")
+public class NaturalObject extends Model<NaturalObject> {
 
-   public int getId()
-   {
-      return id;
-   }
-   
-   public void setId(int id)
-   {
-      this.id = id;
-   }
-   
-   public Kingdom getKingdom() 
-   {
-      return king;
-   }
-   
-   public void setKingdom(Kingdom king)
-   {
-      this.king = king;
-   }
-   
-   public Iterator<Family> getFamilyIterator()
-   {
-      if(families == null) families = new HashSet<Family>();
-      return families.iterator();
-   }
-   
-   public void addFamily(Family family)
-   {
-      if(families == null) families = new HashSet<Family>();
-      families.add(family);
-   }
-   
-   public Genus getGenus()
-   {
-      return genus;
-   }
-   
-   public void setGenus(Genus genus)
-   {
-      this.genus = genus;
-   }
-   
-   public Species getSpecies()
-   {
-      return species;
-   }
-   
-   public void setSpecies(Species sp)
-   {
-      this.species = sp;
-   }
-   
-   public Iterator<Index> getIndeciesIterator()
-   {
-      if(indecies == null) indecies = new HashSet<Index>();
-      return indecies.iterator();
-   }
-   
-   public void addIndex(Index index) 
-   {
-      if(indecies == null) indecies = new HashSet<Index>();
-      indecies.add(index);
-   }
-   
-   public Iterator<Tag> getTagIterator()
-   {
-      if(tags == null) tags = new HashSet<Tag>();
-      return tags.iterator();
-   }
-   
-   public void addTag(Tag tag)
-   {
-      if(tags == null) tags = new HashSet<Tag>();
-      tags.add(tag);
-   }
-   
-   public void addEnName(String name)
-   {
-      if(enNames == null) enNames = new HashSet<String>();
-      enNames.add(name);
-   }
-   
-   public Iterator<String> getEnNameIterator()
-   {
-      if(enNames == null) enNames = new HashSet<String>();
-      return enNames.iterator();
-   }
-   
-   public void addVnName(String name)
-   {
-      if(vnNames == null) vnNames = new HashSet<String>();
-      vnNames.add(name);
-   }
-   
-   public Iterator<String> getVnNameIterator()
-   {
-      if(vnNames == null) vnNames = new HashSet<String>();
-      return vnNames.iterator();
-   }
+	private static final long serialVersionUID = 5736627780873122909L;
 
-   public Date getCreateDate()
-   {
-      return createDate;
-   }
+	private Kingdom king;
 
-   public void setCreateDate(Date createDate)
-   {
-      this.createDate = createDate;
-   }
+	private Set<Family<?>> families;
 
-   public Date getModifyDate()
-   {
-      return modifyDate;
-   }
+	private Genus genus;
 
-   public void setModifyDate(Date modifyDate)
-   {
-      this.modifyDate = modifyDate;
-   }
-   
-   public String getReferences()
-   {
-      return references;
-   }
-   
-   public void setReferences(String references)
-   {
-      this.references = references;
-   }
+	private Species species;
 
-   public String getDesc()
-   {
-      return desc;
-   }
+	private Set<Index> indecies;
 
-   public void setDesc(String desc)
-   {
-      this.desc = desc;
-   }
-   
-   public String getAvatar() 
-   {
-      return avatar;
-   }
-   
-   public void setAvatar(String path)
-   {
-      this.avatar = path;
-   }
+	private Set<Tag> tags;
+
+	private Set<String> enNames;
+
+	private Set<String> vnNames;
+
+	private Date createDate;
+
+	private Date modifyDate;
+
+	private String references;
+
+	private String desc;
+
+	private String avatar;
+
+	@OneToOne("KINGDOM_ID")
+	public Kingdom getKingdom() {
+		return king;
+	}
+
+	@OneToOne("KINGDOM_ID")
+	public void setKingdom(Kingdom king) {
+		this.king = king;
+	}
+
+	@ManyToOne(field = "FAMILY_IDS", model = Family.class)
+	public Iterator<Family<?>> getFamilies() {
+		if (families == null)
+			return null;
+		return families.iterator();
+	}
+
+	public void addFamily(Family<?> family) {
+		if (families == null)
+			families = new HashSet<Family<?>>();
+		families.add(family);
+	}
+
+	@OneToOne("GENUS_ID")
+	public Genus getGenus() {
+		return genus;
+	}
+
+	@OneToOne("GENUS_ID")
+	public void setGenus(Genus genus) {
+		this.genus = genus;
+	}
+
+	@OneToOne("SPECIES_ID")
+	public Species getSpecies() {
+		return species;
+	}
+
+	@OneToOne("SPECIES_ID")
+	public void setSpecies(Species sp) {
+		this.species = sp;
+	}
+
+	@OneToMany(field = "INDEX_IDS", model = Index.class)
+	public Iterator<Index> getIndecies() {
+		if (indecies == null)
+			return null;
+		return indecies.iterator();
+	}
+
+	@ManyToOne(field = "INDEX_IDS", model = Index.class)
+	public void setIndecies(Set<Index> indecies) {
+		this.indecies = indecies;
+	}
+
+	public void addIndex(Index index) {
+		if (indecies == null)
+			indecies = new HashSet<Index>();
+		indecies.add(index);
+	}
+
+	@OneToMany(field = "TAG_IDS", model = Tag.class)
+	public Iterator<Tag> getTags() {
+		if (tags == null)
+			return null;
+		return tags.iterator();
+	}
+
+	@ManyToOne(field = "TAG_IDS", model = Tag.class)
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public void addTag(Tag tag) {
+		if (tags == null)
+			tags = new HashSet<Tag>();
+		tags.add(tag);
+	}
+
+	public Iterator<String> getEnNameIterator() {
+		if (enNames == null)
+			enNames = new HashSet<String>();
+		return enNames.iterator();
+	}
+
+	@OneToOne("EN_NAMES")
+	public void setEnName(String s) {
+		if (enNames == null)
+			enNames = new HashSet<String>();
+		String[] arr = s.split("::");
+		Collections.addAll(enNames, arr);
+	}
+
+	@OneToOne("EN_NAMES")
+	public String getEnNames() {
+		if (enNames == null)
+			return null;
+		StringBuilder b = new StringBuilder();
+		Iterator<String> i = enNames.iterator();
+		while (i.hasNext()) {
+			b.append(i.next()).append("::");
+		}
+		return b.toString().substring(0, b.toString().length() - 2);
+	}
+
+	public void addEnName(String name) {
+		if (enNames == null)
+			enNames = new HashSet<String>();
+		enNames.add(name);
+	}
+
+	public Iterator<String> getVnNameIterator() {
+		if (vnNames == null)
+			vnNames = new HashSet<String>();
+		return vnNames.iterator();
+	}
+
+	@OneToOne("VN_NAMES")
+	public void setVnName(String s) {
+		if (vnNames == null)
+			vnNames = new HashSet<String>();
+		String[] arr = s.split("::");
+		Collections.addAll(vnNames, arr);
+	}
+
+	@OneToOne("VN_NAMES")
+	public String getVnNames() {
+		if (vnNames == null)
+			return null;
+		StringBuilder b = new StringBuilder();
+		Iterator<String> i = vnNames.iterator();
+		while (i.hasNext()) {
+			b.append(i.next()).append("::");
+		}
+		return b.toString().substring(0, b.toString().length() - 2);
+	}
+
+	public void addVnName(String name) {
+		if (vnNames == null)
+			vnNames = new HashSet<String>();
+		vnNames.add(name);
+	}
+
+	@OneToOne("CREATE_DATE")
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	@OneToOne("CREATE_DATE")
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	@OneToOne("MODIFY_DATE")
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+	@OneToOne("MODIFY_DATE")
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+	@OneToOne("REFERENCE")
+	public String getReferences() {
+		return references;
+	}
+
+	@OneToOne("REFERENCE")
+	public void setReferences(String references) {
+		this.references = references;
+	}
+
+	@OneToOne("DES")
+	public String getDesc() {
+		return desc;
+	}
+
+	@OneToOne("DES")
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	@OneToOne("AVATAR")
+	public String getAvatar() {
+		return avatar;
+	}
+
+	@OneToOne("AVATAR")
+	public void setAvatar(String path) {
+		this.avatar = path;
+	}
 }

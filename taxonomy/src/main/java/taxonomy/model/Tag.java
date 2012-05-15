@@ -16,56 +16,45 @@
  */
 package taxonomy.model;
 
+import taxonomy.annotation.OneToOne;
+import taxonomy.annotation.Table;
+
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
  * @datOct 3, 2011
  */
-public class Tag implements IModel
+@Table("[Tag]")
+public class Tag extends Model<Tag>
 {
 
    private static final long serialVersionUID = -8020436895534685813L;
-   
-   private int id;
    
    private String name;
    
    private String explain;
    
-   public int getId()
-   {
-      return id;
-   }
-   
-   public void setId(int id) 
-   {
-      this.id = id;
-   }
-   
+   @OneToOne("NAME")
    public String getName() 
    {
       return name;
    }
    
+   @OneToOne("NAME")
    public void setName(String name) 
    {
       this.name = name;
    }
    
+   @OneToOne("EXPLAINTION")
    public String getExplaintion()
    {
       return explain;
    }
    
+   @OneToOne("EXPLAINTION")
    public void setExplaintion(String explain) 
    {
       this.explain = explain;
-   }
-   
-   public boolean equals(Object obj)
-   {
-      Tag other = (Tag) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
    }
 }

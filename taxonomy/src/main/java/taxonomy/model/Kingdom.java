@@ -25,30 +25,15 @@ import taxonomy.annotation.Table;
  * @datOct 3, 2011
  */
 @Table("[Kingdom]")
-public class Kingdom implements IModel
+public class Kingdom extends Model<Kingdom>
 {
 
    private static final long serialVersionUID = -3380120455488706079L;
 
-   private Integer id;
-   
    private String name;
    
    private String code;
 
-   @OneToOne("ID")
-   public Integer getId()
-   {
-      return id;
-   }
-
-   @OneToOne("ID")
-   public Kingdom setId(Integer id)
-   {
-      this.id = id;
-      return this;
-   }
-   
    @OneToOne("NAME")
    public String getName()
    {
@@ -71,12 +56,5 @@ public class Kingdom implements IModel
    public void setCode(String code)
    {
       this.code = code;
-   }
-   
-   public boolean equals(Object obj)
-   {
-      Kingdom other = (Kingdom) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
    }
 }

@@ -15,22 +15,40 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.test.annotation;
+package taxonomy.test;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.reflect.Method;
+import java.util.Set;
+
+import junit.framework.TestCase;
+
+import taxonomy.annotation.OneToOne;
+import taxonomy.test.model.MockModel;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
- * Apr 19, 2012
+ * May 15, 2012
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Fields {
-	String value();
-	Class<?> mapTo();
+public class ModelTestCase extends TestCase {
+
+	public void testMapStringToSet() {
+		MockModel mock = new MockModel("foo", "bar", "juu");
+		mockMapTools(mock);
+	}
+	
+	private void mockMapTools(MockModel mock) {
+		Method[] methods = mock.getClass().getMethods();
+		for(Method m : methods) {
+			OneToOne foo = m.getAnnotation(OneToOne.class);
+			if(foo != null) {
+				Class<?> returnType = m.getReturnType();
+				Class<?> param = m.getParameterTypes()[0];
+				System.out.println(returnType.getName());
+				System.out.println(param.getName());
+				System.out.println(Set.class.getName());
+			}
+		}
+	}
 }

@@ -20,6 +20,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import taxonomy.annotation.ManyToOne;
+import taxonomy.annotation.OneToMany;
 import taxonomy.annotation.Table;
 
 /**
@@ -28,7 +30,7 @@ import taxonomy.annotation.Table;
  * @datOct 3, 2011
  */
 @Table("[Genus]")
-public class Genus extends Family
+public class Genus extends Family<Genus>
 {
    private static final long serialVersionUID = -8073066850805682441L;
    
@@ -40,16 +42,15 @@ public class Genus extends Family
       this.variant.add(variant);
    }
    
+   @OneToMany(field = "VARIANT_IDS", model = Variant.class)
+   public void setVariants(Set<Variant> variant) {
+   	this.variant = variant;
+   }
+   
+   @ManyToOne(field = "VARIANT_IDS", model = Variant.class)
    public Iterator<Variant> getVariantIterator()
    {
       if(this.variant == null) variant = new HashSet<Variant>();
       return variant.iterator();
-   }
-   
-   public boolean equals(Object obj)
-   {
-      Genus other = (Genus) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
    }
 }

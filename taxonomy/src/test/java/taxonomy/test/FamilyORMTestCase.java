@@ -30,8 +30,8 @@ import junit.framework.TestCase;
 import taxonomy.model.Family;
 import taxonomy.model.Kingdom;
 import taxonomy.model.Locale;
-import taxonomy.test.annotation.ORMTools;
 import taxonomy.util.LocaleResolver;
+import taxonomy.util.ORMTools;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>

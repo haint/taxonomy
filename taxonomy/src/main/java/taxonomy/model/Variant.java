@@ -18,54 +18,42 @@
  */
 package taxonomy.model;
 
-public class Variant implements IModel
+import taxonomy.annotation.OneToOne;
+import taxonomy.annotation.Table;
+
+@Table("[Variant]")
+public class Variant extends Model<Variant>
 {
    private static final long serialVersionUID = -3236544642574185057L;
    
-   private int id;
-   
    private String value;
    
-   public static enum Type {
-      OLD, SYNONYM
-   }
+   private Integer type;
    
-   private Type type;
+   public static Integer SYNONYM = 1;
+   public static Integer OLD = 2;
    
-   public void setId(int id)
-   {
-      this.id = id;
-   }
-
-   public int getId()
-   {
-      return id;
-   }
-   
+   @OneToOne("VALUE")
    public void setValue(String value)
    {
       this.value = value;
    }
    
+   @OneToOne("VALUE")
    public String getValue()
    {
       return value;
    }
    
-   public void setType(Type type)
+   @OneToOne("TYPE")
+   public void setType(Integer type)
    {
       this.type = type;
    }
    
-   public String getType()
+   @OneToOne("TYPE")
+   public Integer getType()
    {
-      return type.toString();
-   }
-   
-   public boolean equals(Object obj)
-   {
-      Variant other = (Variant) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
+      return type;
    }
 }

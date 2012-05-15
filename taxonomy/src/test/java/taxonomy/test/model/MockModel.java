@@ -15,22 +15,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.test.annotation;
+package taxonomy.test.model;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import taxonomy.annotation.OneToOne;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
- * Apr 19, 2012
+ * May 15, 2012
  */
-
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Field {
-	String value();
+public class MockModel {
+	
+	private Set<String> values;
+	
+	public MockModel(String ... values) {
+		this.values = new HashSet<String>();
+		Collections.addAll(this.values, values);
+	}
+	
+	@OneToOne("Mock")
+	public Set<String> setValues(String v) {
+		String[] arr = v.split("::");
+		Collections.addAll(values, arr);
+		return values;
+	}
+	
+	public Set<String> getValues() {
+		return values;
+	}
 }

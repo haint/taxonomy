@@ -24,27 +24,14 @@ import taxonomy.annotation.Table;
  * Apr 19, 2012  
  */
 @Table("Locales")
-public class Locale implements IModel {
+public class Locale extends Model<Locale> {
 
 	private static final long	serialVersionUID	= 2378720725851305514L;
-	
-	private Integer id;
 	
 	private String name;
 	
 	private String value;
 	
-	@OneToOne("ID")
-	public Locale setId(Integer id) {
-		this.id = id;
-		return this;
-	}
-
-	@OneToOne("ID")
-	public Integer getId() {
-		return id;
-	}
-
 	@OneToOne("NAME")
 	public void setName(String name) {
 		this.name = name;

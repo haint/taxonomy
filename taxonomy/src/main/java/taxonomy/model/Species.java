@@ -20,40 +20,37 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import taxonomy.annotation.ManyToOne;
+import taxonomy.annotation.OneToMany;
+import taxonomy.annotation.OneToOne;
+import taxonomy.annotation.Table;
+
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
  * @datOct 5, 2011
  */
-public class Species implements IModel
+
+@Table("[Species]")
+public class Species extends Model<Species>
 {
    /**
     * 
     */
    private static final long serialVersionUID = 7786592453483689955L;
 
-   private int id;
-   
    private String name;
    
-   private Set<Variant> specs;
+   private Set<Variant> variant;
    
-   public void setId(int id)
-   {
-      this.id = id;
-   }
-   
-   public int getId()
-   {
-      return id;
-   }
-   
+   @OneToOne("NAME")
    public void setName(String name)
    {
       this.name = name;
    }
    
+   @OneToOne("NAME")
    public String getName()
    {
       return name;
@@ -61,20 +58,19 @@ public class Species implements IModel
    
    public void addVariant(Variant variant)
    {
-      if(this.specs == null) specs = new HashSet<Variant>();
-      specs.add(variant);
+      if(this.variant == null) this.variant = new HashSet<Variant>();
+      this.variant.add(variant);
    }
    
-   public Iterator<Variant> getSpecIterator()
-   {
-      if(this.specs == null) specs = new HashSet<Variant>();
-      return specs.iterator();
+   @OneToMany(field = "VARIANT_IDS", model = Variant.class)
+   public void setVariants(Set<Variant> variant) {
+   	this.variant = variant;
    }
    
-   public boolean equals(Object obj)
+   @ManyToOne(field = "VARIANT_IDS", model = Variant.class)
+   public Iterator<Variant> getVariantIterator()
    {
-      Species other = (Species) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
+      if(this.variant == null) variant = new HashSet<Variant>();
+      return variant.iterator();
    }
 }

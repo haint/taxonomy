@@ -31,12 +31,10 @@ import taxonomy.annotation.Table;
  * @datOct 3, 2011
  */
 @Table("[Family]")
-public class Family implements IModel
+public class Family<T extends Family<T>> extends Model<Family<T>>
 {
 
    private static final long serialVersionUID = -7257088502916236613L;
-   
-   private Integer id;
    
    private Kingdom king;
    
@@ -49,19 +47,6 @@ public class Family implements IModel
    private String avartar;
    
 
-   @OneToOne("ID")
-   public Integer getId() 
-   {
-      return id;
-   }
-   
-   @OneToOne("ID")
-   public Family setId(Integer id)
-   {
-      this.id = id;
-      return this;
-   }
-   
    @OneToOne("KINGDOM_ID")
    public Kingdom getKingdom()
    {
@@ -123,12 +108,5 @@ public class Family implements IModel
    public String getAvatar()
    {
       return avartar;
-   }
-   
-   public boolean equals(Object obj)
-   {
-      Family other = (Family) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
    }
 }

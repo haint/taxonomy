@@ -16,85 +16,81 @@
  */
 package taxonomy.model;
 
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map;
+import java.util.Set;
+
+import taxonomy.annotation.ManyToOne;
+import taxonomy.annotation.OneToMany;
+import taxonomy.annotation.OneToOne;
+import taxonomy.annotation.Table;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
  * @datOct 3, 2011
  */
-public class Glossary implements IModel
+@Table("[Glossary]")
+public class Glossary extends Model<Glossary>
 {
    private static final long serialVersionUID = 4239408774009926225L;
    
-   private int id;
-   
-   private String term;
+   private String name;
    
    private String explain;
    
    private String example;
    
-   private Map<Locale, String> localeTerm;
+   private Set<Locale> locales;
 
-   public int getId()
-   {
-      return id;
-   }
-
-   public void setId(int id)
-   {
-      this.id = id;
-   }
-
-   public String getTerm()
-   {
-      return term;
-   }
-
-   public void setTerm(String term)
-   {
-      this.term = term;
+   @OneToOne("NAME")
+   public void setName(String name) {
+   	this.name = name;
    }
    
+   @OneToOne("NAME")
+   public String getName() {
+   	return name;
+   }
+
+   @OneToOne("EXPLAINTION")
    public String getExplaintion() 
    {
       return explain;
    }
    
+   @OneToOne("EXPLAINTION")
    public void setExplaintion(String explain)
    {
       this.explain = explain;
    }
    
+   @OneToOne("EXAMPLE")
    public String getExample()
    {
       return example;
    }
    
+   @OneToOne("EXAMPLE")
    public void setExample(String example)
    {
       this.example = example;
    }
    
-   public String getLocaleName(Locale locale)
-   {
-      if(localeTerm == null) return null;
-      return localeTerm.get(locale);
+   @OneToMany(field = "LOCALE_IDS", model = Locale.class)
+   public void setLocales(Set<Locale> locales) {
+   	this.locales = locales;
    }
    
-   public String setLocaleName(Locale locale, String name)
-   {
-      if(localeTerm == null) localeTerm = new HashMap<Locale, String>();
-      return localeTerm.put(locale, name);
+   @ManyToOne(field = "LOCALE_IDS", model = Locale.class)
+   public Iterator<Locale> getLocales() {
+   	if(locales == null) return null;
+   	return locales.iterator();
    }
    
-   public boolean equals(Object obj)
-   {
-      Glossary other = (Glossary) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
+   public void addLocale(Locale locale) {
+   	if(locales == null) locales = new HashSet<Locale>();
+   	locales.add(locale);
    }
 }

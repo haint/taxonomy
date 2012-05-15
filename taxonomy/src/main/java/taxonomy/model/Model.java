@@ -18,13 +18,34 @@ package taxonomy.model;
 
 import java.io.Serializable;
 
+import taxonomy.annotation.OneToOne;
+
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  * 
  * @datOct 3, 2011
  */
-public interface IModel extends Serializable {
-	public IModel setId(Integer id);
-
-	public Integer getId();
+public abstract class Model<T extends Model> implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	protected Integer id;
+	
+	@OneToOne("ID")
+	public T setId(Integer id) {
+		this.id = id;
+		return (T) this;
+	}
+	
+	@OneToOne("ID")
+	public Integer getId() {
+		return id;
+	}
+	
+	 public boolean equals(Object obj)
+	   {
+	      Model<?> other = (Model<?>) obj;
+	      if(this.getId() == other.getId()) return true;
+	      return false;
+	   }
 }
