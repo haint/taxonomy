@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -44,15 +45,81 @@ import taxonomy.model.IModel;
 public class ORMTools {
 
 	public static void insert(IModel model) throws Exception {
+		Properties properties = new Properties();
+		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		Class.forName(properties.getProperty("driver"));
+		Connection con =
+			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
+				properties.getProperty("password"));
+		Table table = model.getClass().getAnnotation(Table.class);
 
+		Map<String, Object> holder = new HashMap<String, Object>();
+		Method[] methods = model.getClass().getMethods();
+		for (Method m : methods) {
+			if (!m.getName().startsWith("get"))
+				continue;
+
+			OneToOne foo = m.getAnnotation(OneToOne.class);
+			ManyToOne bar = m.getAnnotation(ManyToOne.class);
+
+			if (foo != null) {
+				Object value = m.invoke(model, new Object[]{});
+				if(value == null) continue;
+				holder.put(foo.value(), value instanceof IModel ? ((IModel) value).getId() : value);
+			}
+			else if (bar != null) {
+				Iterator<IModel> i = (Iterator<IModel>)m.invoke(model, new Object[]{});
+				if (i == null)
+					continue;
+
+				StringBuilder b = new StringBuilder();
+				while (i.hasNext()) {
+					b.append(i.next().getId()).append("::");
+				}
+				holder.put(bar.field(), b.toString().substring(0, b.toString().length() - 2));
+			}
+			else
+				continue;
+		}
+		if(holder.size() == 0) return;
+		
+		StringBuilder b = new StringBuilder();
+		b.append("Insert into ").append(buildValues(table.value(), holder));
+		System.out.println(b.toString());
+		con.createStatement().executeUpdate(b.toString());
+		con.close();
+	}
+
+	private static String buildValues(String table, Map<String, Object> values) {
+		StringBuilder b = new StringBuilder();
+		b.append(table).append("(");
+
+		LinkedList<String> keys = new LinkedList<String>(values.keySet());
+		for (int i = 0; i < keys.size(); i++) {
+			b.append(keys.get(i));
+			if (i < keys.size() - 1)
+				b.append(",");
+		}
+		b.append(") values (");
+
+		LinkedList<Object> v = new LinkedList<Object>(values.values());
+		for (int i = 0; i < v.size(); i++) {
+			b.append("'").append(v.get(i)).append("'");
+			if (i < v.size() - 1)
+				b.append(",");
+		}
+		b.append(")");
+		return b.toString();
 	}
 
 	public static void update(IModel model, String... args) throws Exception {
 		Properties properties = new Properties();
 		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
 		Class.forName(properties.getProperty("driver"));
-		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
-		
+		Connection con =
+			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
+				properties.getProperty("password"));
+
 		Method[] methods = model.getClass().getMethods();
 		Set<String> fields = new HashSet<String>();
 		Map<String, Object> holder = new HashMap<String, Object>();
@@ -64,7 +131,7 @@ public class ORMTools {
 		for (Method m : methods) {
 			if (!m.getName().startsWith("get"))
 				continue;
-			else if (fields.contains(m.getName().toLowerCase().substring(3))) {
+			if (fields.contains(m.getName().toLowerCase().substring(3))) {
 				OneToOne foo = m.getAnnotation(OneToOne.class);
 				ManyToOne bar = m.getAnnotation(ManyToOne.class);
 				if (foo != null) {
@@ -83,18 +150,18 @@ public class ORMTools {
 					throw new IllegalStateException();
 			}
 		}
-		
+
 		StringBuilder b = new StringBuilder();
 		b.append("UPDATE ").append(table.value()).append(" SET ");
-		Iterator<Map.Entry<String, Object>> iterator =holder.entrySet().iterator();
+		Iterator<Map.Entry<String, Object>> iterator = holder.entrySet().iterator();
 		StringBuilder sb = new StringBuilder();
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			Map.Entry<String, Object> entry = iterator.next();
 			sb.append(entry.getKey()).append(" = '").append(entry.getValue()).append("'").append(",");
 		}
-		b.append(sb.toString().substring(0, sb.toString().length() -1));
+		b.append(sb.toString().substring(0, sb.toString().length() - 1));
 		b.append(" WHERE ID = ").append(id);
-//		System.out.println(b.toString());
+		// System.out.println(b.toString());
 		con.createStatement().executeUpdate(b.toString());
 		con.close();
 	}
@@ -136,11 +203,13 @@ public class ORMTools {
 		Properties properties = new Properties();
 		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
 		Class.forName(properties.getProperty("driver"));
-		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
-		
+		Connection con =
+			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
+				properties.getProperty("password"));
+
 		String table = clazz.getAnnotation(Table.class).value();
 		ResultSet rs = con.createStatement().executeQuery(("Select * from " + table + " where ID = " + id));
-		IModel model =map(clazz, rs);
+		IModel model = map(clazz, rs);
 		con.close();
 		return model;
 	}

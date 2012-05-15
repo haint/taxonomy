@@ -28,19 +28,20 @@ public class Locale implements IModel {
 
 	private static final long	serialVersionUID	= 2378720725851305514L;
 	
-	private int id;
+	private Integer id;
 	
 	private String name;
 	
 	private String value;
 	
 	@OneToOne("ID")
-	public void setId(int id) {
+	public Locale setId(Integer id) {
 		this.id = id;
+		return this;
 	}
 
 	@OneToOne("ID")
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

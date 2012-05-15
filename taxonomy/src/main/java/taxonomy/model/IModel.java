@@ -20,10 +20,11 @@ import java.io.Serializable;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
- *
+ * 
  * @datOct 3, 2011
  */
-public interface IModel extends Serializable
-{
-    public int getId();
+public interface IModel extends Serializable {
+	public IModel setId(Integer id);
+
+	public Integer getId();
 }

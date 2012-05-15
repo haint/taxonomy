@@ -36,7 +36,7 @@ public class Family implements IModel
 
    private static final long serialVersionUID = -7257088502916236613L;
    
-   private int id;
+   private Integer id;
    
    private Kingdom king;
    
@@ -50,15 +50,16 @@ public class Family implements IModel
    
 
    @OneToOne("ID")
-   public int getId() 
+   public Integer getId() 
    {
       return id;
    }
    
    @OneToOne("ID")
-   public void setId(int id)
+   public Family setId(Integer id)
    {
       this.id = id;
+      return this;
    }
    
    @OneToOne("KINGDOM_ID")
@@ -99,7 +100,7 @@ public class Family implements IModel
  
    @ManyToOne(field = "LOCALE_IDS", model = Locale.class)
    public Iterator<Locale> getLocales() {
-   	return locales.iterator();
+   	return locales != null ? locales.iterator() : null;
    }
    
    @OneToMany(field = "LOCALE_IDS", model = Locale.class)

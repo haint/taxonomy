@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 
@@ -55,5 +56,15 @@ public class LocaleResolver {
 		rs.close();
 		con.close();
 		return holder;
+	}
+	
+	public static String resolve(Iterator<Locale> locales) {
+		if(locales == null) throw new IllegalArgumentException();
+		StringBuilder b = new StringBuilder();
+		while(locales.hasNext()) {
+			b.append(locales.next().getId());
+			b.append("::");
+		}
+		return b.toString().substring(0, b.toString().length() - 2);
 	}
 }

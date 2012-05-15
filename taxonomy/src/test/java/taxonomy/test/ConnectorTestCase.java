@@ -39,18 +39,10 @@ public class ConnectorTestCase extends TestCase {
 		Class.forName(properties.getProperty("driver"));
 		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
 		
-		ResultSet result = con.createStatement().executeQuery(("Select * from LOCALES limit 0,20"));
-		while(result.next()) {
-			for(int i = 1; i < 10; i++) {
-				try {
-					Object obj = result.getObject(i);
-					System.out.println(obj.getClass() + " [" + obj + "]");
-				} catch(SQLException e) {
-					break;
-				}
-			}
+		ResultSet result = con.createStatement().executeQuery("SELECT last_insert_rowid()  FROM [Locales]");
+		while(result.next())
+		{
+			System.out.println(result.getInt(1));
 		}
-		result.close();
-		con.close();
 	}
 }

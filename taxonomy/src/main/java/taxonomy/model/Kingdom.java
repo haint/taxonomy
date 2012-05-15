@@ -30,22 +30,23 @@ public class Kingdom implements IModel
 
    private static final long serialVersionUID = -3380120455488706079L;
 
-   private int id;
+   private Integer id;
    
    private String name;
    
    private String code;
 
    @OneToOne("ID")
-   public int getId()
+   public Integer getId()
    {
       return id;
    }
 
    @OneToOne("ID")
-   public void setId(int id)
+   public Kingdom setId(Integer id)
    {
       this.id = id;
+      return this;
    }
    
    @OneToOne("NAME")

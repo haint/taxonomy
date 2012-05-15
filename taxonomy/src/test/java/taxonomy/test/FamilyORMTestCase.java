@@ -20,6 +20,7 @@ package taxonomy.test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Properties;
@@ -30,6 +31,7 @@ import taxonomy.model.Family;
 import taxonomy.model.Kingdom;
 import taxonomy.model.Locale;
 import taxonomy.test.annotation.ORMTools;
+import taxonomy.util.LocaleResolver;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -49,7 +51,7 @@ public class FamilyORMTestCase extends TestCase {
 //		rs.next();
 		Family f = (Family)ORMTools.map(Family.class, rs);
 		assertNotNull(f);
-		assertEquals(f.getId(), rs.getInt("ID"));
+		assertEquals(f.getId().intValue(), rs.getInt("ID"));
 		assertEquals(f.getName(), rs.getString("NAME"));
 		assertEquals(f.getDescription(), rs.getString("DESCRIPTION"));
 		assertEquals(f.getAvatar(), rs.getString("AVATAR"));
@@ -58,7 +60,7 @@ public class FamilyORMTestCase extends TestCase {
 		assertNotNull(kingdom);
 		rs = con.createStatement().executeQuery("Select * from [Kingdom] where ID = " + rs.getInt("KINGDOM_ID"));
 		assertTrue(rs.next());
-		assertEquals(kingdom.getId(), rs.getInt("ID"));
+		assertEquals(kingdom.getId().intValue(), rs.getInt("ID"));
 		assertEquals(kingdom.getName(), rs.getString("Name"));
 		assertEquals(kingdom.getCode(), rs.getString("CODE"));
 		
@@ -68,10 +70,48 @@ public class FamilyORMTestCase extends TestCase {
 			Locale lc = iterator.next();
 			rs = con.createStatement().executeQuery(("Select * from [Locales] where ID = " + lc.getId()));
 			assertTrue(rs.next());
-			assertEquals(lc.getId(), rs.getInt("ID"));
+			assertEquals(lc.getId().intValue(), rs.getInt("ID"));
 			assertEquals(lc.getName(), rs.getString("NAME"));
 			assertEquals(lc.getValue(), rs.getString("VALUE"));
 		}
+		con.close();
+	}
+	
+	public void testSelectLastInsertRowId() throws Exception {
+		Properties properties = new Properties();
+		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		Class.forName(properties.getProperty("driver"));
+		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
+		con.createStatement().executeUpdate("INSERT INTO [Locales] VALUES (NULL, 'vn', 'test')");
+		ResultSet rs = con.createStatement().executeQuery("Select last_insert_rowid() from [Locales]");
+		System.out.println(rs.getInt(1));
+		con.close();
+	}
+	
+	public void testInsertFamily() throws Exception {
+		Family f = new Family();
+		f.setName("Test insert family");
+		f.setAvatar("avatar");
+		f.setDescription("description");
+		f.setKingdom(new Kingdom().setId(111));
+		Set<Locale> locales = new HashSet<Locale>();
+		Collections.addAll(locales, new Locale().setId(12345), new Locale().setId(6789));
+		f.setLocaleName(locales);
+		ORMTools.insert(f);
+		
+		Properties properties = new Properties();
+		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		Class.forName(properties.getProperty("driver"));
+		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
+		ResultSet rs = con.createStatement().executeQuery("Select max(ID) from [Family]");
+		int maxId = rs.getInt(1);
+		System.out.println(maxId);
+		rs = con.createStatement().executeQuery("Select * from [Family] where ID = " + maxId);
+		assertEquals(maxId, rs.getInt("ID"));
+		assertEquals(f.getAvatar(), rs.getString("AVATAR"));
+		assertEquals(f.getDescription(), rs.getString("DESCRIPTION"));
+		assertEquals(f.getKingdom().getId().intValue(), rs.getInt("KINGDOM_ID"));
+		assertEquals(LocaleResolver.resolve(f.getLocales()), rs.getString("LOCALE_IDS"));
 		con.close();
 	}
 	
@@ -84,7 +124,7 @@ public class FamilyORMTestCase extends TestCase {
 		ResultSet rs = con.createStatement().executeQuery(("Select count(ID) from [Family] where ID = 1"));
 		Family f = (Family)ORMTools.map(Family.class, 1);
 		assertNotNull(f);
-		assertEquals(f.getId(), 1);
+		assertEquals(f.getId().intValue(), 1);
 		assertEquals(rs.getInt(1), 1);
 		con.close();
 
@@ -104,7 +144,7 @@ public class FamilyORMTestCase extends TestCase {
 		ORMTools.update(f, "kingdom", "avatar", "description", "locales");
 		f = (Family)ORMTools.map(Family.class, 1);
 		assertNotNull(f);
-		assertEquals(f.getId(), 1);
+		assertEquals(f.getId().intValue(), 1);
 		assertEquals(f.getAvatar(), "avatar");
 		assertEquals(f.getDescription(), "description");
 		
