@@ -128,11 +128,11 @@ public class Util
    static int buildGenusSpeciesId(Connection con, String value1, String value2, String value3, String gsos,
       String gso2, String table) throws Exception
    {
-      value1 = value1.substring(2, value1.length() - 2);
+      value1 = value1.substring(1, value1.length() - 1);
       value1 = value1.replaceAll("\'", "\'\'");
-      value2 = value2.substring(2, value2.length() - 2);
+      value2 = value2.substring(1, value2.length() - 1);
       value2 = value2.replaceAll("\'", "\'\'");
-      value3 = value3.substring(3, value3.length() - 2);
+      value3 = value3.substring(1, value3.length() - 1);
       value3 = value3.replaceAll("\'", "\'\'");
 
       StringBuilder b = new StringBuilder();
@@ -200,8 +200,8 @@ public class Util
    static String buildFamilyIds(Connection con, String Fami, String Fam2) throws Exception
    {
       StringBuilder b = new StringBuilder();
-      Fami = Fami.substring(2, Fami.length() - 2);
-      Fam2 = Fam2.substring(2, Fam2.length() - 2);
+      Fami = Fami.substring(1, Fami.length() - 1);
+      Fam2 = Fam2.substring(1, Fam2.length() - 1);
       ResultSet rs = con.createStatement().executeQuery("Select ID from [Family] where NAME = '" + Fami + "'");
 
       int id = 0;
@@ -240,7 +240,7 @@ public class Util
    static String buildIndexIds(Connection con, String Inde) throws Exception
    {
       StringBuilder b = new StringBuilder();
-      Inde = Inde.substring(2, Inde.length() - 2);
+      Inde = Inde.substring(1, Inde.length() - 1);
       if (" ".equals(Inde) || Inde.isEmpty())
          return null;
       String[] indecies = Inde.split(",");

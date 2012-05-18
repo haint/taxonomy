@@ -76,6 +76,7 @@ public class ORMTools {
 				while (i.hasNext()) {
 					b.append(i.next().getId()).append("::");
 				}
+				if(b.length() == 0) continue;
 				holder.put(bar.field(), b.toString().substring(0, b.toString().length() - 2));
 			}
 			else
@@ -179,6 +180,7 @@ public class ORMTools {
 				Class<?> param = m.getParameterTypes()[0];
 				if (param.getAnnotation(Table.class) != null) {
 					Model model = map(param, (Integer)value);
+					if(model == null) continue;
 					m.invoke(obj, model);
 				} else {
 					m.invoke(obj, value);
@@ -187,6 +189,7 @@ public class ORMTools {
 			else if ((bar = m.getAnnotation(OneToMany.class)) != null) {
 				String value = rs.getString(bar.field());
 				Set<Model> holder = new HashSet<Model>();
+				if(value == null || value.indexOf("::") < 0) continue;
 				String[] ids = value.split("::");
 				for (String id : ids) {
 					Model model = map(bar.model(), Integer.parseInt(id.trim()));
@@ -198,7 +201,8 @@ public class ORMTools {
 		return obj;
 	}
 
-	public static Model map(Class<?> clazz, int id) throws Exception {
+	public static Model map(Class<?> clazz, Integer id) throws Exception {
+		if(id < 1) return null;
 		Properties properties = new Properties();
 		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
 		Class.forName(properties.getProperty("driver"));
@@ -208,6 +212,20 @@ public class ORMTools {
 
 		String table = clazz.getAnnotation(Table.class).value();
 		ResultSet rs = con.createStatement().executeQuery(("Select * from " + table + " where ID = " + id));
+		if(!rs.next()) return null;
+		Model model = map(clazz, rs);
+		con.close();
+		return model;
+	}
+	
+	public static Model map(Class<?> clazz, String query) throws Exception {
+		Properties properties = new Properties();
+		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		Class.forName(properties.getProperty("driver"));
+		Connection con =
+			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
+				properties.getProperty("password"));
+		ResultSet rs = con.createStatement().executeQuery(query);
 		Model model = map(clazz, rs);
 		con.close();
 		return model;

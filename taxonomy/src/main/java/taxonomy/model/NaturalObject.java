@@ -16,6 +16,8 @@
  */
 package taxonomy.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -37,6 +39,8 @@ import taxonomy.annotation.Table;
 public class NaturalObject extends Model<NaturalObject> {
 
 	private static final long serialVersionUID = 5736627780873122909L;
+	
+	public final static SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	private Kingdom king;
 
@@ -213,18 +217,20 @@ public class NaturalObject extends Model<NaturalObject> {
 	}
 
 	@OneToOne("CREATE_DATE")
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreateDate(String createDate) throws ParseException {
+		if(createDate == null) return;
+		this.createDate = DATE_FORMATER.parse(createDate);
 	}
 
-	@OneToOne("MODIFY_DATE")
+	@OneToOne("MODIFIY_DATE")
 	public Date getModifyDate() {
 		return modifyDate;
 	}
 
-	@OneToOne("MODIFY_DATE")
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
+	@OneToOne("MODIFIY_DATE")
+	public void setModifyDate(String modifyDate) throws ParseException {
+		if(modifyDate == null) return;
+		this.modifyDate = DATE_FORMATER.parse(modifyDate);
 	}
 
 	@OneToOne("REFERENCE")

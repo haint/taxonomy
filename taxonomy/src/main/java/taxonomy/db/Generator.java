@@ -181,34 +181,35 @@ public class Generator
       while ((line = reader.readLine()) != null)
       {
          line = line.substring(0, line.lastIndexOf(']') + 1).trim();
-         String[] subLine = line.split("/--/");
+         String[] subLine = line.split(" /--/ ");
          String King = subLine[1].trim();
          String Fami = subLine[2];
          String Fam2 = subLine[3];
          String Inde = subLine[4];
          String Genu = subLine[5];
+//         if("[ ]".equals(Genu)) System.out.println("Genu - " + line);
          String Gen2 = subLine[6];
          String Gen3 = subLine[7];
          String Spec = subLine[8];
+//         if("[ ]".equals(Spec)) System.out.println("Spec - " + line);
          String Spe2 = subLine[9];
          String Spe3 = subLine[10];
          String Gsos = subLine[11];
          String Gso2 = subLine[12];
          String Eng1 = subLine[13];
          String Eng2 = subLine[14];
-         String en_name = buildName(Eng1.substring(2, Eng1.length() - 2).trim() ,Eng2.substring(2, Eng2.length() - 2).trim());
+         String en_name = buildName(Eng1, Eng2);
          String Vie1 = subLine[15];
          String Vie2 = subLine[16];
-         String vn_name = buildName(Vie1.substring(2, Vie1.length() - 2).trim(),Vie2.substring(2, Vie2.length() - 2).trim());
-         System.out.println(vn_name);
+         String vn_name = buildName(Vie1,Vie2);
          String Keyw = subLine[17];
          String Utim = subLine[18];
          String Udat = subLine[19];
          String Refs = subLine[20];
-         Refs = Refs.substring(2, Refs.length() - 2).trim();
+         Refs = Refs.substring(1, Refs.length() - 1);
          Refs = Refs.replaceAll("\'", "\'\'");
          String Desc = subLine[21];
-         Desc = Desc.substring(2, Desc.length() - 2).trim();
+         Desc = Desc.substring(1, Desc.length() - 1);
          Desc = Desc.replaceAll("\'", "\'\'");
 
          //
@@ -227,7 +228,7 @@ public class Generator
          int specId = Util.buildGenusSpeciesId(con, Spec, Spe2, Spe3, Gsos, Gso2, "[Species]");
          String tagId = buildTagId(con, Keyw);
          String createDate = buildCreateDate(con, Utim, Udat);
-         System.out.println("Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
+         //System.out.println("Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
          con.createStatement().executeUpdate(
             "Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
          count++;
@@ -238,11 +239,11 @@ public class Generator
    static String buildName(String name1, String name2)
    {
       StringBuilder b = new StringBuilder();
-      if(!name1.equals(" ") && !name1.isEmpty())
+      if(!name1.equals("[ ]"))
       {
          b.append(name1);
       }
-      if(!name2.equals(" ") && !name2.isEmpty())
+      if(!name2.equals("[ ]"))
       {
          b.append("::").append(name2);
       }
@@ -254,8 +255,8 @@ public class Generator
    static String buildCreateDate(Connection con, String Utim, String Udat) throws Exception 
    {
       SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-      Utim = Utim.substring(2, Utim.length() - 2).trim();
-      Udat = Udat.substring(2, Udat.length() - 2).trim();
+      Utim = Utim.substring(1, Utim.length() - 1).trim();
+      Udat = Udat.substring(1, Udat.length() - 1).trim();
       
       int hour = 0;
       int minute = 0;

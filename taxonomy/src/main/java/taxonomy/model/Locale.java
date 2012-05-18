@@ -23,7 +23,7 @@ import taxonomy.annotation.Table;
  *          haithanh0809@gmail.com
  * Apr 19, 2012  
  */
-@Table("Locales")
+@Table("[Locales]")
 public class Locale extends Model<Locale> {
 
 	private static final long	serialVersionUID	= 2378720725851305514L;
