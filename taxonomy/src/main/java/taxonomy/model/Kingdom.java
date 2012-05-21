@@ -24,7 +24,7 @@ import taxonomy.annotation.Table;
  *
  * @datOct 3, 2011
  */
-@Table("[Kingdom]")
+@Table("Kingdom")
 public class Kingdom extends Model<Kingdom>
 {
 

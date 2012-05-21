@@ -21,20 +21,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 
+import junit.framework.TestCase;
+
 import org.reflections.Reflections;
 
-import taxonomy.annotation.Table;
 import taxonomy.model.Model;
 import taxonomy.model.NaturalObject;
 import taxonomy.util.ORMTools;
-
-import junit.framework.TestCase;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -49,7 +47,7 @@ public class GenericORMTestCase extends TestCase {
 		assertEquals(NaturalObject.DATE_FORMATER.format(date), "11/11/1998 09:29:29");
 	}
 
-	public void testMap() throws Exception {
+	public void _testMap() throws Exception {
 		Reflections reflections = new Reflections(Model.class.getPackage().getName());
 		Set<Class<? extends Model>> subTypes = reflections.getSubTypesOf(Model.class);
 
@@ -59,6 +57,24 @@ public class GenericORMTestCase extends TestCase {
 			Model model = ORMTools.map(clazz, 1);
 			assertNotNull(model);
 			assertEquals(clazz, model.getClass());
+		}
+	}
+	
+	public void testNaturalObject() throws Exception {
+		Properties properties = new Properties();
+		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		Class.forName(properties.getProperty("driver"));
+		Connection con =
+			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
+				properties.getProperty("password"));
+		
+		ResultSet rs = con.createStatement().executeQuery("Select count(id) from NaturalObject");
+		rs.next();
+		int count = rs.getInt(1);
+		System.out.println(count);
+		for(int i = 1; i <= count; i++) {
+			NaturalObject obj = (NaturalObject)ORMTools.map(NaturalObject.class, i);
+			assertNotNull(obj);
 		}
 	}
 }

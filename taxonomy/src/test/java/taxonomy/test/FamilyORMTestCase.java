@@ -47,8 +47,8 @@ public class FamilyORMTestCase extends TestCase {
 		Class.forName(properties.getProperty("driver"));
 		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
 		
-		ResultSet rs = con.createStatement().executeQuery(("Select * from [Family] where ID = 1"));
-//		rs.next();
+		ResultSet rs = con.createStatement().executeQuery(("Select * from Family where ID = 1"));
+		rs.next();
 		Family f = (Family)ORMTools.map(Family.class, rs);
 		assertNotNull(f);
 		assertEquals(f.getId().intValue(), rs.getInt("ID"));
@@ -58,7 +58,7 @@ public class FamilyORMTestCase extends TestCase {
 		
 		Kingdom kingdom = f.getKingdom();
 		assertNotNull(kingdom);
-		rs = con.createStatement().executeQuery("Select * from [Kingdom] where ID = " + rs.getInt("KINGDOM_ID"));
+		rs = con.createStatement().executeQuery("Select * from Kingdom where ID = " + rs.getInt("KINGDOM_ID"));
 		assertTrue(rs.next());
 		assertEquals(kingdom.getId().intValue(), rs.getInt("ID"));
 		assertEquals(kingdom.getName(), rs.getString("Name"));
@@ -68,7 +68,7 @@ public class FamilyORMTestCase extends TestCase {
 		assertNotNull(iterator);
 		while(iterator.hasNext()) {
 			Locale lc = iterator.next();
-			rs = con.createStatement().executeQuery(("Select * from [Locales] where ID = " + lc.getId()));
+			rs = con.createStatement().executeQuery(("Select * from Locales where ID = " + lc.getId()));
 			assertTrue(rs.next());
 			assertEquals(lc.getId().intValue(), rs.getInt("ID"));
 			assertEquals(lc.getName(), rs.getString("NAME"));
@@ -82,9 +82,8 @@ public class FamilyORMTestCase extends TestCase {
 		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
 		Class.forName(properties.getProperty("driver"));
 		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
-		con.createStatement().executeUpdate("INSERT INTO [Locales] VALUES (NULL, 'vn', 'test')");
-		ResultSet rs = con.createStatement().executeQuery("Select last_insert_rowid() from [Locales]");
-		System.out.println(rs.getInt(1));
+		con.createStatement().executeUpdate("INSERT INTO Locales VALUES (NULL, 'vn', 'test')");
+		ResultSet rs = con.createStatement().executeQuery("Select Max(ID) from Locales");
 		con.close();
 	}
 	
@@ -93,7 +92,7 @@ public class FamilyORMTestCase extends TestCase {
 		f.setName("Test insert family");
 		f.setAvatar("avatar");
 		f.setDescription("description");
-		f.setKingdom(new Kingdom().setId(111));
+		f.setKingdom(new Kingdom().setId(1));
 		Set<Locale> locales = new HashSet<Locale>();
 		Collections.addAll(locales, new Locale().setId(12345), new Locale().setId(6789));
 		f.setLocaleName(locales);
@@ -103,10 +102,12 @@ public class FamilyORMTestCase extends TestCase {
 		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
 		Class.forName(properties.getProperty("driver"));
 		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
-		ResultSet rs = con.createStatement().executeQuery("Select max(ID) from [Family]");
+		ResultSet rs = con.createStatement().executeQuery("Select Max(Id) from Family");
+		rs.next();
 		int maxId = rs.getInt(1);
 		System.out.println(maxId);
-		rs = con.createStatement().executeQuery("Select * from [Family] where ID = " + maxId);
+		rs = con.createStatement().executeQuery("Select * from Family where ID = " + maxId);
+		rs.next();
 		assertEquals(maxId, rs.getInt("ID"));
 		assertEquals(f.getAvatar(), rs.getString("AVATAR"));
 		assertEquals(f.getDescription(), rs.getString("DESCRIPTION"));
@@ -121,15 +122,16 @@ public class FamilyORMTestCase extends TestCase {
 		Class.forName(properties.getProperty("driver"));
 		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
 		
-		ResultSet rs = con.createStatement().executeQuery(("Select count(ID) from [Family] where ID = 1"));
+		ResultSet rs = con.createStatement().executeQuery(("Select Max(ID) from Family where ID = 1"));
+		rs.next();
 		Family f = (Family)ORMTools.map(Family.class, 1);
 		assertNotNull(f);
 		assertEquals(f.getId().intValue(), 1);
 		assertEquals(rs.getInt(1), 1);
 		con.close();
 
-		f.setAvatar("avatar");
-		f.setDescription("description");
+		f.setAvatar("avatar update");
+		f.setDescription("description update");
 		
 		Iterator<Locale> i = f.getLocales();
 		Set<Locale> holder = new HashSet<Locale>();
@@ -145,8 +147,8 @@ public class FamilyORMTestCase extends TestCase {
 		f = (Family)ORMTools.map(Family.class, 1);
 		assertNotNull(f);
 		assertEquals(f.getId().intValue(), 1);
-		assertEquals(f.getAvatar(), "avatar");
-		assertEquals(f.getDescription(), "description");
+		assertEquals(f.getAvatar(), "avatar update");
+		assertEquals(f.getDescription(), "description update");
 		
 		i = f.getLocales();
 		int bar = 0;

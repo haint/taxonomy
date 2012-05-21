@@ -21,7 +21,7 @@ package taxonomy.model;
 import taxonomy.annotation.OneToOne;
 import taxonomy.annotation.Table;
 
-@Table("[Variant]")
+@Table("Variant")
 public class Variant extends Model<Variant>
 {
    private static final long serialVersionUID = -3236544642574185057L;

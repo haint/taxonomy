@@ -24,7 +24,7 @@ import taxonomy.annotation.Table;
  *
  * @datOct 3, 2011
  */
-@Table("[Tag]")
+@Table("Tag")
 public class Tag extends Model<Tag>
 {
 

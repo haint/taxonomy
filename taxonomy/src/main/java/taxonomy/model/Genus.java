@@ -29,7 +29,7 @@ import taxonomy.annotation.Table;
  *
  * @datOct 3, 2011
  */
-@Table("[Genus]")
+@Table("Genus")
 public class Genus extends Family<Genus>
 {
    private static final long serialVersionUID = -8073066850805682441L;

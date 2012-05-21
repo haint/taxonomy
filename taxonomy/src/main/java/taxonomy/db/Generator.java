@@ -63,14 +63,15 @@ public class Generator
 
    static void initTable() throws Exception
    {
-      Class.forName("org.sqlite.JDBC");
-      Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
+   	Class.forName("org.hsqldb.jdbcDriver");
+		Connection con = DriverManager.getConnection("jdbc:hsqldb:file:target/hsqldb/db", "sa", "");
 
       try
       {
          Statement statement = con.createStatement();
-         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("createTable.sql");
+         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("hsql-createTable.sql");
          statement.executeUpdate(Main.getStringFromInputStream(is));
+         con.createStatement().executeUpdate("INSERT INTO KINGDOM VALUES(NULL, 'B', 'Botanical');INSERT INTO KINGDOM VALUES(NULL, 'Z', 'Zoological');");
       }
       catch (SQLException ex)
       {
@@ -84,8 +85,8 @@ public class Generator
 
    static void genDataIndex(InputStream is) throws Exception
    {
-      Class.forName("org.sqlite.JDBC");
-      Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
+   	Class.forName("org.hsqldb.jdbcDriver");
+		Connection con = DriverManager.getConnection("jdbc:hsqldb:file:target/hsqldb/db", "sa", "");
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
       String line = reader.readLine();
       Set<String> holder = new HashSet<String>();
@@ -100,7 +101,7 @@ public class Generator
 
       for (String s : holder)
       {
-         b.append("INSERT INTO [Index] VALUES (NULL, '" + s + "');\n");
+         b.append("INSERT INTO Index VALUES (NULL, '" + s + "');\n");
       }
       FileOutputStream os = new FileOutputStream(resourceDir + "insertIndex.sql", false);
       os.write(b.toString().getBytes("UTF-8"));
@@ -111,8 +112,8 @@ public class Generator
 
    static void genDataTag(InputStream is) throws Exception
    {
-      Class.forName("org.sqlite.JDBC");
-      Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
+   	Class.forName("org.hsqldb.jdbcDriver");
+		Connection con = DriverManager.getConnection("jdbc:hsqldb:file:target/hsqldb/db", "sa", "");
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
       String line = reader.readLine();
       StringBuilder b = new StringBuilder();
@@ -122,7 +123,7 @@ public class Generator
          String[] subLine = line.split("/--/");
          String name = subLine[0].substring(subLine[0].indexOf('[') + 1, subLine[0].indexOf(']'));
          String explain = subLine[1].substring(subLine[1].indexOf('[') + 1, subLine[1].indexOf(']'));
-         b.append("INSERT INTO [Tag] VALUES (NULL, '" + name + "', '" + explain + "');\n");
+         b.append("INSERT INTO Tag VALUES (NULL, '" + name + "', '" + explain + "');\n");
       }
       FileOutputStream os = new FileOutputStream(resourceDir + "insertTag.sql", false);
       os.write(b.toString().getBytes("UTF-8"));
@@ -136,8 +137,8 @@ public class Generator
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
       String line = reader.readLine();
       StringBuilder b = new StringBuilder();
-      Class.forName("org.sqlite.JDBC");
-      Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
+      Class.forName("org.hsqldb.jdbcDriver");
+		Connection con = DriverManager.getConnection("jdbc:hsqldb:file:target/hsqldb/db", "sa", "");
       while ((line = reader.readLine()) != null)
       {
          Util.insertGlossary(b, line, con);
@@ -153,16 +154,16 @@ public class Generator
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
       String line = reader.readLine();
       StringBuilder b = new StringBuilder();
-      Class.forName("org.sqlite.JDBC");
-      Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
+      Class.forName("org.hsqldb.jdbcDriver");
+		Connection con = DriverManager.getConnection("jdbc:hsqldb:file:target/hsqldb/db", "sa", "");
       while ((line = reader.readLine()) != null)
       {
          Util.insertFamilyAndGenus(b, line, table, con);
       }
       String outFile = null;
-      if ("[Family]".equals(table))
+      if ("Family".equals(table))
          outFile = "insertFamily.sql";
-      else if ("[Genus]".equals(table))
+      else if ("Genus".equals(table))
          outFile = "insertGenus.sql";
       FileOutputStream os = new FileOutputStream(resourceDir + outFile, false);
       os.write(b.toString().getBytes("UTF-8"));
@@ -175,8 +176,8 @@ public class Generator
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
       String line = reader.readLine();
 //      StringBuilder b = new StringBuilder();
-      Class.forName("org.sqlite.JDBC");
-      Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
+      Class.forName("org.hsqldb.jdbcDriver");
+		Connection con = DriverManager.getConnection("jdbc:hsqldb:file:target/hsqldb/db", "sa", "");
       int count = 0;
       while ((line = reader.readLine()) != null)
       {
@@ -224,13 +225,13 @@ public class Generator
          
          String familyIds = Util.buildFamilyIds(con, Fami, Fam2);
          String indexIds = Util.buildIndexIds(con, Inde);
-         int genusId = Util.buildGenusSpeciesId(con, Genu, Gen2, Gen3, Gsos, Gso2, "[Genus]");
-         int specId = Util.buildGenusSpeciesId(con, Spec, Spe2, Spe3, Gsos, Gso2, "[Species]");
+         int genusId = Util.buildGenusSpeciesId(con, Genu, Gen2, Gen3, Gsos, Gso2, "Genus");
+         int specId = Util.buildGenusSpeciesId(con, Spec, Spe2, Spe3, Gsos, Gso2, "Species");
          String tagId = buildTagId(con, Keyw);
          String createDate = buildCreateDate(con, Utim, Udat);
          //System.out.println("Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
          con.createStatement().executeUpdate(
-            "Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
+            "Insert into NaturalObject values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
          count++;
       }
       System.out.println("Total lines: " + count);
@@ -288,11 +289,13 @@ public class Generator
    static String buildTagId(Connection con, String Keyw) throws Exception
    {
       StringBuilder b = new StringBuilder();
+      Keyw = Keyw.substring(1, Keyw.length() - 1);
       String[] tags = Keyw.split("/");
       for(int i = 0; i < tags.length; i++) {
          String tag = tags[i].trim();
+         if(tag.isEmpty()) continue;
          tag = tag.replaceAll("\'", "\'\'");
-         ResultSet rs = con.createStatement().executeQuery("Select ID from [Tag] where Name = '" + tag + "'");
+         ResultSet rs = con.createStatement().executeQuery("Select ID from Tag where Name = '" + tag + "'");
          if(rs.next()) 
          {
             if(i > 0) b.append("::");
@@ -300,8 +303,9 @@ public class Generator
          }
          else
          {
-            con.createStatement().executeUpdate("Insert into [Tag] values(NULL, '" + tag + "', NULL)");
-            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from [Tag]");
+            con.createStatement().executeUpdate("Insert into Tag values(NULL, '" + tag + "', NULL)");
+            ResultSet tmp = con.createStatement().executeQuery("Select Max(ID) from Tag");
+            tmp.next();
             if(i > 0) b.append("::");
             b.append(tmp.getInt(1));
          }
@@ -317,9 +321,9 @@ public class Generator
        Generator.genDataTag(Thread.currentThread().getContextClassLoader().getResourceAsStream("txkeyw_utf8.txt"));
        Generator.genDataGlossary(Thread.currentThread().getContextClassLoader().getResourceAsStream("txglos_utf8.txt"));
        Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txfami_utf8.txt"),
-       "[Family]");
+       "Family");
        Generator.genDataFamilyAndGenus(Thread.currentThread().getContextClassLoader().getResourceAsStream("txgenu_utf8.txt"),
-       "[Genus]");
+       "Genus");
       Generator.genDataObject(Thread.currentThread().getContextClassLoader().getResourceAsStream("txmain_utf8.txt"));
    }
 }

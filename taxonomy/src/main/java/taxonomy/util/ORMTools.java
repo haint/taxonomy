@@ -17,6 +17,7 @@
  */
 package taxonomy.util;
 
+import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -88,6 +89,7 @@ public class ORMTools {
 		b.append("Insert into ").append(buildValues(table.value(), holder));
 		System.out.println(b.toString());
 		con.createStatement().executeUpdate(b.toString());
+		con.createStatement().execute("shutdown");
 		con.close();
 	}
 
@@ -177,12 +179,18 @@ public class ORMTools {
 			OneToMany bar;
 			if ((foo = m.getAnnotation(OneToOne.class)) != null) {
 				Object value = rs.getObject(foo.value());
+				if(value == null) continue;
 				Class<?> param = m.getParameterTypes()[0];
 				if (param.getAnnotation(Table.class) != null) {
 					Model model = map(param, (Integer)value);
 					if(model == null) continue;
 					m.invoke(obj, model);
 				} else {
+					/*System.out.println(value);
+					System.out.println(param);
+					System.out.println(m.getName());
+					System.out.println(clazz);
+					System.out.println(value.getClass());*/
 					m.invoke(obj, value);
 				}
 			}
@@ -204,7 +212,11 @@ public class ORMTools {
 	public static Model map(Class<?> clazz, Integer id) throws Exception {
 		if(id < 1) return null;
 		Properties properties = new Properties();
-		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		FileInputStream fis = new FileInputStream("src/main/resources/datasource.properties");
+//		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		properties.load(fis);
+		fis.close();
+		
 		Class.forName(properties.getProperty("driver"));
 		Connection con =
 			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
@@ -220,7 +232,11 @@ public class ORMTools {
 	
 	public static Model map(Class<?> clazz, String query) throws Exception {
 		Properties properties = new Properties();
-		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		FileInputStream fis = new FileInputStream("src/main/resources/datasource.properties");
+//		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		properties.load(fis);
+		fis.close();
+		
 		Class.forName(properties.getProperty("driver"));
 		Connection con =
 			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),

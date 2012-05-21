@@ -32,7 +32,7 @@ import taxonomy.annotation.Table;
  * @datOct 5, 2011
  */
 
-@Table("[Species]")
+@Table("Species")
 public class Species extends Model<Species>
 {
    /**

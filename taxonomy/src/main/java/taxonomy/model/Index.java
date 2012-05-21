@@ -24,7 +24,7 @@ import taxonomy.annotation.Table;
  *
  * @datOct 3, 2011
  */
-@Table("[Index]")
+@Table("Index")
 public class Index extends Model<Index>
 {
 

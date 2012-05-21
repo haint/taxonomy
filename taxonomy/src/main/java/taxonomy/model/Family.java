@@ -30,7 +30,7 @@ import taxonomy.annotation.Table;
  *
  * @datOct 3, 2011
  */
-@Table("[Family]")
+@Table("Family")
 public class Family<T extends Family<T>> extends Model<Family<T>>
 {
 

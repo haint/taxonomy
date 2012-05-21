@@ -35,7 +35,7 @@ import taxonomy.annotation.Table;
  * @datOct 4, 2011
  */
 
-@Table("[NaturalObject]")
+@Table("NaturalObject")
 public class NaturalObject extends Model<NaturalObject> {
 
 	private static final long serialVersionUID = 5736627780873122909L;
