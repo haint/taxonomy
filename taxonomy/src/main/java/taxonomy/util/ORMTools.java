@@ -17,6 +17,7 @@
  */
 package taxonomy.util;
 
+import java.io.FileInputStream;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -204,7 +205,11 @@ public class ORMTools {
 	public static Model map(Class<?> clazz, Integer id) throws Exception {
 		if(id < 1) return null;
 		Properties properties = new Properties();
-		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+//		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		FileInputStream fis = new FileInputStream("src/main/resources/datasource.properties");
+		properties.load(fis);
+		fis.close();
+		
 		Class.forName(properties.getProperty("driver"));
 		Connection con =
 			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
@@ -220,7 +225,11 @@ public class ORMTools {
 	
 	public static Model map(Class<?> clazz, String query) throws Exception {
 		Properties properties = new Properties();
-		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+//		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		FileInputStream fis = new FileInputStream("src/main/resources/datasource.properties");
+		properties.load(fis);
+		fis.close();
+		
 		Class.forName(properties.getProperty("driver"));
 		Connection con =
 			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),

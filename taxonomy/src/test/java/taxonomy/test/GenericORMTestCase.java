@@ -61,4 +61,20 @@ public class GenericORMTestCase extends TestCase {
 			assertEquals(clazz, model.getClass());
 		}
 	}
+	
+	public void testHugeMap() throws Exception {
+		Properties properties = new Properties();
+		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+		Class.forName(properties.getProperty("driver"));
+		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
+		ResultSet rs = con.createStatement().executeQuery("Select Max(id) from [NaturalObject]");
+//		System.out.println(rs.getInt(1))
+		int max = rs.getInt(1);
+		assertEquals(3718, max);
+		for(int i = 1; i <= max; i++) {
+			NaturalObject obj = (NaturalObject)ORMTools.map(NaturalObject.class, i);
+			assertNotNull(obj);
+			assertEquals(i, obj.getId().intValue());
+		}
+	}
 }
