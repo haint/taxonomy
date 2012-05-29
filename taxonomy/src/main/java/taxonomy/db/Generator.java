@@ -28,6 +28,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -174,66 +175,72 @@ public class Generator
    {
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
       String line = reader.readLine();
-//      StringBuilder b = new StringBuilder();
+      
       Class.forName("org.sqlite.JDBC");
       Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
       int count = 0;
+      List<String> holder = new ArrayList<String>();
       while ((line = reader.readLine()) != null)
       {
          line = line.substring(0, line.lastIndexOf(']') + 1).trim();
-         String[] subLine = line.split(" /--/ ");
-         String King = subLine[1].trim();
-         String Fami = subLine[2];
-         String Fam2 = subLine[3];
-         String Inde = subLine[4];
-         String Genu = subLine[5];
-//         if("[ ]".equals(Genu)) System.out.println("Genu - " + line);
-         String Gen2 = subLine[6];
-         String Gen3 = subLine[7];
-         String Spec = subLine[8];
-//         if("[ ]".equals(Spec)) System.out.println("Spec - " + line);
-         String Spe2 = subLine[9];
-         String Spe3 = subLine[10];
-         String Gsos = subLine[11];
-         String Gso2 = subLine[12];
-         String Eng1 = subLine[13];
-         String Eng2 = subLine[14];
-         String en_name = buildName(Eng1, Eng2);
-         String Vie1 = subLine[15];
-         String Vie2 = subLine[16];
-         String vn_name = buildName(Vie1,Vie2);
-         String Keyw = subLine[17];
-         String Utim = subLine[18];
-         String Udat = subLine[19];
-         String Refs = subLine[20];
-         Refs = Refs.substring(1, Refs.length() - 1);
-         Refs = Refs.replaceAll("\'", "\'\'");
-         String Desc = subLine[21];
-         Desc = Desc.substring(1, Desc.length() - 1);
-         Desc = Desc.replaceAll("\'", "\'\'");
-
-         //
-         int king_id = 0;
-         if (King.equals("[B]"))
-            king_id = 1;
-         else if (King.equals("[Z]"))
-            king_id = 2;
-         else 
-        	 throw new IllegalStateException("Kingdom code: " + King + " invalid");
-         //
-         
-         String familyIds = Util.buildFamilyIds(con, Fami, Fam2);
-         String indexIds = Util.buildIndexIds(con, Inde);
-         int genusId = Util.buildGenusSpeciesId(con, Genu, Gen2, Gen3, Gsos, Gso2, "[Genus]");
-         int specId = Util.buildGenusSpeciesId(con, Spec, Spe2, Spe3, Gsos, Gso2, "[Species]");
-         String tagId = buildTagId(con, Keyw);
-         String createDate = buildCreateDate(con, Utim, Udat);
-         //System.out.println("Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
-         con.createStatement().executeUpdate(
-            "Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
+         System.out.println(line);
+         processLine(line, con);
          count++;
       }
       System.out.println("Total lines: " + count);
+   }
+   
+   private static void processLine(String line, Connection con) throws Exception{
+   	String[] subLine = line.split(" /--/ ");
+      String King = subLine[1].trim();
+      String Fami = subLine[2];
+      String Fam2 = subLine[3];
+      String Inde = subLine[4];
+      String Gen1 = subLine[5];
+//      if("[ ]".equals(Genu)) System.out.println("Genu - " + line);
+      String Gen2 = subLine[6];
+      String Gen3 = subLine[7];
+      String Spe1 = subLine[8];
+//      if("[ ]".equals(Spec)) System.out.println("Spec - " + line);
+      String Spe2 = subLine[9];
+      String Spe3 = subLine[10];
+      String Gsos = subLine[11];
+      String Gso2 = subLine[12];
+      String Eng1 = subLine[13];
+      String Eng2 = subLine[14];
+      String en_name = buildName(Eng1, Eng2);
+      String Vie1 = subLine[15];
+      String Vie2 = subLine[16];
+      String vn_name = buildName(Vie1,Vie2);
+      String Keyw = subLine[17];
+      String Utim = subLine[18];
+      String Udat = subLine[19];
+      String Refs = subLine[20];
+      Refs = Refs.substring(1, Refs.length() - 1);
+      Refs = Refs.replaceAll("\'", "\'\'");
+      String Desc = subLine[21];
+      Desc = Desc.substring(1, Desc.length() - 1);
+      Desc = Desc.replaceAll("\'", "\'\'");
+
+      //
+      int king_id = 0;
+      if (King.equals("[B]"))
+         king_id = 1;
+      else if (King.equals("[Z]"))
+         king_id = 2;
+      else 
+     	 throw new IllegalStateException("Kingdom code: " + King + " invalid");
+      //
+      
+      String familyIds = Util.buildFamilyIds(con, Fami, Fam2);
+      String indexIds = Util.buildIndexIds(con, Inde);
+      int genusId = Util.buildGenusSpeciesId(con, Gen1, Gen2, Gen3, Gsos, Gso2, "[Genus]");
+      int specId = Util.buildGenusSpeciesId(con, Spe1, Spe2, Spe3, Gsos, Gso2, "[Species]");
+      String tagId = buildTagId(con, Keyw);
+      String createDate = buildCreateDate(con, Utim, Udat);
+      //System.out.println("Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
+      con.createStatement().executeUpdate(
+         "Insert into [NaturalObject] values (NULL, " + king_id + ", '" + familyIds + "', '" + indexIds + "', " + genusId + ", " + specId + ", '" + en_name + "', '" + vn_name + "', '" + tagId + "', '" + createDate + "', NULL, '" + Refs + "', '" + Desc + "', NULL)");
    }
    
    static String buildName(String name1, String name2)
@@ -241,11 +248,11 @@ public class Generator
       StringBuilder b = new StringBuilder();
       if(!name1.equals("[ ]"))
       {
-         b.append(name1);
+         b.append(name1.substring(1, name1.length() - 1));
       }
       if(!name2.equals("[ ]"))
       {
-         b.append("::").append(name2);
+         b.append("::").append(name2.substring(1, name2.length() - 1));
       }
       String tmp = b.toString();
       tmp = tmp.replaceAll("\'", "\'\'");

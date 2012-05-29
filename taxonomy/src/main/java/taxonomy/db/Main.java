@@ -52,6 +52,8 @@ public class Main
    
    public static void main(String[] args) throws Exception
    {
+   	long start = System.currentTimeMillis();
+   	long total = start;
       Class.forName("org.sqlite.JDBC");
       Connection con = DriverManager.getConnection("jdbc:sqlite:" + dbDir + "taxonomy.db", "sa", "");
 
@@ -60,23 +62,41 @@ public class Main
       try
       {
          Statement statement = con.createStatement();
-         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("createTable.sql");
+         /*InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("createTable.sql");
          statement.executeUpdate(getStringFromInputStream(is));
+         System.out.println("Create table structure at: " + (System.currentTimeMillis() - start) / 1000 + "(s)");
+         start = System.currentTimeMillis();
          
          is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertIndex.sql");
          statement.executeUpdate(getStringFromInputStream(is));
+         System.out.println("Insert index at: " + (System.currentTimeMillis() - start) / 1000 + "(s)");
+         start = System.currentTimeMillis();
          
          is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertTag.sql");
          statement.executeUpdate(getStringFromInputStream(is));
+         System.out.println("insert tag at: " + (System.currentTimeMillis() - start) / 1000 + "(s)");
+         start = System.currentTimeMillis();
          
          is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGlossary.sql");
          statement.executeUpdate(getStringFromInputStream(is));
+         System.out.println("insert glossary at: " + (System.currentTimeMillis() - start) / 1000 + "(s)");
+         start = System.currentTimeMillis();
          
          is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertFamily.sql");
-         statement.executeUpdate(getStringFromInputStream(is));  
+         statement.executeUpdate(getStringFromInputStream(is));
+         System.out.println("insert family at: " + (System.currentTimeMillis() - start) / 1000 + "(s)");
+         start = System.currentTimeMillis();
 //         
          is = Thread.currentThread().getContextClassLoader().getResourceAsStream("insertGenus.sql");
          statement.executeUpdate(getStringFromInputStream(is));
+         System.out.println("insert genus at: " + (System.currentTimeMillis() - start) / 1000 + "(s)");
+         start = System.currentTimeMillis();
+         
+         Generator.genDataObject(Thread.currentThread().getContextClassLoader().getResourceAsStream("txmain_utf8.txt"));
+         System.out.println("insert object at: " + (System.currentTimeMillis() - start) / 1000 + "(s)");
+         start = System.currentTimeMillis();*/
+         statement.executeUpdate(getStringFromInputStream(Thread.currentThread().getContextClassLoader().getResourceAsStream("taxonomy.sql")));
+         System.out.println("Total at: " + (System.currentTimeMillis() - total) / 1000 + "(s)");
       }
       catch (SQLException ex)
       {

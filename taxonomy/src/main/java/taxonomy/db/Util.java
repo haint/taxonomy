@@ -124,12 +124,14 @@ public class Util
       //System.out.println(query);
       st.executeUpdate(query);
    }
-
+   
    static int buildGenusSpeciesId(Connection con, String value1, String value2, String value3, String gsos,
       String gso2, String table) throws Exception
    {
       value1 = value1.substring(1, value1.length() - 1);
       value1 = value1.replaceAll("\'", "\'\'");
+      if(value1.equals(" ") || value1.isEmpty()) return 0;
+      
       value2 = value2.substring(1, value2.length() - 1);
       value2 = value2.replaceAll("\'", "\'\'");
       value3 = value3.substring(1, value3.length() - 1);
@@ -141,58 +143,64 @@ public class Util
       if (!value2.equals(" ") && !value2.isEmpty())
       {
          int variantType = 0;
-         if (gsos.equals("S"))
+         if (gsos.equals("[S]"))
             variantType = 1;
-         else if (gsos.equals("O"))
+         else if (gsos.equals("[O]"))
             variantType = 2;
-         con.createStatement().executeUpdate("Insert into [Variant] values(NULL, '" + value2 + "', " + variantType + ")");
-         ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from [Variant]");
-         if (tmp.next())
-            variant1 = tmp.getInt(1);
+         
+         Statement st = con.createStatement();
+         ResultSet rs =st.executeQuery("Select Id from [Variant] where value like '" + value2 + "'");
+         if(rs.next()) {
+         	variant1 = rs.getInt(1);
+         } else {
+         	st.executeUpdate("Insert into [Variant] values(NULL, '" + value2 + "', " + variantType + ")");
+            variant1 = st.executeQuery("Select max(id) from [Variant]").getInt(1);
+         }
       }
       if (!value3.equals(" ") && !value3.isEmpty())
       {
          int variantType = 0;
-         if (gso2.equals("S"))
+         if (gso2.equals("[S]"))
             variantType = 1;
-         else if (gso2.equals("O"))
+         else if (gso2.equals("[O]"))
             variantType = 2;
-         con.createStatement().executeUpdate("Insert into [Variant] values(NULL, '" + value3 + "', " + variantType + ")");
-         ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() from [Variant]");
-         if (tmp.next())
-            variant2 = tmp.getInt(1);
+         
+         Statement st = con.createStatement();
+         ResultSet rs =st.executeQuery("Select Id from [Variant] where value like '" + value3 + "'");
+         if(rs.next()) {
+         	variant2 = rs.getInt(1);
+         } else {
+         	st.executeUpdate("Insert into [Variant] values(NULL, '" + value3 + "', " + variantType + ")");
+            variant2 = st.executeQuery("Select max(id) from [Variant]").getInt(1);
+         }
       }
       if (variant1 != 0)
          b.append(variant1);
       if (variant2 != 0)
          b.append("::").append(variant2);
 
-      ResultSet rs = con.createStatement().executeQuery("Select ID from " + table + " where Name = '" + value1 + "'");
+      ResultSet rs = con.createStatement().executeQuery("Select ID from " + table + " where Name like '" + value1 + "'");
       int genId = 0;
       if (!rs.next())
       {
-         if ("GENUS".equalsIgnoreCase(table))
+         if ("[Genus]".equalsIgnoreCase(table))
          {
-            con.createStatement().executeUpdate(
-               "Insert into [Genus] values(NULL, 1, '" + value1 + "', NULL, NULL, NULL, '" + b.toString() + "')");
-            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() FROM [Genus]");
-            tmp.next();
-            genId = tmp.getInt(1);
+            con.createStatement().executeUpdate("Insert into [Genus] values(NULL, 1, '" + value1 + "', NULL, NULL, NULL, '" + b.toString() + "')");
+            genId = con.createStatement().executeQuery("Select max(id) FROM [Genus]").getInt(1);
          }
          else if ("[Species]".equalsIgnoreCase(table))
          {
-            con.createStatement().executeUpdate(
-               "Insert into [Species] values(NULL,'" + value1 + "', '" + b.toString() + "')");
-            ResultSet tmp = con.createStatement().executeQuery("Select last_insert_rowid() FROM [Species]");
-            tmp.next();
-            genId = tmp.getInt(1);
+            con.createStatement().executeUpdate("Insert into [Species] values(NULL,'" + value1 + "', '" + b.toString() + "')");
+            genId =  con.createStatement().executeQuery("Select max(id) FROM [Species]").getInt(1);
          }
+         if(genId == 0) throw new AssertionError();
       }
       else
       {
          genId = rs.getInt(1);
          con.createStatement().executeUpdate(
             "Update " + table + " set VARIANT_IDS='" + b.toString() + "' where ID = " + genId);
+         if(genId == 0) throw new AssertionError();
       }
       return genId;
    }
@@ -208,6 +216,7 @@ public class Util
       if (!rs.next())
       {
          con.createStatement().executeUpdate("Insert into [Family] values(NULL, 1, '" + Fami + "', NULL, NULL, NULL)");
+         id = con.createStatement().executeQuery("Select Max(id) from [Family]").getInt(1);
       }
       else
       {
@@ -224,9 +233,7 @@ public class Util
          if (!rs.next())
          {
             con.createStatement().executeUpdate("Insert into [Family] values(NULL, 1, '" + Fami + "', NULL, NULL, NULL)");
-            ResultSet tmp = con.createStatement().executeQuery("SELECT last_insert_rowid()  FROM [Family]");
-            tmp.next();
-            id = tmp.getInt(1);
+            id = con.createStatement().executeQuery("SELECT max(id) FROM [Family]").getInt(1);
          }
          else
          {
