@@ -16,12 +16,7 @@
     <maven.compiler.target>1.6</maven.compiler.target>
   </properties>
   
-	<dependencies>
-		<dependency>
-			<groupId>taxonomy</groupId>
-			<artifactId>taxonomy</artifactId>
-			<version>1.0</version>
-		</dependency>
+  <dependencies>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
@@ -86,7 +81,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>taxomony-web</finalName>
+    <finalName>remak</finalName>
     <outputDirectory>target/remak/WEB-INF/classes</outputDirectory>
 
     <plugins>
