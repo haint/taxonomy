@@ -16,7 +16,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.remak.client;
+package taxonomy.webui.client.widget;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.smartgwt.client.widgets.layout.HLayout;

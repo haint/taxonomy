@@ -16,9 +16,8 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.taxonomy.web.client;
+package taxonomy.webui.client.widget;
 
-import com.google.gwt.core.client.EntryPoint;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
@@ -26,27 +25,10 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * @version $Id$
  *
  */
-public class Workspace extends HLayout implements EntryPoint
+public class Display extends HLayout implements Application
 {
-   
-   public Workspace()
+   public Display()
    {
-      setHeight100();
-      setWidth100();
-      setLayoutMargin(5);
-   }
-
-   /**
-    * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
-    */
-   @Override
-   public void onModuleLoad()
-   {
-      ApplicationManager manager = ApplicationManager.getInstance();
-      Display display = (Display)manager.getSystemApp(Display.class);
-      ControlPanel controlPanel = (ControlPanel)manager.getSystemApp(ControlPanel.class);
-      addMember(controlPanel);
-      addMember(display);
-      draw();
+      setShowEdges(true);
    }
 }

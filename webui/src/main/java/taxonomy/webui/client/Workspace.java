@@ -16,33 +16,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.taxonomy.web.client;
+package taxonomy.webui.client;
 
-import com.smartgwt.client.types.VisibilityMode;
-import com.smartgwt.client.widgets.layout.SectionStack;
-import com.smartgwt.client.widgets.layout.SectionStackSection;
+import taxonomy.webui.client.widget.ApplicationManager;
+import taxonomy.webui.client.widget.ControlPanel;
+import taxonomy.webui.client.widget.Display;
+
+import com.google.gwt.core.client.EntryPoint;
+import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
  * @version $Id$
  *
  */
-public class ControlPanel extends SectionStack implements Application
+public class Workspace extends HLayout implements EntryPoint
 {
-   public ControlPanel() {
-      setWidth(250);
-      setVisibilityMode(VisibilityMode.MULTIPLE);
-      setAnimateSections(true);
-      setCanReorderSections(true);
-      setShowEdges(true);
-      setShowResizeBar(true);
-      
-      SectionStackSection mainSection = new SectionStackSection("Main Example Items");
-      mainSection.setExpanded(true);
-      setSections(mainSection);
-   }
    
-   final class MainStackSection extends SectionStackSection {
-   	
+   public Workspace()
+   {
+      setHeight100();
+      setWidth100();
+      setLayoutMargin(5);
+   }
+
+   /**
+    * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
+    */
+   @Override
+   public void onModuleLoad()
+   {
+      ApplicationManager manager = ApplicationManager.getInstance();
+      Display display = (Display)manager.getSystemApp(Display.class);
+      ControlPanel controlPanel = (ControlPanel)manager.getSystemApp(ControlPanel.class);
+      addMember(controlPanel);
+      addMember(display);
+      draw();
    }
 }
