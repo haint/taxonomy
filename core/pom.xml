@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>taxonomy</groupId>
-  <artifactId>taxonomy</artifactId>
+  <artifactId>taxonomy-core</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
 

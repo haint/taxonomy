@@ -18,6 +18,7 @@
 package taxonomy.util;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,14 +45,40 @@ import taxonomy.model.Model;
  *          Apr 19, 2012
  */
 public class ORMTools {
-
-	public static void insert(Model model) throws Exception {
-		Properties properties = new Properties();
-		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
+	
+	private final static Properties properties = new Properties();;
+	
+	static {
+		try {
+		String config = System.getProperty("taxonomy.conf");
+		InputStream is = null;
+		if(config != null)
+		{
+			is = new FileInputStream(config);
+		}
+		else
+		{
+			is = Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties");
+		}
+		properties.load(is);
+		is.close();
+		}
+		catch(Exception e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public static Connection getConnection() throws Exception {
 		Class.forName(properties.getProperty("driver"));
 		Connection con =
 			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
 				properties.getProperty("password"));
+		return con;
+	}
+
+	public static void insert(Model model) throws Exception {
+		Connection con = getConnection();
 		Table table = model.getClass().getAnnotation(Table.class);
 
 		Map<String, Object> holder = new HashMap<String, Object>();
@@ -87,7 +114,6 @@ public class ORMTools {
 		
 		StringBuilder b = new StringBuilder();
 		b.append("Insert into ").append(buildValues(table.value(), holder));
-		System.out.println(b.toString());
 		con.createStatement().executeUpdate(b.toString());
 		con.close();
 	}
@@ -115,13 +141,7 @@ public class ORMTools {
 	}
 
 	public static void update(Model model, String... args) throws Exception {
-		Properties properties = new Properties();
-		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
-		Class.forName(properties.getProperty("driver"));
-		Connection con =
-			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
-				properties.getProperty("password"));
-
+		Connection con = getConnection();
 		Method[] methods = model.getClass().getMethods();
 		Set<String> fields = new HashSet<String>();
 		Map<String, Object> holder = new HashMap<String, Object>();
@@ -204,17 +224,8 @@ public class ORMTools {
 
 	public static Model map(Class<?> clazz, Integer id) throws Exception {
 		if(id < 1) return null;
-		Properties properties = new Properties();
-//		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
-		FileInputStream fis = new FileInputStream("src/main/resources/datasource.properties");
-		properties.load(fis);
-		fis.close();
 		
-		Class.forName(properties.getProperty("driver"));
-		Connection con =
-			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
-				properties.getProperty("password"));
-
+		Connection con = getConnection();
 		String table = clazz.getAnnotation(Table.class).value();
 		ResultSet rs = con.createStatement().executeQuery(("Select * from " + table + " where ID = " + id));
 		if(!rs.next()) return null;
@@ -224,16 +235,7 @@ public class ORMTools {
 	}
 	
 	public static Model map(Class<?> clazz, String query) throws Exception {
-		Properties properties = new Properties();
-//		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
-		FileInputStream fis = new FileInputStream("src/main/resources/datasource.properties");
-		properties.load(fis);
-		fis.close();
-		
-		Class.forName(properties.getProperty("driver"));
-		Connection con =
-			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
-				properties.getProperty("password"));
+		Connection con = getConnection();
 		ResultSet rs = con.createStatement().executeQuery(query);
 		Model model = map(clazz, rs);
 		con.close();

@@ -18,23 +18,19 @@
 package taxonomy.test;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Properties;
 import java.util.Set;
+
+import junit.framework.TestCase;
 
 import org.reflections.Reflections;
 
-import taxonomy.annotation.Table;
 import taxonomy.model.Model;
 import taxonomy.model.NaturalObject;
 import taxonomy.util.ORMTools;
-
-import junit.framework.TestCase;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -63,12 +59,8 @@ public class GenericORMTestCase extends TestCase {
 	}
 	
 	public void testHugeMap() throws Exception {
-		Properties properties = new Properties();
-		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
-		Class.forName(properties.getProperty("driver"));
-		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
+		Connection con = ORMTools.getConnection();
 		ResultSet rs = con.createStatement().executeQuery("Select Max(id) from [NaturalObject]");
-//		System.out.println(rs.getInt(1))
 		int max = rs.getInt(1);
 		assertEquals(3718, max);
 		for(int i = 1; i <= max; i++) {

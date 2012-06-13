@@ -45,9 +45,8 @@ public class ModelTestCase extends TestCase {
 			if(foo != null) {
 				Class<?> returnType = m.getReturnType();
 				Class<?> param = m.getParameterTypes()[0];
-				System.out.println(returnType.getName());
-				System.out.println(param.getName());
-				System.out.println(Set.class.getName());
+				assertEquals("java.util.Set", returnType.getName());
+				assertEquals("java.lang.String", param.getName());
 			}
 		}
 	}

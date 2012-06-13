@@ -18,11 +18,11 @@
 package taxonomy.test;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.util.Properties;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
+import taxonomy.util.ORMTools;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -33,15 +33,11 @@ import junit.framework.TestCase;
 public class ConnectorTestCase extends TestCase {
 
 	public void testSelect() throws Exception {
-		Properties properties = new Properties();
-		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties"));
-		Class.forName(properties.getProperty("driver"));
-		Connection con = DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"), properties.getProperty("password"));
-		
+		Connection con = ORMTools.getConnection();
 		ResultSet result = con.createStatement().executeQuery("Select count(id) from [NaturalObject]");
 		while(result.next())
 		{
-			System.out.println(result.getInt(1));
+			Assert.assertEquals(3718, result.getInt(1));
 		}
 	}
 }
