@@ -30,6 +30,8 @@ public interface MockServiceAsync {
 
 	void sayHello(AsyncCallback<String> callback);
 	
+	void getName(AsyncCallback<String> callback);
+	
 	public static class Util {
 		private static MockServiceAsync instance;
 		

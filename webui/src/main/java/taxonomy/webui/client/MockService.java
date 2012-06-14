@@ -26,6 +26,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  *
  */
 @RemoteServiceRelativePath("MockService")
-public interface MockService extends RemoteService {
+public interface MockService extends RemoteService, TaxonomyService {
 	public String sayHello() throws Exception;
 }

@@ -30,6 +30,12 @@ public class MockServiceServlet extends RemoteServiceServlet implements MockServ
 
 	@Override
 	public String sayHello() throws Exception {
+		MockService service = (MockService)TaxonomyServices.getInstance().getService(MockService.class.getName());
+		return service.sayHello();
+	}
+
+	@Override
+	public String getName() {
 		return null;
 	}
 }

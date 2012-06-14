@@ -30,4 +30,9 @@ public class MockServiceImpl implements MockService {
 	public String sayHello() throws Exception {
 		return "Hello World";
 	}
+
+	@Override
+	public String getName() {
+		return MockService.class.getName();
+	}
 }

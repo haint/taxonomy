@@ -8,4 +8,18 @@
   <welcome-file-list>
      <welcome-file>index.html</welcome-file>
    </welcome-file-list>
+   
+   <listener>
+    <listener-class>taxonomy.webui.server.TaxonomyServletContextListener</listener-class>
+   </listener>
+   
+   <servlet>
+    <servlet-name>MockService</servlet-name>
+    <servlet-class>taxonomy.webui.server.MockServiceServlet</servlet-class>
+   </servlet>
+   
+   <servlet-mapping>
+    <servlet-name>MockService</servlet-name>
+    <url-pattern>/taxonomy.webui.Taxonomy/MockService</url-pattern>
+   </servlet-mapping>
 </web-app>

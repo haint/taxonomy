@@ -18,7 +18,15 @@
  */
 package taxonomy.webui.client.widget;
 
+import taxonomy.webui.client.MockService;
+import taxonomy.webui.client.MockServiceAsync;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.types.VisibilityMode;
+import com.smartgwt.client.util.SC;
+import com.smartgwt.client.widgets.IButton;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.SectionStack;
 import com.smartgwt.client.widgets.layout.SectionStackSection;
 
@@ -40,5 +48,25 @@ public class ControlPanel extends SectionStack implements Application
       SectionStackSection mainSection = new SectionStackSection("Main Example Items");
       mainSection.setExpanded(true);
       setSections(mainSection);
+      
+      final IButton button = new IButton("MockService");
+      button.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				MockServiceAsync service =MockServiceAsync.Util.getInstance();
+				service.sayHello(new AsyncCallback<String>() {
+					@Override
+					public void onSuccess(String result) {
+						SC.say(result);
+					}
+					@Override
+					public void onFailure(Throwable caught) {
+						SC.say("RPC call encounter an error.");
+					}
+				});
+			}
+		});
+      
+      mainSection.addItem(button);
    }
 }

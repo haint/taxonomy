@@ -29,7 +29,7 @@ public class TaxonomyServletContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		
+		TaxonomyServices.setInstance(new TaxonomyServices(new MockServiceImpl()));
 	}
 
 	@Override

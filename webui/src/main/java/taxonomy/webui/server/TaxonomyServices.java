@@ -17,11 +17,36 @@
  */
 package taxonomy.webui.server;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import taxonomy.webui.client.TaxonomyService;
+
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-public class TaxonomyServices {
-
+public final class TaxonomyServices {
+	private final Map<String, TaxonomyService> holder = new HashMap<String, TaxonomyService>();
+	
+	private static TaxonomyServices singleton;
+	
+	TaxonomyServices(TaxonomyService ... services)  {
+		for(TaxonomyService service : services) {
+			holder.put(service.getName(), service);
+		}
+	}
+	
+	public TaxonomyService getService(String key) {
+		return holder.get(key);
+	}
+	
+	public final static TaxonomyServices getInstance() {
+		return singleton;
+	}
+	
+	final static void setInstance(TaxonomyServices instance) {
+		singleton = instance;
+	}
 }
