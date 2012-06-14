@@ -17,26 +17,31 @@
  */
 package taxonomy.webui.server;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+
+import taxonomy.util.ORMTools;
+import taxonomy.webui.client.TaxonomyDAOService;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-public class TaxonomyServletContextListener implements ServletContextListener {
+public class TaxonomyDAOServiceImpl implements TaxonomyDAOService {
 
 	@Override
-	public void contextInitialized(ServletContextEvent sce) {
-		System.setProperty("taxonomy.conf", "WEB-INF/datasource.properties");
-		TaxonomyServices.setInstance(new TaxonomyServices(
-			new MockServiceImpl(),
-			new TaxonomyDAOServiceImpl()));
+	public String getName() {
+		return TaxonomyDAOService.class.getName();
 	}
 
 	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
-		
+	public Integer getMaxId(String tableName) throws Exception {
+		Connection con = ORMTools.getConnection();
+		ResultSet rs = con.createStatement().executeQuery("Select max(ID) from " + tableName);
+		rs.next();
+		int maxId = rs.getInt(1);
+		con.close();
+		return maxId;
 	}
 }

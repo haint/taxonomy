@@ -18,47 +18,51 @@
  */
 package taxonomy.webui.client.widget;
 
-import taxonomy.webui.client.MockService;
 import taxonomy.webui.client.MockServiceAsync;
+import taxonomy.webui.client.TaxonomyDAOServiceAsync;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.types.VisibilityMode;
 import com.smartgwt.client.util.SC;
-import com.smartgwt.client.widgets.IButton;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.ButtonItem;
+import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.form.fields.events.ClickEvent;
+import com.smartgwt.client.widgets.form.fields.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.SectionStack;
 import com.smartgwt.client.widgets.layout.SectionStackSection;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
  * @version $Id$
- *
+ * 
  */
-public class ControlPanel extends SectionStack implements Application
-{
-   public ControlPanel() {
-      setWidth(250);
-      setVisibilityMode(VisibilityMode.MULTIPLE);
-      setAnimateSections(true);
-      setCanReorderSections(true);
-      setShowEdges(true);
-      setShowResizeBar(true);
-      
-      SectionStackSection mainSection = new SectionStackSection("Main Example Items");
-      mainSection.setExpanded(true);
-      setSections(mainSection);
-      
-      final IButton button = new IButton("MockService");
-      button.addClickHandler(new ClickHandler() {
+public class ControlPanel extends SectionStack implements Application {
+	public ControlPanel() {
+		setWidth(250);
+		setVisibilityMode(VisibilityMode.MULTIPLE);
+		setAnimateSections(true);
+		setCanReorderSections(true);
+		setShowEdges(true);
+		setShowResizeBar(true);
+
+		SectionStackSection mainSection = new SectionStackSection("Main Example Items");
+		mainSection.setExpanded(true);
+		setSections(mainSection);
+		
+		DynamicForm daoForm = new DynamicForm();
+
+		ButtonItem mockBtn = new ButtonItem("MockService");
+		mockBtn.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				MockServiceAsync service =MockServiceAsync.Util.getInstance();
+				MockServiceAsync service = MockServiceAsync.Util.getInstance();
 				service.sayHello(new AsyncCallback<String>() {
 					@Override
 					public void onSuccess(String result) {
 						SC.say(result);
 					}
+
 					@Override
 					public void onFailure(Throwable caught) {
 						SC.say("RPC call encounter an error.");
@@ -66,7 +70,26 @@ public class ControlPanel extends SectionStack implements Application
 				});
 			}
 		});
-      
-      mainSection.addItem(button);
-   }
+		
+		
+		final TextItem tableNameTxt = new TextItem("tableNameTxt", "Table Name");
+		ButtonItem daoBtn = new ButtonItem("DaoService");
+		daoBtn.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				TaxonomyDAOServiceAsync service = TaxonomyDAOServiceAsync.Util.getInstance();
+				service.getMaxId(tableNameTxt.getValueAsString(), new AsyncCallback<Integer>() {
+					public void onSuccess(Integer result) {
+						SC.say("The Max ID of " + tableNameTxt.getValueAsString() + " : " + result);
+					}
+					public void onFailure(Throwable caught) {
+						SC.say(caught.getMessage());
+					}
+				});
+			}
+		});
+		
+		daoForm.setFields(mockBtn, tableNameTxt, daoBtn);
+		mainSection.addItem(daoForm);
+	}
 }

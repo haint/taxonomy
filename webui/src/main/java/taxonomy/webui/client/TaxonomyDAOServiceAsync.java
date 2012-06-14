@@ -15,28 +15,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.server;
+package taxonomy.webui.client;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-public class TaxonomyServletContextListener implements ServletContextListener {
+public interface TaxonomyDAOServiceAsync {
+	
+	void getMaxId(String tableName, AsyncCallback<Integer> callback);
 
-	@Override
-	public void contextInitialized(ServletContextEvent sce) {
-		System.setProperty("taxonomy.conf", "WEB-INF/datasource.properties");
-		TaxonomyServices.setInstance(new TaxonomyServices(
-			new MockServiceImpl(),
-			new TaxonomyDAOServiceImpl()));
-	}
-
-	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
+	void getName(AsyncCallback<String> callback);
+	
+	public static class Util {
+		private static TaxonomyDAOServiceAsync instance;
 		
+		public static TaxonomyDAOServiceAsync getInstance() {
+			if(instance == null) {
+				instance = GWT.create(TaxonomyDAOService.class);
+				ServiceDefTarget target = (ServiceDefTarget) instance;
+				target.setServiceEntryPoint(GWT.getModuleBaseURL() + "DAOService");
+			}
+			return instance;
+		}
 	}
 }

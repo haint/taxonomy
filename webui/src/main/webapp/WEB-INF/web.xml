@@ -17,9 +17,19 @@
     <servlet-name>MockService</servlet-name>
     <servlet-class>taxonomy.webui.server.MockServiceServlet</servlet-class>
    </servlet>
+     
+   <servlet>
+    <servlet-name>DAOService</servlet-name>
+    <servlet-class>taxonomy.webui.server.TaxonomyDAOServlet</servlet-class>
+   </servlet>
    
    <servlet-mapping>
     <servlet-name>MockService</servlet-name>
     <url-pattern>/taxonomy.webui.Taxonomy/MockService</url-pattern>
+   </servlet-mapping>
+   
+   <servlet-mapping>
+    <servlet-name>DAOService</servlet-name>
+    <url-pattern>/taxonomy.webui.Taxonomy/DAOService</url-pattern>
    </servlet-mapping>
 </web-app>
