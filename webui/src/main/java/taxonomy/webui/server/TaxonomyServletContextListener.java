@@ -17,6 +17,8 @@
  */
 package taxonomy.webui.server;
 
+import java.io.InputStream;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -29,7 +31,7 @@ public class TaxonomyServletContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		System.setProperty("taxonomy.conf", "WEB-INF/datasource.properties");
+		System.setProperty("taxonomy.context", this.getClass().getName());
 		TaxonomyServices.setInstance(new TaxonomyServices(
 			new MockServiceImpl(),
 			new TaxonomyDAOServiceImpl()));

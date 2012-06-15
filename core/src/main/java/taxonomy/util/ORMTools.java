@@ -17,6 +17,9 @@
  */
 package taxonomy.util;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
@@ -50,11 +53,12 @@ public class ORMTools {
 	
 	static {
 		try {
-		String config = System.getProperty("taxonomy.conf");
+		String context = System.getProperty("taxonomy.context");
 		InputStream is = null;
-		if(config != null)
+		if(context != null)
 		{
-			is = new FileInputStream(config);
+			Class contextClass = Class.forName(context);
+			is = contextClass.getResourceAsStream("/tx.properties");
 		}
 		else
 		{
