@@ -17,7 +17,10 @@
  */
 package taxonomy.webui.server;
 
+import taxonomy.model.Family;
 import taxonomy.webui.client.TaxonomyDAOService;
+import taxonomy.webui.client.model.VFamily;
+import taxonomy.webui.client.model.VModel;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -37,5 +40,17 @@ public class TaxonomyDAOServlet extends RemoteServiceServlet implements Taxonomy
 	public Integer getMaxId(String tableName) throws Exception {
 		TaxonomyDAOService service =(TaxonomyDAOService)TaxonomyServices.getInstance().getService(TaxonomyDAOService.class.getName());
 		return service.getMaxId(tableName);
+	}
+
+	@Override
+	public VFamily getFamily(Integer id) throws Exception {
+		TaxonomyDAOService service =(TaxonomyDAOService)TaxonomyServices.getInstance().getService(TaxonomyDAOService.class.getName());
+		return service.getFamily(id);
+	}
+
+	@Override
+	public VModel getGeneric(String clazz, Integer id) throws Exception {
+		TaxonomyDAOService service =(TaxonomyDAOService)TaxonomyServices.getInstance().getService(TaxonomyDAOService.class.getName());
+		return service.getGeneric(clazz, id);
 	}
 }

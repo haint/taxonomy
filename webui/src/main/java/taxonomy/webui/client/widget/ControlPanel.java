@@ -18,8 +18,11 @@
  */
 package taxonomy.webui.client.widget;
 
+import taxonomy.model.Family;
 import taxonomy.webui.client.MockServiceAsync;
 import taxonomy.webui.client.TaxonomyDAOServiceAsync;
+import taxonomy.webui.client.model.VFamily;
+import taxonomy.webui.client.model.VModel;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.types.VisibilityMode;
@@ -89,7 +92,26 @@ public class ControlPanel extends SectionStack implements Application {
 			}
 		});
 		
-		daoForm.setFields(mockBtn, tableNameTxt, daoBtn);
+		final TextItem familyIdTxt = new TextItem("familyIdTxt", "Family ID");
+		ButtonItem familyBtn = new ButtonItem("GetFamily");
+		familyBtn.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				TaxonomyDAOServiceAsync service = TaxonomyDAOServiceAsync.Util.getInstance();
+				service.getGeneric("taxonomy.model.Family", Integer.parseInt(familyIdTxt.getValueAsString()), new AsyncCallback<VModel>() {
+					public void onFailure(Throwable caught) {
+						caught.printStackTrace();
+						SC.say(caught.getMessage());
+					}
+
+					public void onSuccess(VModel result) {
+						SC.say(((VFamily) result).getId().toString());
+					}
+				});
+			}
+		});
+		
+		daoForm.setFields(mockBtn, tableNameTxt, daoBtn, familyIdTxt, familyBtn);
 		mainSection.addItem(daoForm);
 	}
 }

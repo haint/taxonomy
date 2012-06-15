@@ -20,8 +20,11 @@ package taxonomy.webui.server;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
+import taxonomy.model.Family;
 import taxonomy.util.ORMTools;
 import taxonomy.webui.client.TaxonomyDAOService;
+import taxonomy.webui.client.model.VFamily;
+import taxonomy.webui.client.model.VModel;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -43,5 +46,23 @@ public class TaxonomyDAOServiceImpl implements TaxonomyDAOService {
 		int maxId = rs.getInt(1);
 		con.close();
 		return maxId;
+	}
+
+	@Override
+	public VFamily getFamily(Integer id) throws Exception {
+		VFamily f = new VFamily();
+		Family model = (Family)ORMTools.map(Family.class, id);
+		f.setId(model.getId());
+		f.setAvatar(model.getAvatar());
+		f.setDescription(model.getDescription());
+		f.setName(model.getName());
+		return f;
+	}
+
+	@Override
+	public VModel getGeneric(String clazz, Integer id) throws Exception {
+		VFamily f = (VFamily)Tools.serialize(VFamily.class.getName(), ORMTools.map(Family.class, id));
+		System.out.println(f);
+		return f;
 	}
 }

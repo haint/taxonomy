@@ -15,25 +15,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.client;
+package taxonomy.webui.client.model;
 
-import taxonomy.webui.client.model.VFamily;
-import taxonomy.webui.client.model.VModel;
-
-import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import java.io.Serializable;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-@RemoteServiceRelativePath("DAOService")
-public interface TaxonomyDAOService extends RemoteService, TaxonomyService {
+public abstract class VModel implements Serializable {
 
-	public Integer getMaxId(String tableName) throws Exception;
+	private static final long serialVersionUID = 1L;
+	private Integer id;
 	
-	public VFamily getFamily(Integer id) throws Exception;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
-	public VModel getGeneric(String clazz, Integer id) throws Exception;
+	public Integer getId() {
+		return id;
+	}
+	
+	public boolean equals(Object obj) {
+		VModel other = (VModel) obj;
+      if(this.getId() == other.getId()) return true;
+      return false;
+	}
 }

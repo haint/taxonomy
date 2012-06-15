@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -15,25 +16,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.client;
+package taxonomy.webui.client.model;
 
-import taxonomy.webui.client.model.VFamily;
-import taxonomy.webui.client.model.VModel;
+public class VVariant extends VModel
+{
+	private static final long serialVersionUID = 1L;
 
-import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-
-/**
- * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
- * @version $Id$
- *
- */
-@RemoteServiceRelativePath("DAOService")
-public interface TaxonomyDAOService extends RemoteService, TaxonomyService {
-
-	public Integer getMaxId(String tableName) throws Exception;
-	
-	public VFamily getFamily(Integer id) throws Exception;
-	
-	public VModel getGeneric(String clazz, Integer id) throws Exception;
+	private String value;
+   
+   private Integer type;
+   
+   public static Integer SYNONYM = 1;
+   
+   public static Integer OLD = 2;
+   
+   public void setValue(String value)
+   {
+      this.value = value;
+   }
+   
+   public String getValue()
+   {
+      return value;
+   }
+   
+   public void setType(Integer type)
+   {
+      this.type = type;
+   }
+   
+   public Integer getType()
+   {
+      return type;
+   }
 }
