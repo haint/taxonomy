@@ -18,7 +18,6 @@ package taxonomy.model;
 
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Set;
 
 import taxonomy.annotation.ManyToOne;

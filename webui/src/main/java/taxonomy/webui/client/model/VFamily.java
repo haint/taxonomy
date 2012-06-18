@@ -73,7 +73,7 @@ public class VFamily extends VModel
    	return locales != null ? locales.iterator() : null;
    }
    
-   public void setLocaleName(Set<VLocale> locales) {
+   public void setLocales(Set<VLocale> locales) {
    	this.locales = locales;
    }
    

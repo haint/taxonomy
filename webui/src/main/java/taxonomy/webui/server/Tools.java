@@ -19,14 +19,17 @@ package taxonomy.webui.server;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import taxonomy.model.Family;
 import taxonomy.model.Genus;
 import taxonomy.model.Glossary;
 import taxonomy.model.Index;
 import taxonomy.model.Kingdom;
+import taxonomy.model.Locale;
 import taxonomy.model.Model;
 import taxonomy.model.Species;
 import taxonomy.model.Tag;
@@ -94,6 +97,14 @@ public class Tools {
 			Object invokeResult = invokeMethod.invoke(model, new Object[]{});
 			if(invokeResult instanceof Model) {
 				m.invoke(vmodel, serialize(serializeHolder.get(invokeResult.getClass()).getName(), (Model)invokeResult));
+			} else if(invokeResult instanceof Iterator) {
+				Set<VModel> holder = new HashSet<VModel>();
+				Iterator<Model> i = (Iterator<Model>)invokeResult;
+				while(i.hasNext()) {
+					Model sel = i.next();
+					holder.add(serialize(serializeHolder.get(sel.getClass()).getName(), sel));
+				}
+				m.invoke(vmodel, holder);
 			} else {
 				m.invoke(vmodel, invokeResult);
 			}
@@ -101,7 +112,29 @@ public class Tools {
 		return vmodel;
 	}
 	
-	public static Model deserialize(String clazz, VModel model) {
-		return null;
+	public static Model deserialize(String clazz, VModel vmodel) throws Exception {
+		Model model = (Model)Class.forName(clazz).newInstance();
+		Method[] methods = model.getClass().getMethods();
+		for(Method m : methods) {
+			String methodName = m.getName();
+			if(!methodName.startsWith("set")) continue;
+			String invokeMethodName = "get" + methodName.substring(3, methodName.length());
+			Method invokeMethod = vmodel.getClass().getMethod(invokeMethodName, null);
+			Object invokeResult = invokeMethod.invoke(vmodel, new Object[]{});
+			if(invokeResult instanceof VModel) {
+				m.invoke(model, deserialize(deserializeHolder.get(invokeResult.getClass()).getName(), vmodel));
+			} else if(invokeResult instanceof Iterator) {
+				Set<Model> holder = new HashSet<Model>();
+				Iterator<VModel> i = (Iterator<VModel>)invokeResult;
+				while(i.hasNext()) {
+					VModel sel = i.next();
+					holder.add(deserialize(deserializeHolder.get(sel.getClass()).getName(), sel));
+				}
+				m.invoke(model, holder);
+			} else {
+				m.invoke(model, invokeResult);
+			}
+		}
+		return model;
 	}
 }

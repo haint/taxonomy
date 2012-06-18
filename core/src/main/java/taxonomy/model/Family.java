@@ -89,7 +89,7 @@ public class Family<T extends Family<T>> extends Model<Family<T>>
    }
    
    @OneToMany(field = "LOCALE_IDS", model = Locale.class)
-   public void setLocaleName(Set<Locale> locales) {
+   public void setLocales(Set<Locale> locales) {
    	this.locales = locales;
    }
    

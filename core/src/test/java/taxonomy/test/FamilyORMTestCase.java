@@ -89,7 +89,7 @@ public class FamilyORMTestCase extends TestCase {
 		f.setKingdom(new Kingdom().setId(111));
 		Set<Locale> locales = new HashSet<Locale>();
 		Collections.addAll(locales, new Locale().setId(12345), new Locale().setId(6789));
-		f.setLocaleName(locales);
+		f.setLocales(locales);
 		ORMTools.insert(f);
 		
 		Connection con = ORMTools.getConnection();
@@ -125,7 +125,7 @@ public class FamilyORMTestCase extends TestCase {
 			locale.setId(locale.getId() + 1);
 			holder.add(locale);
 		}
-		f.setLocaleName(holder);
+		f.setLocales(holder);
 		ORMTools.update(f, "kingdom", "avatar", "description", "locales");
 		f = (Family)ORMTools.map(Family.class, 1);
 		assertNotNull(f);
