@@ -20,6 +20,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import taxonomy.annotation.ManyToOne;
 import taxonomy.annotation.OneToMany;
 import taxonomy.annotation.OneToOne;
@@ -30,6 +32,7 @@ import taxonomy.annotation.Table;
  *
  * @datOct 3, 2011
  */
+@XmlRootElement
 @Table("[Family]")
 public class Family<T extends Family<T>> extends Model<Family<T>>
 {

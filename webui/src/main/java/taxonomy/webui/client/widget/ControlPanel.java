@@ -18,10 +18,18 @@
  */
 package taxonomy.webui.client.widget;
 
+import taxonomy.webui.client.TaxonomyDAOServiceAsync;
+import taxonomy.webui.client.model.VIndex;
+import taxonomy.webui.client.model.VModel;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.types.TreeModelType;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.grid.ListGrid;
+import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.layout.SectionStack;
 import com.smartgwt.client.widgets.layout.SectionStackSection;
 import com.smartgwt.client.widgets.tab.Tab;
@@ -57,7 +65,7 @@ public class ControlPanel extends SectionStack implements Application {
          new TreeNode("Main", new TreeNode("Object")),                       		
          new TreeNode("Domain", 
                       new TreeNode("Kingdom"), new TreeNode("Family"), new TreeNode("Genus"), new TreeNode("Species")),
-         new TreeNode("Utilites", new TreeNode("Locale"), new TreeNode("Variant"))
+         new TreeNode("Utilites", new TreeNode("Index"), new TreeNode("Locale"), new TreeNode("Variant"))
          ));
 		TreeGrid grid = new TreeGrid();
 		grid.setData(tree);
@@ -71,5 +79,23 @@ public class ControlPanel extends SectionStack implements Application {
 			}
 		});
 		return grid;
+	}
+	
+	private void buildIndexGrid() {
+		ListGrid grid = new ListGrid();
+		grid.setWidth100();
+		grid.setHeight100();
+		
+		grid.setFields(new ListGridField("Id"), new ListGridField("Value"));
+		DataSource dataSource = new DataSource();
+		TaxonomyDAOServiceAsync service = TaxonomyDAOServiceAsync.Util.getInstance();
+		service.getGeneric(VModel.class.getName(), 1, new AsyncCallback<VModel>() {
+			public void onFailure(Throwable caught) {
+			}
+
+			public void onSuccess(VModel result) {
+				VIndex index = (VIndex) result;
+			}
+		});
 	}
 }

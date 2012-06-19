@@ -26,10 +26,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+
 import junit.framework.TestCase;
 
 import org.reflections.Reflections;
 
+import taxonomy.model.Family;
 import taxonomy.model.Model;
 import taxonomy.model.NaturalObject;
 import taxonomy.util.ORMTools;
@@ -67,17 +71,15 @@ public class GenericORMTestCase extends TestCase {
 		con.close();
 		
 		assertEquals(3718, max);
-		//List<NaturalObject> holder = new ArrayList<NaturalObject>();
 		for(int i = 1; i <= max; i++) {
 			NaturalObject obj = (NaturalObject)ORMTools.map(NaturalObject.class, i);
 			assertNotNull(obj);
 			assertEquals(i, obj.getId().intValue());
-//			obj.setId(null);
-//			holder.add(obj);
+
+			JAXBContext jc = JAXBContext.newInstance(NaturalObject.class);
+			Marshaller m = jc.createMarshaller();
+			m.marshal(obj, System.out);
+			break;
 		}
-		
-//		for(NaturalObject obj : holder) {
-//			ORMTools.insert(obj);
-//		}
 	}
 }

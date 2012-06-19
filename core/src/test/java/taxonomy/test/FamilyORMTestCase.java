@@ -18,18 +18,20 @@
 package taxonomy.test;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Properties;
 import java.util.Set;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import junit.framework.TestCase;
 import taxonomy.model.Family;
 import taxonomy.model.Kingdom;
 import taxonomy.model.Locale;
+import taxonomy.model.Model;
 import taxonomy.util.LocaleResolver;
 import taxonomy.util.ORMTools;
 
@@ -71,6 +73,10 @@ public class FamilyORMTestCase extends TestCase {
 			assertEquals(lc.getValue(), rs.getString("VALUE"));
 		}
 		con.close();
+		
+		JAXBContext jc = JAXBContext.newInstance(Family.class);
+		Marshaller m = jc.createMarshaller();
+		m.marshal(f, System.out);
 	}
 	
 	public void testSelectLastInsertRowId() throws Exception {
