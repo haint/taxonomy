@@ -18,22 +18,17 @@
  */
 package taxonomy.webui.client.widget;
 
-import taxonomy.model.Family;
-import taxonomy.webui.client.MockServiceAsync;
-import taxonomy.webui.client.TaxonomyDAOServiceAsync;
-import taxonomy.webui.client.model.VFamily;
-import taxonomy.webui.client.model.VModel;
-
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.smartgwt.client.types.VisibilityMode;
+import com.smartgwt.client.types.TreeModelType;
 import com.smartgwt.client.util.SC;
-import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.ButtonItem;
-import com.smartgwt.client.widgets.form.fields.TextItem;
-import com.smartgwt.client.widgets.form.fields.events.ClickEvent;
-import com.smartgwt.client.widgets.form.fields.events.ClickHandler;
+import com.smartgwt.client.widgets.IButton;
+import com.smartgwt.client.widgets.form.validator.IsBooleanValidator;
 import com.smartgwt.client.widgets.layout.SectionStack;
 import com.smartgwt.client.widgets.layout.SectionStackSection;
+import com.smartgwt.client.widgets.tree.Tree;
+import com.smartgwt.client.widgets.tree.TreeGrid;
+import com.smartgwt.client.widgets.tree.TreeNode;
+import com.smartgwt.client.widgets.tree.events.NodeClickEvent;
+import com.smartgwt.client.widgets.tree.events.NodeClickHandler;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
@@ -41,77 +36,38 @@ import com.smartgwt.client.widgets.layout.SectionStackSection;
  * 
  */
 public class ControlPanel extends SectionStack implements Application {
+	
 	public ControlPanel() {
 		setWidth(250);
-		setVisibilityMode(VisibilityMode.MULTIPLE);
-		setAnimateSections(true);
-		setCanReorderSections(true);
 		setShowEdges(true);
 		setShowResizeBar(true);
 
-		SectionStackSection mainSection = new SectionStackSection("Main Example Items");
+		SectionStackSection mainSection = new SectionStackSection("Dashboard");
 		mainSection.setExpanded(true);
+		mainSection.addItem(buildTree());
 		setSections(mainSection);
-		
-		DynamicForm daoForm = new DynamicForm();
-
-		ButtonItem mockBtn = new ButtonItem("MockService");
-		mockBtn.addClickHandler(new ClickHandler() {
+	}
+	
+	private static TreeGrid buildTree() {
+		Tree tree = new Tree();
+		tree.setModelType(TreeModelType.CHILDREN);
+		tree.setRoot(new TreeNode("Root",
+         new TreeNode("Main", new TreeNode("Object")),                       		
+         new TreeNode("Domain", 
+                      new TreeNode("Kingdom"), new TreeNode("Family"), new TreeNode("Genus"), new TreeNode("Species")),
+         new TreeNode("Utilites", new TreeNode("Locale"), new TreeNode("Variant"))
+         ));
+		TreeGrid grid = new TreeGrid();
+		grid.setData(tree);
+		grid.getData().openAll();
+		grid.addNodeClickHandler(new NodeClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
-				MockServiceAsync service = MockServiceAsync.Util.getInstance();
-				service.sayHello(new AsyncCallback<String>() {
-					@Override
-					public void onSuccess(String result) {
-						SC.say(result);
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.say("RPC call encounter an error.");
-					}
-				});
+			public void onNodeClick(NodeClickEvent event) {
+				Display display = (Display) ApplicationManager.getInstance().getSystemApp(Display.class);
+				display.addMember(new IButton(event.getNode().getName()));
 			}
 		});
 		
-		
-		final TextItem tableNameTxt = new TextItem("tableNameTxt", "Table Name");
-		ButtonItem daoBtn = new ButtonItem("DaoService");
-		daoBtn.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				TaxonomyDAOServiceAsync service = TaxonomyDAOServiceAsync.Util.getInstance();
-				service.getMaxId(tableNameTxt.getValueAsString(), new AsyncCallback<Integer>() {
-					public void onSuccess(Integer result) {
-						SC.say("The Max ID of " + tableNameTxt.getValueAsString() + " : " + result);
-					}
-					public void onFailure(Throwable caught) {
-						SC.say(caught.getMessage());
-					}
-				});
-			}
-		});
-		
-		final TextItem familyIdTxt = new TextItem("familyIdTxt", "Family ID");
-		ButtonItem familyBtn = new ButtonItem("GetFamily");
-		familyBtn.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				TaxonomyDAOServiceAsync service = TaxonomyDAOServiceAsync.Util.getInstance();
-				service.getGeneric("taxonomy.model.Family", Integer.parseInt(familyIdTxt.getValueAsString()), new AsyncCallback<VModel>() {
-					public void onFailure(Throwable caught) {
-						caught.printStackTrace();
-						SC.say(caught.getMessage());
-					}
-
-					public void onSuccess(VModel result) {
-						SC.say(((VFamily) result).getId().toString());
-					}
-				});
-			}
-		});
-		
-		daoForm.setFields(mockBtn, tableNameTxt, daoBtn, familyIdTxt, familyBtn);
-		mainSection.addItem(daoForm);
+		return grid;
 	}
 }

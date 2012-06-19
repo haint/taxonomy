@@ -17,8 +17,8 @@
  */
 package taxonomy.webui.client;
 
-import taxonomy.webui.client.model.VFamily;
 import taxonomy.webui.client.model.VModel;
+import taxonomy.webui.client.model.VResult;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -33,7 +33,9 @@ public interface TaxonomyDAOService extends RemoteService, TaxonomyService {
 
 	public Integer getMaxId(String tableName) throws Exception;
 	
-	public VFamily getFamily(Integer id) throws Exception;
-	
 	public VModel getGeneric(String clazz, Integer id) throws Exception;
+	
+	//public VModel[] select(String clazz, Integer form, Integer to) throws Exception;
+	
+	public VResult execute(String query) throws Exception;
 }

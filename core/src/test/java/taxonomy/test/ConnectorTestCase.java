@@ -19,6 +19,7 @@ package taxonomy.test;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -38,6 +39,19 @@ public class ConnectorTestCase extends TestCase {
 		while(result.next())
 		{
 			Assert.assertEquals(3718, result.getInt(1));
+		}
+		result.close();
+		result = con.createStatement().executeQuery("Select * from [Family] where ID = 1");
+		while(result.next()) {
+			int count = 1;
+			while(true) {
+				try {
+					System.out.println(result.getObject(count));
+					count++;
+				} catch (SQLException e) {
+					break;
+				}
+			}
 		}
 	}
 }

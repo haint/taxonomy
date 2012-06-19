@@ -19,12 +19,15 @@ package taxonomy.webui.server;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
 
 import taxonomy.model.Family;
 import taxonomy.util.ORMTools;
 import taxonomy.webui.client.TaxonomyDAOService;
 import taxonomy.webui.client.model.VFamily;
 import taxonomy.webui.client.model.VModel;
+import taxonomy.webui.client.model.VResult;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -49,20 +52,29 @@ public class TaxonomyDAOServiceImpl implements TaxonomyDAOService {
 	}
 
 	@Override
-	public VFamily getFamily(Integer id) throws Exception {
-		VFamily f = new VFamily();
-		Family model = (Family)ORMTools.map(Family.class, id);
-		f.setId(model.getId());
-		f.setAvatar(model.getAvatar());
-		f.setDescription(model.getDescription());
-		f.setName(model.getName());
+	public VModel getGeneric(String clazz, Integer id) throws Exception {
+		VFamily f = (VFamily)Tools.serialize(VFamily.class.getName(), ORMTools.map(Family.class, id));
 		return f;
 	}
 
 	@Override
-	public VModel getGeneric(String clazz, Integer id) throws Exception {
-		VFamily f = (VFamily)Tools.serialize(VFamily.class.getName(), ORMTools.map(Family.class, id));
-		System.out.println(f);
-		return f;
+	public VResult execute(String query) throws Exception {
+		Connection con = ORMTools.getConnection();
+		ResultSet rs = con.createStatement().executeQuery(query);
+		VResult vresult = new VResult();
+		while(rs.next()) {
+			LinkedList<Object> holder = new LinkedList<Object>();
+			int i = 1;
+			while(true) {
+				try {
+					holder.addLast(rs.getObject(i));
+					i++;
+				} catch(SQLException e) {
+					vresult.set(holder);
+					break;
+				}
+			}
+		}
+		return vresult;
 	}
 }

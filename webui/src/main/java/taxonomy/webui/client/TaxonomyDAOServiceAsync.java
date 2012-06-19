@@ -17,8 +17,8 @@
  */
 package taxonomy.webui.client;
 
-import taxonomy.webui.client.model.VFamily;
 import taxonomy.webui.client.model.VModel;
+import taxonomy.webui.client.model.VResult;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -30,14 +30,14 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
  *
  */
 public interface TaxonomyDAOServiceAsync {
+
+	void getName(AsyncCallback<String> callback);
 	
 	void getMaxId(String tableName, AsyncCallback<Integer> callback);
 
-	void getFamily(Integer id, AsyncCallback<VFamily> callback);
-	
 	void getGeneric(String clazz, Integer id, AsyncCallback<VModel> callback);
 	
-	void getName(AsyncCallback<String> callback);
+	void execute(String query, AsyncCallback<VResult> result);
 	
 	public static class Util {
 		private static TaxonomyDAOServiceAsync instance;

@@ -17,10 +17,9 @@
  */
 package taxonomy.webui.server;
 
-import taxonomy.model.Family;
 import taxonomy.webui.client.TaxonomyDAOService;
-import taxonomy.webui.client.model.VFamily;
 import taxonomy.webui.client.model.VModel;
+import taxonomy.webui.client.model.VResult;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -30,6 +29,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  *
  */
 public class TaxonomyDAOServlet extends RemoteServiceServlet implements TaxonomyDAOService {
+
+	private static final long	serialVersionUID	= 1L;
 
 	@Override
 	public String getName() {
@@ -43,14 +44,14 @@ public class TaxonomyDAOServlet extends RemoteServiceServlet implements Taxonomy
 	}
 
 	@Override
-	public VFamily getFamily(Integer id) throws Exception {
-		TaxonomyDAOService service =(TaxonomyDAOService)TaxonomyServices.getInstance().getService(TaxonomyDAOService.class.getName());
-		return service.getFamily(id);
-	}
-
-	@Override
 	public VModel getGeneric(String clazz, Integer id) throws Exception {
 		TaxonomyDAOService service =(TaxonomyDAOService)TaxonomyServices.getInstance().getService(TaxonomyDAOService.class.getName());
 		return service.getGeneric(clazz, id);
+	}
+
+	@Override
+	public VResult execute(String query) throws Exception {
+		TaxonomyDAOService service =(TaxonomyDAOService)TaxonomyServices.getInstance().getService(TaxonomyDAOService.class.getName());
+		return service.execute(query);
 	}
 }
