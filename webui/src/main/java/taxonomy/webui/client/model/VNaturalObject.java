@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see<http://www.gnu.org/licenses/>.
  */
-package taxonomy.model;
+package taxonomy.webui.client.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,35 +24,29 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import taxonomy.annotation.ManyToOne;
-import taxonomy.annotation.OneToMany;
-import taxonomy.annotation.OneToOne;
-import taxonomy.annotation.Table;
-
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  * 
  * @datOct 4, 2011
  */
 
-@Table("[NaturalObject]")
-public class NaturalObject extends Model<NaturalObject> {
+public class VNaturalObject extends VModel {
 
-	private static final long serialVersionUID = 5736627780873122909L;
-	
+	private static final long serialVersionUID = 1L;
+
 	public final static SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-	private Kingdom king;
+	private VKingdom king;
 
-	private Set<Family<?>> families;
+	private Set<VFamily> families;
 
-	private Genus genus;
+	private VGenus genus;
 
-	private Species species;
+	private VSpecies species;
 
-	private Set<Index> indecies;
+	private Set<VIndex> indecies;
 
-	private Set<Tag> tags;
+	private Set<VTag> tags;
 
 	private Set<String> enNames;
 
@@ -68,104 +62,83 @@ public class NaturalObject extends Model<NaturalObject> {
 
 	private String avatar;
 
-	@OneToOne("KINGDOM_ID")
-	public Kingdom getKingdom() {
+	public VKingdom getKingdom() {
 		return king;
 	}
 
-	@OneToOne("KINGDOM_ID")
-	public void setKingdom(Kingdom king) {
+	public void setKingdom(VKingdom king) {
 		this.king = king;
 	}
 
-	@ManyToOne(field = "FAMILY_IDS", model = Family.class)
-	public Iterator<Family<?>> getFamilies() {
-		if (families == null) families = new HashSet<Family<?>>();
+	public Iterator<VFamily> getFamilies() {
+		if (families == null) families = new HashSet<VFamily>();
 		return families.iterator();
 	}
 	
-	@OneToMany(field = "FAMILY_IDS", model = Family.class)
-	public void setFamilies(Set<Family<?>> families) {
+	public void setFamilies(Set<VFamily> families) {
 		this.families = families;
 	}
 
-	public void addFamily(Family<?> family) {
-		if (families == null)
-			families = new HashSet<Family<?>>();
+	public void addFamil(VFamily family) {
+		if (families == null) families = new HashSet<VFamily>();
 		families.add(family);
 	}
 
-	@OneToOne("GENUS_ID")
-	public Genus getGenus() {
+	public VGenus getGenus() {
 		return genus;
 	}
 
-	@OneToOne("GENUS_ID")
-	public void setGenus(Genus genus) {
+	public void setGenus(VGenus genus) {
 		this.genus = genus;
 	}
 
-	@OneToOne("SPECIES_ID")
-	public Species getSpecies() {
+	public VSpecies getSpecies() {
 		return species;
 	}
 
-	@OneToOne("SPECIES_ID")
-	public void setSpecies(Species sp) {
+	public void setSpecies(VSpecies sp) {
 		this.species = sp;
 	}
 
-	@OneToMany(field = "INDEX_IDS", model = Index.class)
-	public Iterator<Index> getIndecies() {
-		if (indecies == null)
-			return null;
+	public Iterator<VIndex> getIndecies() {
+		if (indecies == null) indecies = new HashSet<VIndex>();
 		return indecies.iterator();
 	}
 
-	@ManyToOne(field = "INDEX_IDS", model = Index.class)
-	public void setIndecies(Set<Index> indecies) {
+	public void setIndecies(Set<VIndex> indecies) {
 		this.indecies = indecies;
 	}
 
-	public void addIndex(Index index) {
-		if (indecies == null)
-			indecies = new HashSet<Index>();
+	public void addIndex(VIndex index) {
+		if (indecies == null) indecies = new HashSet<VIndex>();
 		indecies.add(index);
 	}
 
-	@OneToMany(field = "TAG_IDS", model = Tag.class)
-	public Iterator<Tag> getTags() {
-		if (tags == null)
-			return null;
+	public Iterator<VTag> getTags() {
+		if (tags == null) tags = new HashSet<VTag>();
 		return tags.iterator();
 	}
 
-	@ManyToOne(field = "TAG_IDS", model = Tag.class)
-	public void setTags(Set<Tag> tags) {
+	public void setTags(Set<VTag> tags) {
 		this.tags = tags;
 	}
 
-	public void addTag(Tag tag) {
-		if (tags == null)
-			tags = new HashSet<Tag>();
+	public void addTag(VTag tag) {
+		if (tags == null) tags = new HashSet<VTag>();
 		tags.add(tag);
 	}
 
 	public Iterator<String> getEnNameIterator() {
-		if (enNames == null)
-			enNames = new HashSet<String>();
+		if (enNames == null) enNames = new HashSet<String>();
 		return enNames.iterator();
 	}
 
-	@OneToOne("EN_NAMES")
 	public void setEnNames(String s) {
-		if (enNames == null)
-			enNames = new HashSet<String>();
+		if (enNames == null) enNames = new HashSet<String>();
 		String[] arr = s.split("::");
 		Collections.addAll(enNames, arr);
 	}
 
-	@OneToOne("EN_NAMES")
 	public String getEnNames() {
 		if (enNames == null)
 			return null;
@@ -189,7 +162,6 @@ public class NaturalObject extends Model<NaturalObject> {
 		return vnNames.iterator();
 	}
 
-	@OneToOne("VN_NAMES")
 	public void setVnNames(String s) {
 		if (vnNames == null)
 			vnNames = new HashSet<String>();
@@ -197,7 +169,6 @@ public class NaturalObject extends Model<NaturalObject> {
 		Collections.addAll(vnNames, arr);
 	}
 
-	@OneToOne("VN_NAMES")
 	public String getVnNames() {
 		if (vnNames == null)
 			return null;
@@ -215,54 +186,44 @@ public class NaturalObject extends Model<NaturalObject> {
 		vnNames.add(name);
 	}
 
-	@OneToOne("CREATE_DATE")
 	public Date getCreateDate() {
 		return createDate;
 	}
 
-	@OneToOne("CREATE_DATE")
 	public void setCreateDate(String createDate) throws ParseException {
 		if(createDate == null) return;
 		this.createDate = DATE_FORMATER.parse(createDate);
 	}
 
-	@OneToOne("MODIFIY_DATE")
 	public Date getModifyDate() {
 		return modifyDate;
 	}
 
-	@OneToOne("MODIFIY_DATE")
 	public void setModifyDate(String modifyDate) throws ParseException {
 		if(modifyDate == null) return;
 		this.modifyDate = DATE_FORMATER.parse(modifyDate);
 	}
 
-	@OneToOne("REFERENCE")
 	public String getReferences() {
 		return references;
 	}
 
-	@OneToOne("REFERENCE")
 	public void setReferences(String references) {
 		this.references = references;
 	}
 
-	@OneToOne("DES")
 	public String getDesc() {
 		return desc;
 	}
 
-	@OneToOne("DES")
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 
-	@OneToOne("AVATAR")
 	public String getAvatar() {
 		return avatar;
 	}
 
-	@OneToOne("AVATAR")
 	public void setAvatar(String path) {
 		this.avatar = path;
 	}

@@ -20,8 +20,10 @@ package taxonomy.test;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
@@ -62,11 +64,20 @@ public class GenericORMTestCase extends TestCase {
 		Connection con = ORMTools.getConnection();
 		ResultSet rs = con.createStatement().executeQuery("Select Max(id) from [NaturalObject]");
 		int max = rs.getInt(1);
+		con.close();
+		
 		assertEquals(3718, max);
+		//List<NaturalObject> holder = new ArrayList<NaturalObject>();
 		for(int i = 1; i <= max; i++) {
 			NaturalObject obj = (NaturalObject)ORMTools.map(NaturalObject.class, i);
 			assertNotNull(obj);
 			assertEquals(i, obj.getId().intValue());
+//			obj.setId(null);
+//			holder.add(obj);
 		}
+		
+//		for(NaturalObject obj : holder) {
+//			ORMTools.insert(obj);
+//		}
 	}
 }

@@ -18,17 +18,20 @@
  */
 package taxonomy.webui.client.widget;
 
-import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.tab.Tab;
+import com.smartgwt.client.widgets.tab.TabSet;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
  * @version $Id$
  *
  */
-public class Display extends HLayout implements Application
+public class Display extends TabSet implements Application
 {
    public Display()
    {
-      setShowEdges(true);
+      Tab view = new Tab("View");
+      view.setID("View");
+      addTab(view);
    }
 }

@@ -21,9 +21,11 @@ package taxonomy.webui.client.widget;
 import com.smartgwt.client.types.TreeModelType;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.IButton;
-import com.smartgwt.client.widgets.form.validator.IsBooleanValidator;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.SectionStack;
 import com.smartgwt.client.widgets.layout.SectionStackSection;
+import com.smartgwt.client.widgets.tab.Tab;
+import com.smartgwt.client.widgets.tab.TabSet;
 import com.smartgwt.client.widgets.tree.Tree;
 import com.smartgwt.client.widgets.tree.TreeGrid;
 import com.smartgwt.client.widgets.tree.TreeNode;
@@ -64,10 +66,10 @@ public class ControlPanel extends SectionStack implements Application {
 			@Override
 			public void onNodeClick(NodeClickEvent event) {
 				Display display = (Display) ApplicationManager.getInstance().getSystemApp(Display.class);
-				display.addMember(new IButton(event.getNode().getName()));
+				display.getTab("View").setPane(new Label(event.getNode().getName()));
+//				SC.say(event.getNode().getName());
 			}
 		});
-		
 		return grid;
 	}
 }

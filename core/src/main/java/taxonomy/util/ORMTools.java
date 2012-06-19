@@ -97,6 +97,9 @@ public class ORMTools {
 			if (foo != null) {
 				Object value = m.invoke(model, new Object[]{});
 				if(value == null) continue;
+				if(value instanceof String) {
+					value = ((String) value).replaceAll("\'", "\'\'");
+				}
 				holder.put(foo.value(), value instanceof Model ? ((Model) value).getId() : value);
 			}
 			else if (bar != null) {
@@ -118,6 +121,7 @@ public class ORMTools {
 		
 		StringBuilder b = new StringBuilder();
 		b.append("Insert into ").append(buildValues(table.value(), holder));
+		System.out.println(b.toString());
 		con.createStatement().executeUpdate(b.toString());
 		con.close();
 	}
@@ -214,9 +218,10 @@ public class ORMTools {
 			else if ((bar = m.getAnnotation(OneToMany.class)) != null) {
 				String value = rs.getString(bar.field());
 				Set<Model> holder = new HashSet<Model>();
-				if(value == null || value.indexOf("::") < 0) continue;
+				if(value == null) continue;
 				String[] ids = value.split("::");
 				for (String id : ids) {
+					if(id.isEmpty()) continue;
 					Model model = map(bar.model(), Integer.parseInt(id.trim()));
 					holder.add(model);
 				}
