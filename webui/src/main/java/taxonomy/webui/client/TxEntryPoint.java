@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2011 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -16,37 +15,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.client.widget;
+package taxonomy.webui.client;
+
+import taxonomy.webui.client.ioc.TxApplication;
+import taxonomy.webui.client.ioc.TxGinjector;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.smartgwt.client.widgets.layout.HLayout;
+import com.google.gwt.core.client.GWT;
 
 /**
- * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
+ * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-public class Main extends HLayout implements EntryPoint
-{
-   
-   public Main()
-   {
-      setHeight100();
-      setWidth100();
-      setLayoutMargin(5);
-   }
+public class TxEntryPoint implements EntryPoint {
 
-   /**
-    * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
-    */
-   @Override
-   public void onModuleLoad()
-   {
-      ApplicationManager manager = ApplicationManager.getInstance();
-      Display display = (Display)manager.getSystemApp(Display.class);
-      ControlPanel controlPanel = (ControlPanel)manager.getSystemApp(ControlPanel.class);
-      addMember(controlPanel);
-      addMember(display);
-      draw();
-   }
+	private final TxGinjector injector = GWT.create(TxGinjector.class);
+	
+	@Override
+	public void onModuleLoad() {
+		TxApplication app = injector.getApplication();
+		app.run();
+	}
 }

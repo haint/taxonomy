@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2011 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -16,13 +15,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.client.widget;
+package taxonomy.webui.client.ioc;
+
+import taxonomy.webui.client.widget.TxShell;
+
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.inject.Inject;
 
 /**
- * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
+ * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-public interface Application
-{
+public class TxApplication {
+	
+	@Inject
+	private TxShell shell;
+	
+	public void run() {
+		RootPanel.get().add(shell);
+	}
+	
+	public TxShell getShell() {
+		return shell;
+	}
 }

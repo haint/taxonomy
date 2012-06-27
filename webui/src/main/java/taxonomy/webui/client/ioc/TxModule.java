@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2011 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -16,22 +15,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.client.widget;
+package taxonomy.webui.client.ioc;
 
-import com.smartgwt.client.widgets.tab.Tab;
-import com.smartgwt.client.widgets.tab.TabSet;
+import taxonomy.webui.client.widget.TxShell;
+
+import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.inject.Singleton;
 
 /**
- * @author <a href="mailto:haithanh0809@gmail.com">Hai Thanh Nguyen</a>
+ * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-public class Display extends TabSet implements Application
-{
-   public Display()
-   {
-      Tab view = new Tab("View");
-      view.setID("View");
-      addTab(view);
-   }
+public class TxModule extends AbstractGinModule {
+
+	@Override
+	protected void configure() {
+		bind(TxShell.class).in(Singleton.class);
+	}
 }
