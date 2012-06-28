@@ -15,14 +15,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.client;
+package taxonomy.resources.client;
+
+import taxonomy.webui.client.model.VModel;
+import taxonomy.webui.client.model.VResult;
+
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-public interface TaxonomyService {
+@RemoteServiceRelativePath("DAOService")
+public interface TxDAOService extends RemoteService, TxService {
 
-	public String getName();
+	public Integer getMaxId(String tableName) throws Exception;
+	
+	public VModel getGeneric(String clazz, Integer id) throws Exception;
+	
+	//public VModel[] select(String clazz, Integer form, Integer to) throws Exception;
+	
+	public VResult execute(String query) throws Exception;
 }

@@ -15,7 +15,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.server;
+package taxonomy.resources.server;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,8 +23,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import taxonomy.model.Family;
+import taxonomy.resources.client.TxDAOService;
 import taxonomy.util.ORMTools;
-import taxonomy.webui.client.TaxonomyDAOService;
 import taxonomy.webui.client.model.VFamily;
 import taxonomy.webui.client.model.VModel;
 import taxonomy.webui.client.model.VResult;
@@ -34,11 +34,11 @@ import taxonomy.webui.client.model.VResult;
  * @version $Id$
  *
  */
-public class TaxonomyDAOServiceImpl implements TaxonomyDAOService {
+public class TxDAOServiceImpl implements TxDAOService {
 
 	@Override
 	public String getName() {
-		return TaxonomyDAOService.class.getName();
+		return TxDAOService.class.getName();
 	}
 
 	@Override

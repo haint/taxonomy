@@ -15,24 +15,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.server;
+package taxonomy.resources.client;
 
-import taxonomy.webui.client.MockService;
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-public class MockServiceImpl implements MockService {
-
-	@Override
-	public String sayHello() throws Exception {
-		return "Hello World";
-	}
-
-	@Override
-	public String getName() {
-		return MockService.class.getName();
-	}
+@RemoteServiceRelativePath("MockService")
+public interface MockService extends RemoteService, TxService {
+	public String sayHello() throws Exception;
 }

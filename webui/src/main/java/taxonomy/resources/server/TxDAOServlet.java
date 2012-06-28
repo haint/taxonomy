@@ -15,9 +15,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.server;
+package taxonomy.resources.server;
 
-import taxonomy.webui.client.TaxonomyDAOService;
+import taxonomy.resources.client.TxDAOService;
 import taxonomy.webui.client.model.VModel;
 import taxonomy.webui.client.model.VResult;
 
@@ -28,7 +28,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * @version $Id$
  *
  */
-public class TaxonomyDAOServlet extends RemoteServiceServlet implements TaxonomyDAOService {
+public class TxDAOServlet extends RemoteServiceServlet implements TxDAOService {
 
 	private static final long	serialVersionUID	= 1L;
 
@@ -39,19 +39,19 @@ public class TaxonomyDAOServlet extends RemoteServiceServlet implements Taxonomy
 
 	@Override
 	public Integer getMaxId(String tableName) throws Exception {
-		TaxonomyDAOService service =(TaxonomyDAOService)TaxonomyServices.getInstance().getService(TaxonomyDAOService.class.getName());
+		TxDAOService service =(TxDAOService)TxServices.getInstance().getService(TxDAOService.class.getName());
 		return service.getMaxId(tableName);
 	}
 
 	@Override
 	public VModel getGeneric(String clazz, Integer id) throws Exception {
-		TaxonomyDAOService service =(TaxonomyDAOService)TaxonomyServices.getInstance().getService(TaxonomyDAOService.class.getName());
+		TxDAOService service =(TxDAOService)TxServices.getInstance().getService(TxDAOService.class.getName());
 		return service.getGeneric(clazz, id);
 	}
 
 	@Override
 	public VResult execute(String query) throws Exception {
-		TaxonomyDAOService service =(TaxonomyDAOService)TaxonomyServices.getInstance().getService(TaxonomyDAOService.class.getName());
+		TxDAOService service =(TxDAOService)TxServices.getInstance().getService(TxDAOService.class.getName());
 		return service.execute(query);
 	}
 }

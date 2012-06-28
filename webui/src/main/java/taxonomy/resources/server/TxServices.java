@@ -15,38 +15,38 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.server;
+package taxonomy.resources.server;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import taxonomy.webui.client.TaxonomyService;
+import taxonomy.resources.client.TxService;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-public final class TaxonomyServices {
-	private final Map<String, TaxonomyService> holder = new HashMap<String, TaxonomyService>();
+public final class TxServices {
+	private final Map<String, TxService> holder = new HashMap<String, TxService>();
 	
-	private static TaxonomyServices singleton;
+	private static TxServices singleton;
 	
-	TaxonomyServices(TaxonomyService ... services)  {
-		for(TaxonomyService service : services) {
+	TxServices(TxService ... services)  {
+		for(TxService service : services) {
 			holder.put(service.getName(), service);
 		}
 	}
 	
-	public TaxonomyService getService(String key) {
+	public TxService getService(String key) {
 		return holder.get(key);
 	}
 	
-	public final static TaxonomyServices getInstance() {
+	public final static TxServices getInstance() {
 		return singleton;
 	}
 	
-	final static void setInstance(TaxonomyServices instance) {
+	final static void setInstance(TxServices instance) {
 		singleton = instance;
 	}
 }

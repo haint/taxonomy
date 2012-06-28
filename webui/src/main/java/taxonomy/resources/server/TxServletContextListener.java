@@ -15,17 +15,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.client;
+package taxonomy.resources.server;
 
-import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-@RemoteServiceRelativePath("MockService")
-public interface MockService extends RemoteService, TaxonomyService {
-	public String sayHello() throws Exception;
+public class TxServletContextListener implements ServletContextListener {
+
+	@Override
+	public void contextInitialized(ServletContextEvent sce) {
+		System.setProperty("taxonomy.context", this.getClass().getName());
+		TxServices.setInstance(new TxServices(
+			new MockServiceImpl(),
+			new TxDAOServiceImpl()));
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {
+		
+	}
 }

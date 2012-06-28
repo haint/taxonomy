@@ -15,12 +15,12 @@
    
    <servlet>
     <servlet-name>MockService</servlet-name>
-    <servlet-class>taxonomy.webui.server.MockServiceServlet</servlet-class>
+    <servlet-class>taxonomy.resources.server.MockServiceServlet</servlet-class>
    </servlet>
      
    <servlet>
     <servlet-name>DAOService</servlet-name>
-    <servlet-class>taxonomy.webui.server.TaxonomyDAOServlet</servlet-class>
+    <servlet-class>taxonomy.resources.server.TxDAOServlet</servlet-class>
    </servlet>
    
    <servlet-mapping>

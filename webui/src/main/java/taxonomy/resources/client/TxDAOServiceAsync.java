@@ -15,27 +15,40 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.client;
+package taxonomy.resources.client;
 
 import taxonomy.webui.client.model.VModel;
 import taxonomy.webui.client.model.VResult;
 
-import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-@RemoteServiceRelativePath("DAOService")
-public interface TaxonomyDAOService extends RemoteService, TaxonomyService {
+public interface TxDAOServiceAsync {
 
-	public Integer getMaxId(String tableName) throws Exception;
+	void getName(AsyncCallback<String> callback);
 	
-	public VModel getGeneric(String clazz, Integer id) throws Exception;
+	void getMaxId(String tableName, AsyncCallback<Integer> callback);
+
+	void getGeneric(String clazz, Integer id, AsyncCallback<VModel> callback);
 	
-	//public VModel[] select(String clazz, Integer form, Integer to) throws Exception;
+	void execute(String query, AsyncCallback<VResult> result);
 	
-	public VResult execute(String query) throws Exception;
+	public static class Util {
+		private static TxDAOServiceAsync instance;
+		
+		public static TxDAOServiceAsync getInstance() {
+			if(instance == null) {
+				instance = GWT.create(TxDAOService.class);
+				ServiceDefTarget target = (ServiceDefTarget) instance;
+				target.setServiceEntryPoint(GWT.getModuleBaseURL() + "DAOService");
+			}
+			return instance;
+		}
+	}
 }

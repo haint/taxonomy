@@ -15,30 +15,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.server;
+package taxonomy.resources.server;
 
-import java.io.InputStream;
-
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import taxonomy.resources.client.MockService;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  *
  */
-public class TaxonomyServletContextListener implements ServletContextListener {
+public class MockServiceImpl implements MockService {
 
 	@Override
-	public void contextInitialized(ServletContextEvent sce) {
-		System.setProperty("taxonomy.context", this.getClass().getName());
-		TaxonomyServices.setInstance(new TaxonomyServices(
-			new MockServiceImpl(),
-			new TaxonomyDAOServiceImpl()));
+	public String sayHello() throws Exception {
+		return "Hello World";
 	}
 
 	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
-		
+	public String getName() {
+		return MockService.class.getName();
 	}
 }
