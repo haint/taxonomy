@@ -2,8 +2,7 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.6.4//EN" "http://google-web-toolkit.googlecode.com/svn/tags/1.6.4/distro-source/core/src/gwt-module.dtd">
 
 <module rename-to="tx">
-  <inherits name='com.sencha.gxt.ui.GXT' /> 
-  
+  <inherits name='taxonomy.resources.Resources' /> 
   <inherits name='com.google.gwt.activity.Activity' />
   <inherits name='com.google.gwt.place.Place' />
   <inherits name="com.google.gwt.inject.Inject" />

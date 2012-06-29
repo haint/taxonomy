@@ -4,9 +4,6 @@
 <module rename-to="resources">
   <inherits name='com.sencha.gxt.ui.GXT' /> 
   
-  <inherits name='com.google.gwt.activity.Activity' />
-  <inherits name='com.google.gwt.place.Place' />
-  <inherits name="com.google.gwt.inject.Inject" />
-  
-  <entry-point class="taxonomy.webui.client.TxEntryPoint"/>
+  <servlet class="taxonomy.resources.server.TxDAOServlet" path="/service"/>
+  <source path="client" />
 </module>

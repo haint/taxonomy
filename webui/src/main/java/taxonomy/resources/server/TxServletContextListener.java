@@ -29,9 +29,9 @@ public class TxServletContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		System.out.println("Initital context");
 		System.setProperty("taxonomy.context", this.getClass().getName());
 		TxServices.setInstance(new TxServices(
-			new MockServiceImpl(),
 			new TxDAOServiceImpl()));
 	}
 

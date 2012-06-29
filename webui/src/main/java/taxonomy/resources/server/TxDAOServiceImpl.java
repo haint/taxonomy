@@ -43,11 +43,13 @@ public class TxDAOServiceImpl implements TxDAOService {
 
 	@Override
 	public Integer getMaxId(String tableName) throws Exception {
+		System.out.println("Select max(ID) from " + tableName);
 		Connection con = ORMTools.getConnection();
 		ResultSet rs = con.createStatement().executeQuery("Select max(ID) from " + tableName);
 		rs.next();
 		int maxId = rs.getInt(1);
 		con.close();
+		System.out.println(maxId);
 		return maxId;
 	}
 

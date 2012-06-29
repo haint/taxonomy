@@ -28,7 +28,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * @version $Id$
  *
  */
-@RemoteServiceRelativePath("DAOService")
+@RemoteServiceRelativePath("service")
 public interface TxDAOService extends RemoteService, TxService {
 
 	public Integer getMaxId(String tableName) throws Exception;

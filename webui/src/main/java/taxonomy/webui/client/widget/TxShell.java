@@ -17,22 +17,25 @@
  */
 package taxonomy.webui.client.widget;
 
-import taxonomy.webui.client.ioc.TxGinjector;
+import taxonomy.resources.client.TxDAOServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
 import com.sencha.gxt.core.client.util.Margins;
-import com.sencha.gxt.state.client.BorderLayoutStateHandler;
 import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.box.AlertMessageBox;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.MarginData;
 import com.sencha.gxt.widget.core.client.container.SimpleContainer;
+import com.sencha.gxt.widget.core.client.container.VBoxLayoutContainer;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -53,8 +56,8 @@ public class TxShell extends BorderLayoutContainer {
 		setStateful(false);
 		setStateId("explorerLayout");
 
-		BorderLayoutStateHandler state = new BorderLayoutStateHandler(this);
-		state.loadState();
+//		BorderLayoutStateHandler state = new BorderLayoutStateHandler(this);
+//		state.loadState();
 
 		HTML north = new HTML();
 		north.setHTML("<div id='demo-theme'></div><div id=demo-title>Taxonomy Web Base Application</div>");
@@ -73,7 +76,37 @@ public class TxShell extends BorderLayoutContainer {
 		west = new ContentPanel();
 		west.setHeadingText("Navigation");
 		west.setBodyBorder(true);
+		VBoxLayoutContainer westContent = new VBoxLayoutContainer();
+		west.add(westContent);
 
+		Label label = new Label("Table Name");
+		final TextBox text = new TextBox();
+		
+		Button btn = new Button("test service");
+		btn.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				TxDAOServiceAsync service = TxDAOServiceAsync.Util.getInstance();
+				service.getMaxId(text.getValue(), new AsyncCallback<Integer>() {
+					@Override
+					public void onSuccess(Integer result) {
+						AlertMessageBox msg = new AlertMessageBox("Max ID", result.toString());
+						msg.show();
+					}
+					@Override
+					public void onFailure(Throwable caught) {
+						AlertMessageBox msg = new AlertMessageBox("Max ID", caught.getMessage());
+						msg.show();
+						caught.printStackTrace();
+					}
+				});
+			}
+		});
+		
+		westContent.add(label);
+		westContent.add(text);
+		westContent.add(btn);
+		
 		MarginData centerData = new MarginData();
 		centerData.setMargins(new Margins(5));
 

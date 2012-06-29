@@ -46,7 +46,7 @@ public interface TxDAOServiceAsync {
 			if(instance == null) {
 				instance = GWT.create(TxDAOService.class);
 				ServiceDefTarget target = (ServiceDefTarget) instance;
-				target.setServiceEntryPoint(GWT.getModuleBaseURL() + "DAOService");
+				target.setServiceEntryPoint(GWT.getModuleBaseURL() + "service");
 			}
 			return instance;
 		}
