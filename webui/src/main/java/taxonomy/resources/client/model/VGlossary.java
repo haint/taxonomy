@@ -14,50 +14,68 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see<http://www.gnu.org/licenses/>.
  */
-package taxonomy.webui.client.model;
+package taxonomy.resources.client.model;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Set;
-
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
- * @datOct 5, 2011
  */
-
-public class VSpecies extends VModel
+public class VGlossary extends VModel
 {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
    
-   private Set<VVariant> variant;
+   private String explain;
    
-   public void setName(String name)
-   {
-      this.name = name;
+   private String example;
+   
+   private Set<Locale> locales;
+
+   public void setName(String name) {
+   	this.name = name;
    }
    
-   public String getName()
+   public String getName() {
+   	return name;
+   }
+
+   public String getExplaintion() 
    {
-      return name;
+      return explain;
    }
    
-   public void addVariant(VVariant variant)
+   public void setExplaintion(String explain)
    {
-      if(this.variant == null) this.variant = new HashSet<VVariant>();
-      this.variant.add(variant);
+      this.explain = explain;
    }
    
-   public void setVariants(Set<VVariant> variant) {
-   	this.variant = variant;
+   public String getExample()
+   {
+      return example;
    }
    
-   public Iterator<VVariant> getVariantIterator()
+   public void setExample(String example)
    {
-      if(this.variant == null) variant = new HashSet<VVariant>();
-      return variant.iterator();
+      this.example = example;
+   }
+   
+   public void setLocales(Set<Locale> locales) {
+   	this.locales = locales;
+   }
+   
+   public Iterator<Locale> getLocales() {
+   	if(locales == null) return null;
+   	return locales.iterator();
+   }
+   
+   public void addLocale(Locale locale) {
+   	if(locales == null) locales = new HashSet<Locale>();
+   	locales.add(locale);
    }
 }

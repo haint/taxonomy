@@ -14,81 +14,50 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see<http://www.gnu.org/licenses/>.
  */
-package taxonomy.webui.client.model;
+package taxonomy.resources.client.model;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
+ * @datOct 5, 2011
  */
-public class VFamily extends VModel
+
+public class VSpecies extends VModel
 {
 	private static final long serialVersionUID = 1L;
 
-	private VKingdom king;
+	private String name;
    
-   private String name;
+   private Set<VVariant> variant;
    
-   private Set<VLocale> locales;
-   
-   private String desc;
-   
-   private String avartar;
-   
-
-   public VKingdom getKingdom()
+   public void setName(String name)
    {
-      return king;
+      this.name = name;
    }
    
-   public void setKingdom(VKingdom king)
-   {
-      this.king = king;
-   }
-
    public String getName()
    {
       return name;
    }
-
-   public void setName(String scienseName)
+   
+   public void addVariant(VVariant variant)
    {
-      this.name = scienseName;
+      if(this.variant == null) this.variant = new HashSet<VVariant>();
+      this.variant.add(variant);
    }
    
-   public String getDescription()
+   public void setVariants(Set<VVariant> variant) {
+   	this.variant = variant;
+   }
+   
+   public Iterator<VVariant> getVariantIterator()
    {
-      return desc;
-   }
-   
-   public void setDescription(String desc)
-   {
-      this.desc = desc;
-   }
- 
-   public Iterator<VLocale> getLocales() {
-   	return locales != null ? locales.iterator() : null;
-   }
-   
-   public void setLocales(Set<VLocale> locales) {
-   	this.locales = locales;
-   }
-   
-   public void addLocale(VLocale locale) {
-   	if(locales == null) locales = new HashSet<VLocale>();
-   	locales.add(locale);
-   }
-   
-   public void setAvatar(String path)
-   {
-      this.avartar = path;
-   }
-   
-   public String getAvatar()
-   {
-      return avartar;
+      if(this.variant == null) variant = new HashSet<VVariant>();
+      return variant.iterator();
    }
 }

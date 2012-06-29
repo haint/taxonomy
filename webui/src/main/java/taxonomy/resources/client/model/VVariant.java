@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -15,31 +16,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.webui.client.model;
+package taxonomy.resources.client.model;
 
-import java.io.Serializable;
-
-/**
- * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
- * @version $Id$
- *
- */
-public abstract class VModel implements Serializable {
-
+public class VVariant extends VModel
+{
 	private static final long serialVersionUID = 1L;
-	private Integer id;
-	
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	public Integer getId() {
-		return id;
-	}
-	
-	public boolean equals(Object obj) {
-		VModel other = (VModel) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
-	}
+
+	private String value;
+   
+   private Integer type;
+   
+   public static Integer SYNONYM = 1;
+   
+   public static Integer OLD = 2;
+   
+   public void setValue(String value)
+   {
+      this.value = value;
+   }
+   
+   public String getValue()
+   {
+      return value;
+   }
+   
+   public void setType(Integer type)
+   {
+      this.type = type;
+   }
+   
+   public Integer getType()
+   {
+      return type;
+   }
 }

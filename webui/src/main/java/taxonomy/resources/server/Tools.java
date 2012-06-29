@@ -34,16 +34,16 @@ import taxonomy.model.Model;
 import taxonomy.model.Species;
 import taxonomy.model.Tag;
 import taxonomy.model.Variant;
-import taxonomy.webui.client.model.VFamily;
-import taxonomy.webui.client.model.VGenus;
-import taxonomy.webui.client.model.VGlossary;
-import taxonomy.webui.client.model.VIndex;
-import taxonomy.webui.client.model.VKingdom;
-import taxonomy.webui.client.model.VLocale;
-import taxonomy.webui.client.model.VModel;
-import taxonomy.webui.client.model.VSpecies;
-import taxonomy.webui.client.model.VTag;
-import taxonomy.webui.client.model.VVariant;
+import taxonomy.resources.client.model.VFamily;
+import taxonomy.resources.client.model.VGenus;
+import taxonomy.resources.client.model.VGlossary;
+import taxonomy.resources.client.model.VIndex;
+import taxonomy.resources.client.model.VKingdom;
+import taxonomy.resources.client.model.VLocale;
+import taxonomy.resources.client.model.VModel;
+import taxonomy.resources.client.model.VSpecies;
+import taxonomy.resources.client.model.VTag;
+import taxonomy.resources.client.model.VVariant;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>

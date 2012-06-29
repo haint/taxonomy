@@ -14,68 +14,81 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see<http://www.gnu.org/licenses/>.
  */
-package taxonomy.webui.client.model;
+package taxonomy.resources.client.model;
 
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Set;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
  *
  */
-public class VGlossary extends VModel
+public class VFamily extends VModel
 {
 	private static final long serialVersionUID = 1L;
 
-	private String name;
+	private VKingdom king;
    
-   private String explain;
+   private String name;
    
-   private String example;
+   private Set<VLocale> locales;
    
-   private Set<Locale> locales;
+   private String desc;
+   
+   private String avartar;
+   
 
-   public void setName(String name) {
-   	this.name = name;
+   public VKingdom getKingdom()
+   {
+      return king;
    }
    
-   public String getName() {
-   	return name;
+   public void setKingdom(VKingdom king)
+   {
+      this.king = king;
    }
 
-   public String getExplaintion() 
+   public String getName()
    {
-      return explain;
+      return name;
+   }
+
+   public void setName(String scienseName)
+   {
+      this.name = scienseName;
    }
    
-   public void setExplaintion(String explain)
+   public String getDescription()
    {
-      this.explain = explain;
+      return desc;
    }
    
-   public String getExample()
+   public void setDescription(String desc)
    {
-      return example;
+      this.desc = desc;
+   }
+ 
+   public Iterator<VLocale> getLocales() {
+   	return locales != null ? locales.iterator() : null;
    }
    
-   public void setExample(String example)
-   {
-      this.example = example;
-   }
-   
-   public void setLocales(Set<Locale> locales) {
+   public void setLocales(Set<VLocale> locales) {
    	this.locales = locales;
    }
    
-   public Iterator<Locale> getLocales() {
-   	if(locales == null) return null;
-   	return locales.iterator();
+   public void addLocale(VLocale locale) {
+   	if(locales == null) locales = new HashSet<VLocale>();
+   	locales.add(locale);
    }
    
-   public void addLocale(Locale locale) {
-   	if(locales == null) locales = new HashSet<Locale>();
-   	locales.add(locale);
+   public void setAvatar(String path)
+   {
+      this.avartar = path;
+   }
+   
+   public String getAvatar()
+   {
+      return avartar;
    }
 }

@@ -17,8 +17,8 @@
  */
 package taxonomy.resources.client;
 
-import taxonomy.webui.client.model.VModel;
-import taxonomy.webui.client.model.VResult;
+import taxonomy.resources.client.model.VModel;
+import taxonomy.resources.client.model.VResult;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;

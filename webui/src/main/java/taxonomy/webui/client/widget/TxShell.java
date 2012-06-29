@@ -17,25 +17,27 @@
  */
 package taxonomy.webui.client.widget;
 
-import taxonomy.resources.client.TxDAOServiceAsync;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import taxonomy.resources.client.images.ExampleImages;
+
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
+import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.core.client.util.Margins;
+import com.sencha.gxt.data.shared.ModelKeyProvider;
+import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.box.AlertMessageBox;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.MarginData;
 import com.sencha.gxt.widget.core.client.container.SimpleContainer;
-import com.sencha.gxt.widget.core.client.container.VBoxLayoutContainer;
+import com.sencha.gxt.widget.core.client.tree.Tree;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -76,43 +78,56 @@ public class TxShell extends BorderLayoutContainer {
 		west = new ContentPanel();
 		west.setHeadingText("Navigation");
 		west.setBodyBorder(true);
-		VBoxLayoutContainer westContent = new VBoxLayoutContainer();
-		west.add(westContent);
+		west.add(buildTreeNavigation());
 
-		Label label = new Label("Table Name");
-		final TextBox text = new TextBox();
-		
-		Button btn = new Button("test service");
-		btn.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				TxDAOServiceAsync service = TxDAOServiceAsync.Util.getInstance();
-				service.getMaxId(text.getValue(), new AsyncCallback<Integer>() {
-					@Override
-					public void onSuccess(Integer result) {
-						AlertMessageBox msg = new AlertMessageBox("Max ID", result.toString());
-						msg.show();
-					}
-					@Override
-					public void onFailure(Throwable caught) {
-						AlertMessageBox msg = new AlertMessageBox("Max ID", caught.getMessage());
-						msg.show();
-						caught.printStackTrace();
-					}
-				});
-			}
-		});
-		
-		westContent.add(label);
-		westContent.add(text);
-		westContent.add(btn);
-		
 		MarginData centerData = new MarginData();
 		centerData.setMargins(new Margins(5));
 
 		center = new SimpleContainer();
 		setWestWidget(west, westData);
 		setCenterWidget(center, centerData);
+	}
+	
+	public Tree<String, String> buildTreeNavigation() {
+		TreeStore<String> store = new TreeStore<String>(new ModelKeyProvider<String>() {
+			@Override
+			public String getKey(String item) {
+				return item;
+			}
+		});
+		
+		String main = "Main";
+		store.add(main);
+		List<String> child1 = new ArrayList<String>();
+		Collections.addAll(child1, "Kingdom", "Family", "Genus", "Species", "Object");
+		store.add(main, child1);
+		
+		String ext = "Extension";
+		store.add(ext);
+		List<String> child2	= new ArrayList<String>();
+		Collections.addAll(child2, "Index", "Tag", "Glossary", "Variant", "Locale");
+		store.add(ext, child2);
+		
+		Tree<String, String> tree = new Tree<String, String>(store, new ValueProvider<String, String>() {
+			@Override
+			public String getValue(String object) { return object; }
+			@Override
+			public void setValue(String object, String value) {}
+			@Override
+			public String getPath() { return null; }
+		});
+		
+		tree.getStyle().setLeafIcon(ExampleImages.INSTANCE.userKid());
+		tree.getSelectionModel().addSelectionHandler(new SelectionHandler<String>() {
+			
+			@Override
+			public void onSelection(SelectionEvent<String> event) {
+				String item = event.getSelectedItem();
+				AlertMessageBox msg = new AlertMessageBox("Selecetd item", item);
+				msg.show();
+			};
+		});
+		return tree;
 	}
 
 	@Override
