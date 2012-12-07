@@ -19,6 +19,7 @@ package taxonomy.util;
 
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -55,12 +56,17 @@ public class ORMTools {
 		{
 			Class contextClass = Class.forName(context);
 			is = contextClass.getResourceAsStream("/tx.properties");
+			URL url = contextClass.getResource("/taxonomy.db");
+			System.out.println(url.getFile());
+			String datasource = "jdbc:sqlite:" + url.getFile();
+			properties.load(is);
+			properties.setProperty("datasource", datasource);
 		}
 		else
 		{
 			is = Thread.currentThread().getContextClassLoader().getResourceAsStream("datasource.properties");
+			properties.load(is);
 		}
-		properties.load(is);
 		is.close();
 		}
 		catch(Exception e)

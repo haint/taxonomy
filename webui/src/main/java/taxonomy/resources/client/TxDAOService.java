@@ -17,11 +17,15 @@
  */
 package taxonomy.resources.client;
 
+import java.util.List;
+
 import taxonomy.resources.client.model.VModel;
 import taxonomy.resources.client.model.VResult;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.sencha.gxt.data.shared.loader.PagingLoadConfig;
+import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -35,7 +39,11 @@ public interface TxDAOService extends RemoteService, TxService {
 	
 	public VModel getGeneric(String clazz, Integer id) throws Exception;
 	
-	//public VModel[] select(String clazz, Integer form, Integer to) throws Exception;
+	public List<VModel> select(String tableName, Integer from, Integer to) throws Exception;
 	
-	public VResult execute(String query) throws Exception;
+	public <M extends VModel> PagingLoadResult<M> select(String tableName, PagingLoadConfig config) throws Exception;
+	
+	public VResult query(String query) throws Exception;
+	
+	public void update(String query) throws Exception;
 }

@@ -17,12 +17,14 @@
 package taxonomy.resources.client.model;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
@@ -33,8 +35,6 @@ import java.util.Set;
 public class VNaturalObject extends VModel {
 
 	private static final long serialVersionUID = 1L;
-
-	public final static SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	private VKingdom king;
 
@@ -70,9 +70,8 @@ public class VNaturalObject extends VModel {
 		this.king = king;
 	}
 
-	public Iterator<VFamily> getFamilies() {
-		if (families == null) families = new HashSet<VFamily>();
-		return families.iterator();
+	public Set<VFamily> getFamilies() {
+		return families;
 	}
 	
 	public void setFamilies(Set<VFamily> families) {
@@ -100,9 +99,8 @@ public class VNaturalObject extends VModel {
 		this.species = sp;
 	}
 
-	public Iterator<VIndex> getIndecies() {
-		if (indecies == null) indecies = new HashSet<VIndex>();
-		return indecies.iterator();
+	public Set<VIndex> getIndecies() {
+		return indecies;
 	}
 
 	public void setIndecies(Set<VIndex> indecies) {
@@ -114,9 +112,8 @@ public class VNaturalObject extends VModel {
 		indecies.add(index);
 	}
 
-	public Iterator<VTag> getTags() {
-		if (tags == null) tags = new HashSet<VTag>();
-		return tags.iterator();
+	public Set<VTag> getTags() {
+		return tags;
 	}
 
 	public void setTags(Set<VTag> tags) {
@@ -128,9 +125,8 @@ public class VNaturalObject extends VModel {
 		tags.add(tag);
 	}
 
-	public Iterator<String> getEnNameIterator() {
-		if (enNames == null) enNames = new HashSet<String>();
-		return enNames.iterator();
+	public Set<String> getEnNameSet() {
+		return enNames;
 	}
 
 	public void setEnNames(String s) {
@@ -156,10 +152,8 @@ public class VNaturalObject extends VModel {
 		enNames.add(name);
 	}
 
-	public Iterator<String> getVnNameIterator() {
-		if (vnNames == null)
-			vnNames = new HashSet<String>();
-		return vnNames.iterator();
+	public Set<String> getVnNameSet() {
+		return vnNames;
 	}
 
 	public void setVnNames(String s) {
@@ -186,22 +180,20 @@ public class VNaturalObject extends VModel {
 		vnNames.add(name);
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	public String getCreateDate() {
+		return createDate != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).format(createDate) : "";
 	}
 
-	public void setCreateDate(String createDate) throws ParseException {
-		if(createDate == null) return;
-		this.createDate = DATE_FORMATER.parse(createDate);
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
-	public Date getModifyDate() {
-		return modifyDate;
+	public String getModifyDate() {
+		return modifyDate != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).format(modifyDate) : "";
 	}
 
-	public void setModifyDate(String modifyDate) throws ParseException {
-		if(modifyDate == null) return;
-		this.modifyDate = DATE_FORMATER.parse(modifyDate);
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
 	public String getReferences() {

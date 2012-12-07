@@ -47,4 +47,10 @@ public class VKingdom extends VModel
    {
       this.code = code;
    }
+   
+   @Override
+   public String toString()
+   {
+      return name;
+   }
 }

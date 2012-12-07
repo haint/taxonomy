@@ -17,12 +17,16 @@
  */
 package taxonomy.resources.client;
 
+import java.util.List;
+
 import taxonomy.resources.client.model.VModel;
 import taxonomy.resources.client.model.VResult;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.sencha.gxt.data.shared.loader.PagingLoadConfig;
+import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -37,7 +41,13 @@ public interface TxDAOServiceAsync {
 
 	void getGeneric(String clazz, Integer id, AsyncCallback<VModel> callback);
 	
-	void execute(String query, AsyncCallback<VResult> result);
+	void select(String tableName, Integer from, Integer to, AsyncCallback<List<VModel>> callback);
+	
+	<M extends VModel> void select(String tableName, PagingLoadConfig config, AsyncCallback<PagingLoadResult<M>> callback);
+	
+	void query(String query, AsyncCallback<VResult> result);
+	
+	void update(String query, AsyncCallback<Void> result);
 	
 	public static class Util {
 		private static TxDAOServiceAsync instance;

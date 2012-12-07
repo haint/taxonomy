@@ -68,7 +68,7 @@ public class Species extends Model<Species>
    }
    
    @ManyToOne(field = "VARIANT_IDS", model = Variant.class)
-   public Iterator<Variant> getVariantIterator()
+   public Iterator<Variant> getVariants()
    {
       if(this.variant == null) variant = new HashSet<Variant>();
       return variant.iterator();

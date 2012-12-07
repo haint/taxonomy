@@ -17,11 +17,15 @@
  */
 package taxonomy.resources.server;
 
+import java.util.List;
+
 import taxonomy.resources.client.TxDAOService;
 import taxonomy.resources.client.model.VModel;
 import taxonomy.resources.client.model.VResult;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.sencha.gxt.data.shared.loader.PagingLoadConfig;
+import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -50,8 +54,28 @@ public class TxDAOServlet extends RemoteServiceServlet implements TxDAOService {
 	}
 
 	@Override
-	public VResult execute(String query) throws Exception {
+	public VResult query(String query) throws Exception {
 		TxDAOService service =(TxDAOService)TxServices.getInstance().getService(TxDAOService.class.getName());
-		return service.execute(query);
+		return service.query(query);
 	}
+	
+	@Override
+	public void update(String query) throws Exception {
+	   TxDAOService service = (TxDAOService)TxServices.getInstance().getService(TxDAOService.class.getName());
+	   service.update(query);
+	}
+
+   @Override
+   public List<VModel> select(String tableName, Integer from, Integer to) throws Exception
+   {
+      TxDAOService service = (TxDAOService) TxServices.getInstance().getService(TxDAOService.class.getName());
+      return service.select(tableName, from, to);
+   }
+
+   @Override
+   public <M extends VModel> PagingLoadResult<M> select(String tableName, PagingLoadConfig config) throws Exception
+   {
+      TxDAOService service = (TxDAOService) TxServices.getInstance().getService(TxDAOService.class.getName());
+      return service.select(tableName, config);
+   }
 }

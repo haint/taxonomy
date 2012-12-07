@@ -76,10 +76,10 @@ public class GenericORMTestCase extends TestCase {
 			assertNotNull(obj);
 			assertEquals(i, obj.getId().intValue());
 
-			JAXBContext jc = JAXBContext.newInstance(NaturalObject.class);
-			Marshaller m = jc.createMarshaller();
-			m.marshal(obj, System.out);
-			break;
+//			JAXBContext jc = JAXBContext.newInstance(NaturalObject.class);
+//			Marshaller m = jc.createMarshaller();
+//			m.marshal(obj, System.out);
+//			break;
 		}
 	}
 }

@@ -48,4 +48,10 @@ public class VTag extends VModel
    {
       this.explain = explain;
    }
+   
+   @Override
+   public String toString()
+   {
+      return name;
+   }
 }

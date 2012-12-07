@@ -49,4 +49,10 @@ public class VVariant extends VModel
    {
       return type;
    }
+   
+   @Override
+   public String toString()
+   {
+      return value;
+   }
 }

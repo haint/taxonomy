@@ -15,6 +15,30 @@ public interface ExampleImages extends ClientBundle {
 
   public ExampleImages INSTANCE = GWT.create(ExampleImages.class);
 
+  @Source("Cancel2.png")
+  ImageResource deselectAll();
+  
+  @Source("wikipedia.png")
+  ImageResource wikipedia();
+  
+  @Source("google.png")
+  ImageResource google();
+  
+  @Source("Search.png")
+  ImageResource search();
+  
+  @Source("OKShield.png")
+  ImageResource addNew();
+  
+  @Source("Favorites.png")
+  ImageResource update();
+  
+  @Source("ErrorCircle.png")
+  ImageResource remove();
+  
+  @Source("Search2.png")
+  ImageResource filter();
+  
   @Source("add16.gif")
   ImageResource add16();
 

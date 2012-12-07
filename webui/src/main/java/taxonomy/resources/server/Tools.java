@@ -17,6 +17,7 @@
  */
 package taxonomy.resources.server;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,6 +32,7 @@ import taxonomy.model.Index;
 import taxonomy.model.Kingdom;
 import taxonomy.model.Locale;
 import taxonomy.model.Model;
+import taxonomy.model.NaturalObject;
 import taxonomy.model.Species;
 import taxonomy.model.Tag;
 import taxonomy.model.Variant;
@@ -41,9 +43,11 @@ import taxonomy.resources.client.model.VIndex;
 import taxonomy.resources.client.model.VKingdom;
 import taxonomy.resources.client.model.VLocale;
 import taxonomy.resources.client.model.VModel;
+import taxonomy.resources.client.model.VNaturalObject;
 import taxonomy.resources.client.model.VSpecies;
 import taxonomy.resources.client.model.VTag;
 import taxonomy.resources.client.model.VVariant;
+import taxonomy.webui.client.widget.Tables;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
@@ -52,11 +56,14 @@ import taxonomy.resources.client.model.VVariant;
  */
 public class Tools {
 	
-	private static Map<Class, Class> deserializeHolder = new HashMap<Class, Class>();
+   /** .*/
+	static Map<Class<? extends Serializable>, Class<? extends Serializable>> deserializeHolder = new HashMap<Class<? extends Serializable>, Class<? extends Serializable>>();
 	
-	private static Map<Class, Class> serializeHolder = new HashMap<Class, Class>();
+	/** .*/
+	static Map<Class<? extends Serializable>, Class<? extends Serializable>> serializeHolder = new HashMap<Class<? extends Serializable>, Class<? extends Serializable>>();
 	
-	static {
+	static 
+	{
 		deserializeHolder.put(VFamily.class, Family.class);
 		serializeHolder.put(Family.class, VFamily.class);
 		
@@ -83,6 +90,9 @@ public class Tools {
 		
 		deserializeHolder.put(VVariant.class, Variant.class);
 		serializeHolder.put(Variant.class, VVariant.class);
+		
+		deserializeHolder.put(VNaturalObject.class, NaturalObject.class);
+		serializeHolder.put(NaturalObject.class, VNaturalObject.class);
 	}
 
 	public static VModel serialize(String clazz, Model model) throws Exception {
@@ -123,9 +133,9 @@ public class Tools {
 			Object invokeResult = invokeMethod.invoke(vmodel, new Object[]{});
 			if(invokeResult instanceof VModel) {
 				m.invoke(model, deserialize(deserializeHolder.get(invokeResult.getClass()).getName(), vmodel));
-			} else if(invokeResult instanceof Iterator) {
+			} else if(invokeResult instanceof Set) {
 				Set<Model> holder = new HashSet<Model>();
-				Iterator<VModel> i = (Iterator<VModel>)invokeResult;
+				Iterator<VModel> i = ((Set<VModel>)invokeResult).iterator();
 				while(i.hasNext()) {
 					VModel sel = i.next();
 					holder.add(deserialize(deserializeHolder.get(sel.getClass()).getName(), sel));

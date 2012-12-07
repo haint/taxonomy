@@ -33,10 +33,16 @@ import com.sencha.gxt.core.client.util.Margins;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.widget.core.client.ContentPanel;
-import com.sencha.gxt.widget.core.client.box.AlertMessageBox;
+import com.sencha.gxt.widget.core.client.TabItemConfig;
+import com.sencha.gxt.widget.core.client.TabPanel;
+import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.MarginData;
-import com.sencha.gxt.widget.core.client.container.SimpleContainer;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
+import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 import com.sencha.gxt.widget.core.client.tree.Tree;
 
 /**
@@ -46,8 +52,11 @@ import com.sencha.gxt.widget.core.client.tree.Tree;
  */
 public class TxShell extends BorderLayoutContainer {
 
+   /** .*/
 	private ContentPanel west;
-	private SimpleContainer center;
+	
+	/** .*/
+	static TabPanel center;
 
 	@Inject
 	public TxShell() {
@@ -68,7 +77,7 @@ public class TxShell extends BorderLayoutContainer {
 		BorderLayoutData northData = new BorderLayoutData(35);
 		setNorthWidget(north, northData);
 
-		BorderLayoutData westData = new BorderLayoutData(200);
+		BorderLayoutData westData = new BorderLayoutData(250);
 		westData.setMargins(new Margins(5, 0, 5, 5));
 		westData.setSplit(true);
 		westData.setCollapsible(true);
@@ -78,12 +87,37 @@ public class TxShell extends BorderLayoutContainer {
 		west = new ContentPanel();
 		west.setHeadingText("Navigation");
 		west.setBodyBorder(true);
-		west.add(buildTreeNavigation());
-
+		VerticalLayoutContainer westContainer = new VerticalLayoutContainer();
+		west.add(westContainer);
+		
+		final Tree<String, String> tree = buildTreeNavigation();
+		ToolBar toolbar = new ToolBar();
+		toolbar.add(new TextButton("Expand All", new SelectHandler()
+      {
+         @Override
+         public void onSelect(SelectEvent event)
+         {
+            tree.expandAll();
+         }
+      }));
+		toolbar.add(new TextButton("Collapse All", new SelectHandler()
+		{
+         @Override
+         public void onSelect(SelectEvent event)
+         {
+            tree.collapseAll();
+         }
+		}));
+		westContainer.add(toolbar, new VerticalLayoutData(1, -1));
+		westContainer.add(tree, new VerticalLayoutData(1, 1));
+		
 		MarginData centerData = new MarginData();
 		centerData.setMargins(new Margins(5));
 
-		center = new SimpleContainer();
+		center = new TabPanel();
+		center.setTabScroll(true);
+		center.setCloseContextMenu(true);
+		
 		setWestWidget(west, westData);
 		setCenterWidget(center, centerData);
 	}
@@ -99,16 +133,16 @@ public class TxShell extends BorderLayoutContainer {
 		String main = "Main";
 		store.add(main);
 		List<String> child1 = new ArrayList<String>();
-		Collections.addAll(child1, "Kingdom", "Family", "Genus", "Species", "Object");
+		Collections.addAll(child1, "[Kingdom]", "[Family]", "[Genus]", "[Species]", "[NaturalObject]");
 		store.add(main, child1);
 		
 		String ext = "Extension";
 		store.add(ext);
 		List<String> child2	= new ArrayList<String>();
-		Collections.addAll(child2, "Index", "Tag", "Glossary", "Variant", "Locale");
+		Collections.addAll(child2, "[Index]", "[Tag]", "[Glossary]", "[Variant]", "[Locales]");
 		store.add(ext, child2);
 		
-		Tree<String, String> tree = new Tree<String, String>(store, new ValueProvider<String, String>() {
+		final Tree<String, String> tree = new Tree<String, String>(store, new ValueProvider<String, String>() {
 			@Override
 			public String getValue(String object) { return object; }
 			@Override
@@ -117,19 +151,58 @@ public class TxShell extends BorderLayoutContainer {
 			public String getPath() { return null; }
 		});
 		
-		tree.getStyle().setLeafIcon(ExampleImages.INSTANCE.userKid());
+		tree.getStyle().setLeafIcon(ExampleImages.INSTANCE.table());
 		tree.getSelectionModel().addSelectionHandler(new SelectionHandler<String>() {
 			
 			@Override
 			public void onSelection(SelectionEvent<String> event) {
-				String item = event.getSelectedItem();
-				AlertMessageBox msg = new AlertMessageBox("Selecetd item", item);
-				msg.show();
+				final String item = event.getSelectedItem();
+				ModelGridPanel panel = null;
+				if("Main".equals(item) || "Extension".equals(item)) 
+				{
+				   tree.setExpanded(item, true, true);
+				   return;
+				}
+				
+				Tables table = Tables.valueOf(item.substring(1, item.length() - 1).toUpperCase());
+				switch (table)
+            {
+               case KINGDOM :
+                  panel = ModelGridFactory.createKingdom(); break;
+               case FAMILY:
+                  panel = ModelGridFactory.createFamily(); break;
+               case GENUS:
+                  panel = ModelGridFactory.createGenus(); break;
+               case SPECIES:
+                  panel = ModelGridFactory.createSpecies(); break;
+               case NATURALOBJECT:
+                  panel = ModelGridFactory.createNObject(); break;
+               case VARIANT:
+                  panel = ModelGridFactory.createVariant(); break;
+               case LOCALES:
+                  panel = ModelGridFactory.createLocale(); break;
+               case GLOSSARY:
+                  panel = ModelGridFactory.createGlossary(); break;
+               case INDEX:
+                  panel = ModelGridFactory.createIndex(); break;
+               case TAG:
+                  panel = ModelGridFactory.createTag(); break;
+               default :
+                  break;
+            }
+				
+				if(center.getWidgetIndex(panel) < 0)
+				{
+				   TabItemConfig tabConfig = new TabItemConfig(item, true);
+				   center.add(panel, tabConfig);
+				}
+				center.setActiveWidget(panel);
+				tree.getSelectionModel().deselect(item);
 			};
 		});
 		return tree;
 	}
-
+	
 	@Override
 	protected void onWindowResize(int width, int height) {
 		setPixelSize(width, height);

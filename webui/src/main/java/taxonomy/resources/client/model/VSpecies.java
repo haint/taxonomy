@@ -17,7 +17,6 @@
 package taxonomy.resources.client.model;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 
@@ -55,9 +54,14 @@ public class VSpecies extends VModel
    	this.variant = variant;
    }
    
-   public Iterator<VVariant> getVariantIterator()
+   public Set<VVariant> getVariants()
    {
-      if(this.variant == null) variant = new HashSet<VVariant>();
-      return variant.iterator();
+      return variant;
+   }
+   
+   @Override
+   public String toString()
+   {
+      return name;
    }
 }

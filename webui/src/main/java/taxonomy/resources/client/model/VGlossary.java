@@ -17,8 +17,6 @@
 package taxonomy.resources.client.model;
 
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -35,7 +33,7 @@ public class VGlossary extends VModel
    
    private String example;
    
-   private Set<Locale> locales;
+   private Set<VLocale> locales;
 
    public void setName(String name) {
    	this.name = name;
@@ -65,17 +63,22 @@ public class VGlossary extends VModel
       this.example = example;
    }
    
-   public void setLocales(Set<Locale> locales) {
+   public void setLocales(Set<VLocale> locales) {
    	this.locales = locales;
    }
    
-   public Iterator<Locale> getLocales() {
-   	if(locales == null) return null;
-   	return locales.iterator();
+   public Set<VLocale> getLocales() {
+   	return locales;
    }
    
-   public void addLocale(Locale locale) {
-   	if(locales == null) locales = new HashSet<Locale>();
+   public void addLocale(VLocale locale) {
+   	if(locales == null) locales = new HashSet<VLocale>();
    	locales.add(locale);
+   }
+   
+   @Override
+   public String toString()
+   {
+      return name;
    }
 }

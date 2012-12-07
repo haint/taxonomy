@@ -17,7 +17,6 @@
 package taxonomy.resources.client.model;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -69,8 +68,8 @@ public class VFamily extends VModel
       this.desc = desc;
    }
  
-   public Iterator<VLocale> getLocales() {
-   	return locales != null ? locales.iterator() : null;
+   public Set<VLocale> getLocales() {
+   	return locales;
    }
    
    public void setLocales(Set<VLocale> locales) {
@@ -90,5 +89,11 @@ public class VFamily extends VModel
    public String getAvatar()
    {
       return avartar;
+   }
+   
+   @Override
+   public String toString()
+   {
+      return name; 
    }
 }
