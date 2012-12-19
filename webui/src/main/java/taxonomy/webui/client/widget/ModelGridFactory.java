@@ -17,11 +17,9 @@
  */
 package taxonomy.webui.client.widget;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import taxonomy.resources.client.images.ExampleImages;
 import taxonomy.resources.client.model.VFamily;
@@ -34,18 +32,25 @@ import taxonomy.resources.client.model.VNaturalObject;
 import taxonomy.resources.client.model.VSpecies;
 import taxonomy.resources.client.model.VTag;
 import taxonomy.resources.client.model.VVariant;
+import taxonomy.webui.client.widget.ModelProperties.FamilyProperties;
+import taxonomy.webui.client.widget.ModelProperties.GenusProperites;
+import taxonomy.webui.client.widget.ModelProperties.GlossaryProperties;
+import taxonomy.webui.client.widget.ModelProperties.IndexProperties;
+import taxonomy.webui.client.widget.ModelProperties.KingdomProperties;
+import taxonomy.webui.client.widget.ModelProperties.LocalesProperties;
+import taxonomy.webui.client.widget.ModelProperties.ObjectProperties;
+import taxonomy.webui.client.widget.ModelProperties.SpeciesProperties;
+import taxonomy.webui.client.widget.ModelProperties.TagProperties;
+import taxonomy.webui.client.widget.ModelProperties.VariantPropertis;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.editor.client.Editor.Path;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.sencha.gxt.core.client.IdentityValueProvider;
 import com.sencha.gxt.core.client.ValueProvider;
-import com.sencha.gxt.data.shared.ModelKeyProvider;
-import com.sencha.gxt.data.shared.PropertyAccess;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.RowClickEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
@@ -92,105 +97,6 @@ public class ModelGridFactory
    
    /** . */
    private static ModelGridPanel<VGlossary> glossary;
-   
-   interface GlossaryProperties extends PropertyAccess<VGlossary>
-   {
-      ValueProvider<VGlossary, Integer> id();
-      
-      ValueProvider<VGlossary, String> name();
-      
-      ValueProvider<VGlossary, String> example();
-      
-      ValueProvider<VGlossary, Set<VLocale>> locales();
-   }
-   
-   interface IndexProperties extends PropertyAccess<VIndex>
-   {
-      ValueProvider<VIndex, Integer> id();
-      
-      ValueProvider<VIndex, String> value();
-   }
-
-   interface KingdomProperties extends PropertyAccess<VKingdom>
-   {
-      @Path("id")
-      ModelKeyProvider<VKingdom> id();
-
-      ValueProvider<VKingdom, String> name();
-
-      ValueProvider<VKingdom, String> code();
-   }
-   
-   interface FamilyProperties extends PropertyAccess<VFamily>
-   {
-      ValueProvider<VFamily, Integer> id();
-      
-      ValueProvider<VFamily, VKingdom> kingdom();
-      
-      ValueProvider<VFamily, Set<VLocale>> locales();
-      
-      ValueProvider<VFamily, String> name();
-   }
-   
-   interface GenusProperites extends FamilyProperties
-   {
-      ValueProvider<VGenus, Set<VVariant>> variants(); 
-   }
-   
-   interface SpeciesProperties extends PropertyAccess<VSpecies>
-   {
-      ValueProvider<VSpecies, Integer> id();
-      
-      ValueProvider<VSpecies, String> name();
-      
-      ValueProvider<VSpecies, Set<VVariant>> variants();
-   }
-   
-   interface ObjectProperties extends PropertyAccess<VNaturalObject>
-   {
-      ValueProvider<VNaturalObject, Integer> id();
-      
-      ValueProvider<VNaturalObject, VKingdom> kingdom();
-      
-      ValueProvider<VNaturalObject, Set<VFamily>> families();
-      
-      ValueProvider<VNaturalObject, VGenus> genus();
-      
-      ValueProvider<VNaturalObject, VSpecies> species();
-      
-      ValueProvider<VNaturalObject, Set<VIndex>> indecies();
-      
-      ValueProvider<VNaturalObject, Set<VTag>> tags();
-      
-      ValueProvider<VNaturalObject, Set<String>> enNameSet();
-      
-      ValueProvider<VNaturalObject, Set<String>> vnNameSet();
-   }
-   
-   interface LocalesProperties extends PropertyAccess<VLocale>
-   {
-      ValueProvider<VLocale, Integer> id();
-      
-      ValueProvider<VLocale, String> name();
-      
-      ValueProvider<VLocale, String> value();
-   }
-   
-   interface VariantPropertis extends PropertyAccess<VVariant>
-   {
-      ValueProvider<VVariant, Integer> id();
-      
-      ValueProvider<VVariant, String> value();
-   }
-   
-   interface TagProperties extends PropertyAccess<VTag>
-   {
-      ValueProvider<VTag, Integer> id();
-      
-      ValueProvider<VTag, String> name();
-      
-      ValueProvider<VTag, String> explaintion();
-   }
    
    public static ModelGridPanel<VKingdom> createKingdom()
    {
@@ -344,47 +250,47 @@ public class ModelGridFactory
          cf.add(new SetColumnConfig<VNaturalObject, String>(properties.enNameSet(), 80, "English Name"));
          cf.add(new SetColumnConfig<VNaturalObject, VIndex>(properties.indecies(), "Indecies"));
          cf.add(new SetColumnConfig<VNaturalObject, VTag>(properties.tags(), "Tags"));
-         cf.add(new ColumnConfig<VNaturalObject, String>(new ValueProvider<VNaturalObject, String>()
-         {
+         ColumnConfig<VNaturalObject, Date> createDate = new ColumnConfig<VNaturalObject, Date>(new ValueProvider<VNaturalObject, Date>(){
             @Override
-            public String getValue(VNaturalObject object)
+            public Date getValue(VNaturalObject object)
             {
-               return object.getCreateDate();
+               return object.getCreateDate() != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).parse(object.getCreateDate()) : null;
             }
-
             @Override
-            public void setValue(VNaturalObject object, String value)
+            public void setValue(VNaturalObject object, Date value)
             {
                try
                {
-                  object.setCreateDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).parse(value));
+                  object.setCreateDate(value);
                }
                catch (Exception e)
                {
                   object.setCreateDate(new Date());
                }
             }
-
             @Override
             public String getPath()
             {
                return "createDate";
             }
-         }, 50, "Created Date"));
-         cf.add(new ColumnConfig<VNaturalObject, String>(new ValueProvider<VNaturalObject, String>()
+         }, 50, "Created Date");
+         createDate.setCell(new DateCell(DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_SHORT)));
+         cf.add(createDate);
+         
+         ColumnConfig<VNaturalObject, Date> modifyDate = new ColumnConfig<VNaturalObject, Date>(new ValueProvider<VNaturalObject, Date>()
          {
             @Override
-            public String getValue(VNaturalObject object)
+            public Date getValue(VNaturalObject object)
             {
-               return object.getModifyDate();
+               return object.getModifyDate() != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).parse(object.getModifyDate()) : null;
             }
 
             @Override
-            public void setValue(VNaturalObject object, String value)
+            public void setValue(VNaturalObject object, Date value)
             {
                try
                {
-                  object.setCreateDate(DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).parse(value));
+                  object.setCreateDate(value);
                }
                catch (Exception e)
                {
@@ -397,7 +303,9 @@ public class ModelGridFactory
             {
                return "modifyDate";
             }
-         }, 50, "Modify Date"));
+         }, 50, "Modify Date");
+         modifyDate.setCell(new DateCell(DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_SHORT)));
+         cf.add(modifyDate);
          objects = new ModelGridPanel<VNaturalObject>(Tables.NATURALOBJECT.getName(), cf);
          foo(desc, objects);
       }

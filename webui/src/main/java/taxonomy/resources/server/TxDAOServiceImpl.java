@@ -158,7 +158,6 @@ public class TxDAOServiceImpl implements TxDAOService {
       ResultSet rs = con.createStatement().executeQuery("Select count(ID) from " + tableName);
       rs.next();
       int totalSize = rs.getInt(1);
-      System.out.println("Total size: " + totalSize);
       List<M> models = (List<M>)select(tableName, config.getOffset(), config.getLimit());
       return models == null ? null : new PagingLoadResultBean<M>(models, totalSize, config.getOffset());
    }

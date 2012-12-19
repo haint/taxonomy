@@ -181,7 +181,7 @@ public class VNaturalObject extends VModel {
 	}
 
 	public String getCreateDate() {
-		return createDate != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).format(createDate) : "";
+		return createDate != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).format(createDate) : null;
 	}
 
 	public void setCreateDate(Date createDate) {
@@ -189,7 +189,7 @@ public class VNaturalObject extends VModel {
 	}
 
 	public String getModifyDate() {
-		return modifyDate != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).format(modifyDate) : "";
+		return modifyDate != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).format(modifyDate) : null;
 	}
 
 	public void setModifyDate(Date modifyDate) {

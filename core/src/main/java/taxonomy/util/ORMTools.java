@@ -223,7 +223,7 @@ public class ORMTools {
 				if(value == null) continue;
 				String[] ids = value.split("::");
 				for (String id : ids) {
-					if(id.trim().isEmpty()) continue;
+					if(id.trim().isEmpty() || id == null || "null".equals(id)) continue;
 					Model model = map(bar.model(), Integer.parseInt(id.trim()));
 					holder.add(model);
 				}

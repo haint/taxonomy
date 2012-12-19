@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import taxonomy.resources.client.images.ExampleImages;
+import taxonomy.resources.client.model.VNaturalObject;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
@@ -110,7 +111,7 @@ public class TxShell extends BorderLayoutContainer {
 		}));
 		westContainer.add(toolbar, new VerticalLayoutData(1, -1));
 		westContainer.add(tree, new VerticalLayoutData(1, 1));
-		
+		tree.expandAll();
 		MarginData centerData = new MarginData();
 		centerData.setMargins(new Margins(5));
 
@@ -118,11 +119,16 @@ public class TxShell extends BorderLayoutContainer {
 		center.setTabScroll(true);
 		center.setCloseContextMenu(true);
 		
+		TabItemConfig tabConfig = new TabItemConfig(Tables.NATURALOBJECT.getName(), true);
+		ModelGridPanel<VNaturalObject> panel = ModelGridFactory.createNObject();
+      center.add(panel, tabConfig);
+      center.setActiveWidget(panel);
+      
 		setWestWidget(west, westData);
 		setCenterWidget(center, centerData);
 	}
 	
-	public Tree<String, String> buildTreeNavigation() {
+	private Tree<String, String> buildTreeNavigation() {
 		TreeStore<String> store = new TreeStore<String>(new ModelKeyProvider<String>() {
 			@Override
 			public String getKey(String item) {

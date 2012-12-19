@@ -117,14 +117,13 @@ public class NaturalObject extends Model<NaturalObject> {
 		this.species = sp;
 	}
 
-	@OneToMany(field = "INDEX_IDS", model = Index.class)
+	@ManyToOne(field = "INDEX_IDS", model = Index.class)
 	public Iterator<Index> getIndecies() {
-		if (indecies == null)
-			return null;
+		if (indecies == null) indecies = new HashSet<Index>();
 		return indecies.iterator();
 	}
 
-	@ManyToOne(field = "INDEX_IDS", model = Index.class)
+	@OneToMany(field = "INDEX_IDS", model = Index.class)
 	public void setIndecies(Set<Index> indecies) {
 		this.indecies = indecies;
 	}
@@ -135,14 +134,13 @@ public class NaturalObject extends Model<NaturalObject> {
 		indecies.add(index);
 	}
 
-	@OneToMany(field = "TAG_IDS", model = Tag.class)
+	@ManyToOne(field = "TAG_IDS", model = Tag.class)
 	public Iterator<Tag> getTags() {
-		if (tags == null)
-			return null;
+		if (tags == null) tags = new HashSet<Tag>();
 		return tags.iterator();
 	}
 
-	@ManyToOne(field = "TAG_IDS", model = Tag.class)
+	@OneToMany(field = "TAG_IDS", model = Tag.class)
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
