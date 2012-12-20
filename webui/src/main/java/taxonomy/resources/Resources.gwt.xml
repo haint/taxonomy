@@ -4,6 +4,7 @@
 <module rename-to="resources">
   <inherits name='com.sencha.gxt.ui.GXT' /> 
   
-  <servlet class="taxonomy.resources.server.TxDAOServlet" path="/service"/>
+  <servlet class="taxonomy.resources.server.TxDAOServiceImpl" path="/dao"/>
+  <servlet class="taxonomy.resources.server.LoaderServiceImpl" path="/loader"/>
   <source path="client" />
 </module>

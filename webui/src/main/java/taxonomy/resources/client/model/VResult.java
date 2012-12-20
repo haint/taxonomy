@@ -19,25 +19,23 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
- * Author : Nguyen Thanh Hai
- *          haithanh0809@gmail.com
- * Jun 18, 2012  
+ * Author : Nguyen Thanh Hai haithanh0809@gmail.com Jun 18, 2012
  */
 public class VResult implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+  private static final long serialVersionUID = 1L;
 
-	private LinkedList<LinkedList<Object>> holder;
-	
-	public VResult() {
-		this.holder = new LinkedList<LinkedList<Object>>();
-	}
-	
-	public Object get(int i) {
-		return holder.get(i);
-	}
-	
-	public void set(LinkedList<Object> value) {
-		holder.addLast(value);
-	}
+  private LinkedList<LinkedList<Object>> holder;
+
+  public VResult() {
+    this.holder = new LinkedList<LinkedList<Object>>();
+  }
+
+  public Object get(int i) {
+    return holder.get(i);
+  }
+
+  public void set(LinkedList<Object> value) {
+    holder.addLast(value);
+  }
 }

@@ -18,28 +18,24 @@ package taxonomy.resources.client.model;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
- *
+ * 
  * @datOct 3, 2011
  */
-public class VIndex extends VModel
-{
-	private static final long serialVersionUID = 1L;
-	
-	private String value;
+public class VIndex extends VModel {
+  private static final long serialVersionUID = 1L;
 
-   public String getValue()
-   {
-      return value;
-   }
-   
-   public void setValue(String value)
-   {
-      this.value = value;
-   }
-   
-   @Override
-   public String toString()
-   {
-      return value;
-   }
+  private String value;
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  @Override
+  public String toString() {
+    return value;
+  }
 }

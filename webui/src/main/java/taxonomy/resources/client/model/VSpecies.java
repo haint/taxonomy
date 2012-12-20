@@ -19,49 +19,43 @@ package taxonomy.resources.client.model;
 import java.util.HashSet;
 import java.util.Set;
 
-
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
- *
+ * 
  * @datOct 5, 2011
  */
 
-public class VSpecies extends VModel
-{
-	private static final long serialVersionUID = 1L;
+public class VSpecies extends VModel {
+  private static final long serialVersionUID = 1L;
 
-	private String name;
-   
-   private Set<VVariant> variant;
-   
-   public void setName(String name)
-   {
-      this.name = name;
-   }
-   
-   public String getName()
-   {
-      return name;
-   }
-   
-   public void addVariant(VVariant variant)
-   {
-      if(this.variant == null) this.variant = new HashSet<VVariant>();
-      this.variant.add(variant);
-   }
-   
-   public void setVariants(Set<VVariant> variant) {
-   	this.variant = variant;
-   }
-   
-   public Set<VVariant> getVariants()
-   {
-      return variant;
-   }
-   
-   @Override
-   public String toString()
-   {
-      return name;
-   }
+  private String name;
+
+  private Set<VVariant> variant;
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void addVariant(VVariant variant) {
+    if (this.variant == null)
+      this.variant = new HashSet<VVariant>();
+    this.variant.add(variant);
+  }
+
+  public void setVariants(Set<VVariant> variant) {
+    this.variant = variant;
+  }
+
+  public Set<VVariant> getVariants() {
+    return variant;
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }

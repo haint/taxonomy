@@ -21,64 +21,59 @@ import java.util.Set;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
- *
+ * 
  */
-public class VGlossary extends VModel
-{
-	private static final long serialVersionUID = 1L;
+public class VGlossary extends VModel {
+  private static final long serialVersionUID = 1L;
 
-	private String name;
-   
-   private String explain;
-   
-   private String example;
-   
-   private Set<VLocale> locales;
+  private String name;
 
-   public void setName(String name) {
-   	this.name = name;
-   }
-   
-   public String getName() {
-   	return name;
-   }
+  private String explain;
 
-   public String getExplaintion() 
-   {
-      return explain;
-   }
-   
-   public void setExplaintion(String explain)
-   {
-      this.explain = explain;
-   }
-   
-   public String getExample()
-   {
-      return example;
-   }
-   
-   public void setExample(String example)
-   {
-      this.example = example;
-   }
-   
-   public void setLocales(Set<VLocale> locales) {
-   	this.locales = locales;
-   }
-   
-   public Set<VLocale> getLocales() {
-   	return locales;
-   }
-   
-   public void addLocale(VLocale locale) {
-   	if(locales == null) locales = new HashSet<VLocale>();
-   	locales.add(locale);
-   }
-   
-   @Override
-   public String toString()
-   {
-      return name;
-   }
+  private String example;
+
+  private Set<VLocale> locales;
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getExplaintion() {
+    return explain;
+  }
+
+  public void setExplaintion(String explain) {
+    this.explain = explain;
+  }
+
+  public String getExample() {
+    return example;
+  }
+
+  public void setExample(String example) {
+    this.example = example;
+  }
+
+  public void setLocales(Set<VLocale> locales) {
+    this.locales = locales;
+  }
+
+  public Set<VLocale> getLocales() {
+    return locales;
+  }
+
+  public void addLocale(VLocale locale) {
+    if (locales == null)
+      locales = new HashSet<VLocale>();
+    locales.add(locale);
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }

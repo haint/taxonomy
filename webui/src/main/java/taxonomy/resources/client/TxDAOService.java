@@ -30,20 +30,20 @@ import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
-@RemoteServiceRelativePath("service")
-public interface TxDAOService extends RemoteService, TxService {
+@RemoteServiceRelativePath("dao")
+public interface TxDAOService extends RemoteService {
 
-	public Integer getMaxId(String tableName) throws Exception;
-	
-	public VModel getGeneric(String clazz, Integer id) throws Exception;
-	
-	public List<VModel> select(String tableName, Integer from, Integer to) throws Exception;
-	
-	public <M extends VModel> PagingLoadResult<M> select(String tableName, PagingLoadConfig config) throws Exception;
-	
-	public VResult query(String query) throws Exception;
-	
-	public void update(String query) throws Exception;
+  public Integer getMaxId(String tableName) throws Exception;
+
+  public VModel getGeneric(String clazz, Integer id) throws Exception;
+
+  public List<VModel> select(String tableName, Integer from, Integer to) throws Exception;
+
+  public <M extends VModel> PagingLoadResult<M> select(String tableName, PagingLoadConfig config) throws Exception;
+
+  public VResult query(String query) throws Exception;
+
+  public void update(String query) throws Exception;
 }

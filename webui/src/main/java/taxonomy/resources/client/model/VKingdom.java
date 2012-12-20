@@ -18,39 +18,33 @@ package taxonomy.resources.client.model;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
- *
+ * 
  */
-public class VKingdom extends VModel
-{
-	private static final long serialVersionUID = 1L;
+public class VKingdom extends VModel {
+  private static final long serialVersionUID = 1L;
 
-	private String name;
-   
-   private String code;
+  private String name;
 
-   public String getName()
-   {
-      return name;
-   }
+  private String code;
 
-   public void setName(String name)
-   {
-      this.name = name;
-   }
+  public String getName() {
+    return name;
+  }
 
-   public String getCode()
-   {
-      return code;
-   }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-   public void setCode(String code)
-   {
-      this.code = code;
-   }
-   
-   @Override
-   public String toString()
-   {
-      return name;
-   }
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }

@@ -15,38 +15,40 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.resources.server;
+package taxonomy.resources.client.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import taxonomy.resources.client.TxService;
+import java.io.Serializable;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
-public final class TxServices {
-	private final Map<String, TxService> holder = new HashMap<String, TxService>();
-	
-	private static TxServices singleton;
-	
-	TxServices(TxService ... services)  {
-		for(TxService service : services) {
-			holder.put(service.getName(), service);
-		}
-	}
-	
-	public TxService getService(String key) {
-		return holder.get(key);
-	}
-	
-	public final static TxServices getInstance() {
-		return singleton;
-	}
-	
-	final static void setInstance(TxServices instance) {
-		singleton = instance;
-	}
+public class FilterModel implements Serializable {
+  /** . */
+  private String id;
+
+  /** . */
+  private String label;
+
+  public FilterModel(String id, String label) {
+    this.id = id;
+    this.label = label;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setLabel(String label) {
+    this.label = label;
+  }
+
+  public String getLabel() {
+    return label;
+  }
 }

@@ -25,18 +25,18 @@ import com.google.inject.Inject;
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
 public class TxApplication {
-	
-	@Inject
-	private TxShell shell;
-	
-	public void run() {
-		RootPanel.get().add(shell);
-	}
-	
-	public TxShell getShell() {
-		return shell;
-	}
+
+  @Inject
+  private TxShell shell;
+
+  public void run() {
+    RootPanel.get().add(shell);
+  }
+
+  public TxShell getShell() {
+    return shell;
+  }
 }

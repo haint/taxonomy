@@ -16,42 +16,35 @@
  */
 package taxonomy.resources.client.model;
 
-
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
- *
+ * 
  */
-public class VTag extends VModel
-{
-	private static final long serialVersionUID = 1L;
+public class VTag extends VModel {
+  private static final long serialVersionUID = 1L;
 
-	private String name;
-   
-   private String explain;
-   
-   public String getName() 
-   {
-      return name;
-   }
-   
-   public void setName(String name) 
-   {
-      this.name = name;
-   }
-   
-   public String getExplaintion()
-   {
-      return explain;
-   }
-   
-   public void setExplaintion(String explain) 
-   {
-      this.explain = explain;
-   }
-   
-   @Override
-   public String toString()
-   {
-      return name;
-   }
+  private String name;
+
+  private String explain;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getExplaintion() {
+    return explain;
+  }
+
+  public void setExplaintion(String explain) {
+    this.explain = explain;
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }

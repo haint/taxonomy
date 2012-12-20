@@ -21,79 +21,69 @@ import java.util.Set;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
- *
+ * 
  */
-public class VFamily extends VModel
-{
-	private static final long serialVersionUID = 1L;
+public class VFamily extends VModel {
+  private static final long serialVersionUID = 1L;
 
-	private VKingdom king;
-   
-   private String name;
-   
-   private Set<VLocale> locales;
-   
-   private String desc;
-   
-   private String avartar;
-   
+  private VKingdom king;
 
-   public VKingdom getKingdom()
-   {
-      return king;
-   }
-   
-   public void setKingdom(VKingdom king)
-   {
-      this.king = king;
-   }
+  private String name;
 
-   public String getName()
-   {
-      return name;
-   }
+  private Set<VLocale> locales;
 
-   public void setName(String scienseName)
-   {
-      this.name = scienseName;
-   }
-   
-   public String getDescription()
-   {
-      return desc;
-   }
-   
-   public void setDescription(String desc)
-   {
-      this.desc = desc;
-   }
- 
-   public Set<VLocale> getLocales() {
-   	return locales;
-   }
-   
-   public void setLocales(Set<VLocale> locales) {
-   	this.locales = locales;
-   }
-   
-   public void addLocale(VLocale locale) {
-   	if(locales == null) locales = new HashSet<VLocale>();
-   	locales.add(locale);
-   }
-   
-   public void setAvatar(String path)
-   {
-      this.avartar = path;
-   }
-   
-   public String getAvatar()
-   {
-      return avartar;
-   }
-   
-   @Override
-   public String toString()
-   {
-      return name; 
-   }
+  private String desc;
+
+  private String avartar;
+
+  public VKingdom getKingdom() {
+    return king;
+  }
+
+  public void setKingdom(VKingdom king) {
+    this.king = king;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String scienseName) {
+    this.name = scienseName;
+  }
+
+  public String getDescription() {
+    return desc;
+  }
+
+  public void setDescription(String desc) {
+    this.desc = desc;
+  }
+
+  public Set<VLocale> getLocales() {
+    return locales;
+  }
+
+  public void setLocales(Set<VLocale> locales) {
+    this.locales = locales;
+  }
+
+  public void addLocale(VLocale locale) {
+    if (locales == null)
+      locales = new HashSet<VLocale>();
+    locales.add(locale);
+  }
+
+  public void setAvatar(String path) {
+    this.avartar = path;
+  }
+
+  public String getAvatar() {
+    return avartar;
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }

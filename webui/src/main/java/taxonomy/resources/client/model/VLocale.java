@@ -16,37 +16,35 @@
 package taxonomy.resources.client.model;
 
 /**
- * Author : Nguyen Thanh Hai
- *         haithanh0809@gmail.com
+ * Author : Nguyen Thanh Hai haithanh0809@gmail.com
  */
 
 public class VLocale extends VModel {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String name;
-	
-	private String value;
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	public String getValue() {
-		return value;
-	}
-	
-	@Override
-	public String toString()
-	{
-	   return value;
-	}
+  private String name;
+
+  private String value;
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  @Override
+  public String toString() {
+    return value;
+  }
 }

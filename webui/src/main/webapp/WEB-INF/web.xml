@@ -14,12 +14,22 @@
    </listener>
    
    <servlet>
-    <servlet-name>service</servlet-name>
-    <servlet-class>taxonomy.resources.server.TxDAOServlet</servlet-class>
+    <servlet-name>dao</servlet-name>
+    <servlet-class>taxonomy.resources.server.TxDAOServiceImpl</servlet-class>
+   </servlet>
+   
+   <servlet>
+    <servlet-name>loader</servlet-name>
+    <servlet-class>taxonomy.resources.server.LoaderServiceImpl</servlet-class>
    </servlet>
    
    <servlet-mapping>
-    <servlet-name>service</servlet-name>
-    <url-pattern>/tx/service</url-pattern>
+    <servlet-name>dao</servlet-name>
+    <url-pattern>/tx/dao</url-pattern>
+   </servlet-mapping>
+   
+   <servlet-mapping>
+    <servlet-name>loader</servlet-name>
+    <url-pattern>/tx/loader</url-pattern>
    </servlet-mapping>
 </web-app>

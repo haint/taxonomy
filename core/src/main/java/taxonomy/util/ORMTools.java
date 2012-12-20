@@ -75,12 +75,18 @@ public class ORMTools {
 		}
 	}
 	
-	public static Connection getConnection() throws Exception {
-		Class.forName(properties.getProperty("driver"));
-		Connection con =
-			DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
-				properties.getProperty("password"));
-		return con;
+	public static Connection getConnection() {
+	   try {
+	      Class.forName(properties.getProperty("driver"));
+	      Connection con =
+	         DriverManager.getConnection(properties.getProperty("datasource"), properties.getProperty("username"),
+	            properties.getProperty("password"));
+	      return con;
+	   } 
+	   catch (Exception e)
+	   {
+	      throw new RuntimeException(e);
+	   }
 	}
 
 	public static void insert(Model model) throws Exception {

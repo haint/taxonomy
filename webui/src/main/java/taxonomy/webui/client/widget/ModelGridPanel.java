@@ -54,148 +54,130 @@ import com.sencha.gxt.widget.core.client.toolbar.PagingToolBar;
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
-public class ModelGridPanel<M extends VModel> extends FramedPanel
-{
-   static int PAGE_SIZE = 50;
-   
-   /** . */
-   private final String name;
-   
-   /** .*/
-   private final Grid<M> grid;
-   
-   /** .*/
-   private final PagingToolBar  toolbar;
-   
-   /** .*/
-   private final CheckBoxSelectionModel<M> sm;
-   
-   public String getName()
-   {
-      return name;
-   }
-   
-   public ModelGridPanel(String tableName, List<ColumnConfig<M, ?>> cf)
-   {
-      //
-      this.name = tableName;
-      
-      //
-      DataProxy<PagingLoadConfig, PagingLoadResult<M>> proxy = new RpcProxy<PagingLoadConfig, PagingLoadResult<M>>()
-      {
-         @Override
-         public void load(PagingLoadConfig loadConfig, AsyncCallback<PagingLoadResult<M>> callback)
-         {
-            TxDAOServiceAsync.Util.getInstance().select(name, loadConfig, callback);
-         }
+public class ModelGridPanel<M extends VModel> extends FramedPanel {
+  static int PAGE_SIZE = 50;
+
+  /** . */
+  private final String name;
+
+  /** . */
+  private final Grid<M> grid;
+
+  /** . */
+  private final PagingToolBar toolbar;
+
+  /** . */
+  private final CheckBoxSelectionModel<M> sm;
+
+  public String getName() {
+    return name;
+  }
+
+  public ModelGridPanel(String tableName, List<ColumnConfig<M, ?>> cf) {
+    //
+    this.name = tableName;
+
+    //
+    DataProxy<PagingLoadConfig, PagingLoadResult<M>> proxy = new RpcProxy<PagingLoadConfig, PagingLoadResult<M>>() {
+      @Override
+      public void load(PagingLoadConfig loadConfig, AsyncCallback<PagingLoadResult<M>> callback) {
+        TxDAOServiceAsync.Util.getInstance().select(name, loadConfig, callback);
+      }
+    };
+
+    //
+    ListStore<M> store = new ListStore<M>(new ModelKeyProvider<M>() {
+      @Override
+      public String getKey(M item) {
+        return item.getId().toString();
+      }
+    });
+
+    //
+    final PagingLoader<PagingLoadConfig, PagingLoadResult<M>> loader =
+      new PagingLoader<PagingLoadConfig, PagingLoadResult<M>>(proxy);
+    loader.addLoadHandler(new LoadResultListStoreBinding<PagingLoadConfig, M, PagingLoadResult<M>>(store));
+
+    //
+    toolbar = new PagingToolBar(PAGE_SIZE);
+    toolbar.getElement().getStyle().setProperty("borderBottom", "none");
+    toolbar.bind(loader);
+
+    //
+    sm = new CheckBoxSelectionModel<M>(new IdentityValueProvider<M>());
+    final OperatorToolbar<M> operatorTool = new OperatorToolbar<M>(this);
+    sm.addSelectionHandler(new SelectionHandler<M>() {
+      @Override
+      public void onSelection(SelectionEvent<M> event) {
+        operatorTool.enableModifyButton();
+      }
+    });
+    sm.addSelectionChangedHandler(new SelectionChangedHandler<M>() {
+      @Override
+      public void onSelectionChanged(SelectionChangedEvent<M> event) {
+        if (event.getSelection().size() == 0)
+          operatorTool.disableModifyButton();
       };
-      
-      //
-      ListStore<M> store = new ListStore<M>(new ModelKeyProvider<M>()
-      {
-         @Override
-         public String getKey(M item)
-         {
-            return item.getId().toString();
-         }
-      });
-      
-      //
-      final PagingLoader<PagingLoadConfig, PagingLoadResult<M>> loader = new PagingLoader<PagingLoadConfig, PagingLoadResult<M>>(proxy);
-      loader.addLoadHandler(new LoadResultListStoreBinding<PagingLoadConfig, M, PagingLoadResult<M>>(store));
-      
-      //
-      toolbar = new PagingToolBar(PAGE_SIZE);
-      toolbar.getElement().getStyle().setProperty("borderBottom", "none");
-      toolbar.bind(loader);
-      
-      //
-      sm = new CheckBoxSelectionModel<M>(new IdentityValueProvider<M>());
-      final OperatorToolbar<M> operatorTool = new OperatorToolbar<M>(this);
-      sm.addSelectionHandler(new SelectionHandler<M>()
-      {
-         @Override
-         public void onSelection(SelectionEvent<M> event)
-         {
-            operatorTool.enableModifyButton();
-         }
-      });
-      sm.addSelectionChangedHandler(new SelectionChangedHandler<M>()
-      {
-         @Override
-         public void onSelectionChanged(SelectionChangedEvent<M> event)
-         {
-            if(event.getSelection().size() == 0) operatorTool.disableModifyButton();
-         };
-      });
-      
-      List<ColumnConfig<M, ?>> config = new ArrayList<ColumnConfig<M,?>>();
-      config.add(sm.getColumn());
-      config.addAll(cf);
-      ColumnModel<M> cm = new ColumnModel<M>(config);
-      grid = new Grid<M>(store, cm) {
-         @Override
-         protected void onAfterFirstAttach()
-         {
-            super.onAfterFirstAttach();
-            Scheduler.get().scheduleDeferred(new ScheduledCommand()
-            {
-               @Override
-               public void execute()
-               {
-                  loader.load();
-               }
-            });
-         }
-      };
-      grid.setBorders(false);
-      grid.setSelectionModel(sm);
-      grid.setLoadMask(true);
-      grid.setLoader(loader);
-      grid.addSortChangeHandler(new SortChangeEvent.SortChangeHandler() {
-         @Override
-         public void onSortChange(SortChangeEvent event)
-         {
-            event.getSortInfo().getSortDir().comparator(new Comparator<M>()
-            {
-               @Override
-               public int compare(M o1, M o2)
-               {
-                  return o1.toString().compareTo(o2.toString());
-               }
-            });
-         }
-      });
-      
-      grid.getView().setForceFit(true);
-      grid.getView().setAutoFill(true);
-      grid.getView().setStripeRows(true);
-      grid.getView().setColumnLines(true);
-      
-      //
-      VerticalLayoutContainer con = new VerticalLayoutContainer();
-      con.setBorders(true);
-      con.add(toolbar, new VerticalLayoutData(1, -1));
-      con.add(grid, new VerticalLayoutData(1, 1));
-      con.add(operatorTool, new VerticalLayoutData(1, -1));
-      con.getScrollSupport().setScrollMode(ScrollMode.AUTOY);
-      setWidget(con);
-   }
-   
-   public CheckBoxSelectionModel<M> getCheckBoxSelectionModel()
-   {
-      return sm;
-   }
-   
-   public Grid<M> getGrid()
-   {
-      return grid;
-   }
-   
-   public PagingToolBar getPagingToolbar()
-   {
-      return toolbar;
-   }
+    });
+
+    List<ColumnConfig<M, ?>> config = new ArrayList<ColumnConfig<M, ?>>();
+    config.add(sm.getColumn());
+    config.addAll(cf);
+    ColumnModel<M> cm = new ColumnModel<M>(config);
+    grid = new Grid<M>(store, cm) {
+      @Override
+      protected void onAfterFirstAttach() {
+        super.onAfterFirstAttach();
+        Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+          @Override
+          public void execute() {
+            loader.load();
+          }
+        });
+      }
+    };
+    grid.setBorders(false);
+    grid.setSelectionModel(sm);
+    grid.setLoadMask(true);
+    grid.setLoader(loader);
+    grid.addSortChangeHandler(new SortChangeEvent.SortChangeHandler() {
+      @Override
+      public void onSortChange(SortChangeEvent event) {
+        event.getSortInfo().getSortDir().comparator(new Comparator<M>() {
+          @Override
+          public int compare(M o1, M o2) {
+            return o1.toString().compareTo(o2.toString());
+          }
+        });
+      }
+    });
+
+    grid.getView().setForceFit(true);
+    grid.getView().setAutoFill(true);
+    grid.getView().setStripeRows(true);
+    grid.getView().setColumnLines(true);
+
+    //
+    VerticalLayoutContainer con = new VerticalLayoutContainer();
+    con.setBorders(true);
+    con.add(toolbar, new VerticalLayoutData(1, -1));
+    con.add(grid, new VerticalLayoutData(1, 1));
+    con.add(operatorTool, new VerticalLayoutData(1, -1));
+    con.getScrollSupport().setScrollMode(ScrollMode.AUTOY);
+    setWidget(con);
+  }
+
+  public CheckBoxSelectionModel<M> getCheckBoxSelectionModel() {
+    return sm;
+  }
+
+  public Grid<M> getGrid() {
+    return grid;
+  }
+
+  public PagingToolBar getPagingToolbar() {
+    return toolbar;
+  }
 }

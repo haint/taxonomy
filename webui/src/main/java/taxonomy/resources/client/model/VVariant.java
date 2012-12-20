@@ -18,41 +18,35 @@
  */
 package taxonomy.resources.client.model;
 
-public class VVariant extends VModel
-{
-	private static final long serialVersionUID = 1L;
+public class VVariant extends VModel {
+  private static final long serialVersionUID = 1L;
 
-	private String value;
-   
-   private Integer type;
-   
-   public static Integer SYNONYM = 1;
-   
-   public static Integer OLD = 2;
-   
-   public void setValue(String value)
-   {
-      this.value = value;
-   }
-   
-   public String getValue()
-   {
-      return value;
-   }
-   
-   public void setType(Integer type)
-   {
-      this.type = type;
-   }
-   
-   public Integer getType()
-   {
-      return type;
-   }
-   
-   @Override
-   public String toString()
-   {
-      return value;
-   }
+  private String value;
+
+  private Integer type;
+
+  public static Integer SYNONYM = 1;
+
+  public static Integer OLD = 2;
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setType(Integer type) {
+    this.type = type;
+  }
+
+  public Integer getType() {
+    return type;
+  }
+
+  @Override
+  public String toString() {
+    return value;
+  }
 }

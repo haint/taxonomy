@@ -26,15 +26,15 @@ import com.google.gwt.core.client.GWT;
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
 public class TxEntryPoint implements EntryPoint {
 
-	private final TxGinjector injector = GWT.create(TxGinjector.class);
-	
-	@Override
-	public void onModuleLoad() {
-		TxApplication app = injector.getApplication();
-		app.run();
-	}
+  private final TxGinjector injector = GWT.create(TxGinjector.class);
+
+  @Override
+  public void onModuleLoad() {
+    TxApplication app = injector.getApplication();
+    app.run();
+  }
 }

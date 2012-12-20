@@ -32,44 +32,34 @@ import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
  * @version $Id$
  * 
  */
-public class LocalesColumnConfig<M extends VModel> extends ColumnConfig<M, Set<VLocale>>
-{
+public class LocalesColumnConfig<M extends VModel> extends ColumnConfig<M, Set<VLocale>> {
 
-   public LocalesColumnConfig(ValueProvider<? super M, Set<VLocale>> valueProvider)
-   {
-      super(valueProvider, 100, "Locales");
+  public LocalesColumnConfig(ValueProvider<? super M, Set<VLocale>> valueProvider) {
+    super(valueProvider, 100, "Locales");
 
-      setCell(new AbstractCell<Set<VLocale>>()
-      {
-         @Override
-         public void render(com.google.gwt.cell.client.Cell.Context context, Set<VLocale> value, SafeHtmlBuilder sb)
-         {
-            if (value == null)
-            {
-               return;
-            }
-            String vn = null;
-            String en = null;
-            for (VLocale v : value)
-            {
-               if ("en".equals(v.getName()))
-               {
-                  en = v.getValue();
-               }
-               else if ("vn".equals(v.getName()))
-               {
-                  vn = v.getValue();
-               }
-            }
-            if(vn != null)
-            {
-               sb.appendHtmlConstant("<div style='float:left; width: 200px;'><span style='color: blue'><img src='images/flags/vn.png'/> : " + vn + "</span></div>");
-            }
-            if(en != null)
-            {
-               sb.appendHtmlConstant("<span style='color: green'><img src='images/flags/gb.png'/> : " + en + "</span>");
-            }
-         }
-      });
-   }
+    setCell(new AbstractCell<Set<VLocale>>() {
+      @Override
+      public void render(com.google.gwt.cell.client.Cell.Context context, Set<VLocale> value, SafeHtmlBuilder sb) {
+        if (value == null) {
+          return;
+        }
+        String vn = null;
+        String en = null;
+        for (VLocale v : value) {
+          if ("en".equals(v.getName())) {
+            en = v.getValue();
+          } else if ("vn".equals(v.getName())) {
+            vn = v.getValue();
+          }
+        }
+        if (vn != null) {
+          sb.appendHtmlConstant("<div style='float:left; width: 200px;'><span style='color: blue'><img src='images/flags/vn.png'/> : "
+            + vn + "</span></div>");
+        }
+        if (en != null) {
+          sb.appendHtmlConstant("<span style='color: green'><img src='images/flags/gb.png'/> : " + en + "</span>");
+        }
+      }
+    });
+  }
 }

@@ -25,12 +25,12 @@ import com.google.inject.Singleton;
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
 public class TxModule extends AbstractGinModule {
 
-	@Override
-	protected void configure() {
-		bind(TxShell.class).in(Singleton.class);
-	}
+  @Override
+  protected void configure() {
+    bind(TxShell.class).in(Singleton.class);
+  }
 }

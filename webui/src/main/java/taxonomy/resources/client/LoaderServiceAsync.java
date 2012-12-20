@@ -19,42 +19,35 @@ package taxonomy.resources.client;
 
 import java.util.List;
 
-import taxonomy.resources.client.model.VModel;
-import taxonomy.resources.client.model.VResult;
+import taxonomy.resources.client.model.FilterModel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
-import com.sencha.gxt.data.shared.loader.PagingLoadConfig;
-import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
  * 
  */
-public interface TxDAOServiceAsync {
+public interface LoaderServiceAsync {
+  void load(String tableName, AsyncCallback<List<FilterModel>> callback);
 
-  void getMaxId(String tableName, AsyncCallback<Integer> callback);
-
-  void getGeneric(String clazz, Integer id, AsyncCallback<VModel> callback);
-
-  void select(String tableName, Integer from, Integer to, AsyncCallback<List<VModel>> callback);
-
-  <M extends VModel> void select(String tableName, PagingLoadConfig config, AsyncCallback<PagingLoadResult<M>> callback);
-
-  void query(String query, AsyncCallback<VResult> result);
-
-  void update(String query, AsyncCallback<Void> result);
+  /**
+   * Specify to load the locale name from VNaturalObject
+   * 
+   * @return
+   */
+  void localeName(String locale, AsyncCallback<List<String>> callback);
 
   public static class Util {
-    private static TxDAOServiceAsync instance;
+    private static LoaderServiceAsync instance;
 
-    public static TxDAOServiceAsync getInstance() {
+    public static LoaderServiceAsync getInstance() {
       if (instance == null) {
-        instance = GWT.create(TxDAOService.class);
-        ServiceDefTarget target = (ServiceDefTarget)instance;
-        target.setServiceEntryPoint(GWT.getModuleBaseURL() + "dao");
+        instance = GWT.create(LoaderService.class);
+        ServiceDefTarget service = (ServiceDefTarget)instance;
+        service.setServiceEntryPoint(GWT.getModuleBaseURL() + "loader");
       }
       return instance;
     }

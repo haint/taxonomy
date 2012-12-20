@@ -38,106 +38,95 @@ import com.sencha.gxt.data.shared.PropertyAccess;
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
-public class ModelProperties
-{
-   interface GlossaryProperties extends PropertyAccess<VGlossary>
-   {
-      ValueProvider<VGlossary, Integer> id();
-      
-      ValueProvider<VGlossary, String> name();
-      
-      ValueProvider<VGlossary, String> example();
-      
-      ValueProvider<VGlossary, Set<VLocale>> locales();
-   }
-   
-   interface IndexProperties extends PropertyAccess<VIndex>
-   {
-      ValueProvider<VIndex, Integer> id();
-      
-      ValueProvider<VIndex, String> value();
-   }
+public class ModelProperties {
+  interface GlossaryProperties extends PropertyAccess<VGlossary> {
+    ValueProvider<VGlossary, Integer> id();
 
-   interface KingdomProperties extends PropertyAccess<VKingdom>
-   {
-      @Path("id")
-      ModelKeyProvider<VKingdom> id();
+    ValueProvider<VGlossary, String> name();
 
-      ValueProvider<VKingdom, String> name();
+    ValueProvider<VGlossary, String> example();
 
-      ValueProvider<VKingdom, String> code();
-   }
-   
-   interface FamilyProperties extends PropertyAccess<VFamily>
-   {
-      ValueProvider<VFamily, Integer> id();
-      
-      ValueProvider<VFamily, VKingdom> kingdom();
-      
-      ValueProvider<VFamily, Set<VLocale>> locales();
-      
-      ValueProvider<VFamily, String> name();
-   }
-   
-   interface GenusProperites extends FamilyProperties
-   {
-      ValueProvider<VGenus, Set<VVariant>> variants(); 
-   }
-   
-   interface SpeciesProperties extends PropertyAccess<VSpecies>
-   {
-      ValueProvider<VSpecies, Integer> id();
-      
-      ValueProvider<VSpecies, String> name();
-      
-      ValueProvider<VSpecies, Set<VVariant>> variants();
-   }
-   
-   interface ObjectProperties extends PropertyAccess<VNaturalObject>
-   {
-      ValueProvider<VNaturalObject, Integer> id();
-      
-      ValueProvider<VNaturalObject, VKingdom> kingdom();
-      
-      ValueProvider<VNaturalObject, Set<VFamily>> families();
-      
-      ValueProvider<VNaturalObject, VGenus> genus();
-      
-      ValueProvider<VNaturalObject, VSpecies> species();
-      
-      ValueProvider<VNaturalObject, Set<VIndex>> indecies();
-      
-      ValueProvider<VNaturalObject, Set<VTag>> tags();
-      
-      ValueProvider<VNaturalObject, Set<String>> enNameSet();
-      
-      ValueProvider<VNaturalObject, Set<String>> vnNameSet();
-   }
-   
-   interface LocalesProperties extends PropertyAccess<VLocale>
-   {
-      ValueProvider<VLocale, Integer> id();
-      
-      ValueProvider<VLocale, String> name();
-      
-      ValueProvider<VLocale, String> value();
-   }
-   
-   interface VariantPropertis extends PropertyAccess<VVariant>
-   {
-      ValueProvider<VVariant, Integer> id();
-      
-      ValueProvider<VVariant, String> value();
-   }
-   
-   interface TagProperties extends PropertyAccess<VTag>
-   {
-      ValueProvider<VTag, Integer> id();
-      
-      ValueProvider<VTag, String> name();
-      
-      ValueProvider<VTag, String> explaintion();
-   }
+    ValueProvider<VGlossary, Set<VLocale>> locales();
+  }
+
+  interface IndexProperties extends PropertyAccess<VIndex> {
+    ValueProvider<VIndex, Integer> id();
+
+    ValueProvider<VIndex, String> value();
+  }
+
+  interface KingdomProperties extends PropertyAccess<VKingdom> {
+    @Path("id")
+    ModelKeyProvider<VKingdom> id();
+
+    ValueProvider<VKingdom, String> name();
+
+    ValueProvider<VKingdom, String> code();
+  }
+
+  interface FamilyProperties extends PropertyAccess<VFamily> {
+    ValueProvider<VFamily, Integer> id();
+
+    ValueProvider<VFamily, VKingdom> kingdom();
+
+    ValueProvider<VFamily, Set<VLocale>> locales();
+
+    ValueProvider<VFamily, String> name();
+  }
+
+  interface GenusProperites extends FamilyProperties {
+    ValueProvider<VGenus, Set<VVariant>> variants();
+  }
+
+  interface SpeciesProperties extends PropertyAccess<VSpecies> {
+    ValueProvider<VSpecies, Integer> id();
+
+    ValueProvider<VSpecies, String> name();
+
+    ValueProvider<VSpecies, Set<VVariant>> variants();
+  }
+
+  interface ObjectProperties extends PropertyAccess<VNaturalObject> {
+    ValueProvider<VNaturalObject, Integer> id();
+
+    ValueProvider<VNaturalObject, VKingdom> kingdom();
+
+    ValueProvider<VNaturalObject, Set<VFamily>> families();
+
+    ValueProvider<VNaturalObject, VGenus> genus();
+
+    ValueProvider<VNaturalObject, VSpecies> species();
+
+    ValueProvider<VNaturalObject, Set<VIndex>> indecies();
+
+    ValueProvider<VNaturalObject, Set<VTag>> tags();
+
+    ValueProvider<VNaturalObject, Set<String>> enNameSet();
+
+    ValueProvider<VNaturalObject, Set<String>> vnNameSet();
+  }
+
+  interface LocalesProperties extends PropertyAccess<VLocale> {
+    ValueProvider<VLocale, Integer> id();
+
+    ValueProvider<VLocale, String> name();
+
+    ValueProvider<VLocale, String> value();
+  }
+
+  interface VariantPropertis extends PropertyAccess<VVariant> {
+    ValueProvider<VVariant, Integer> id();
+
+    ValueProvider<VVariant, String> value();
+  }
+
+  interface TagProperties extends PropertyAccess<VTag> {
+    ValueProvider<VTag, Integer> id();
+
+    ValueProvider<VTag, String> name();
+
+    ValueProvider<VTag, String> explaintion();
+  }
 }

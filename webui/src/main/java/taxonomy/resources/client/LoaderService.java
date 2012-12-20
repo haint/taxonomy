@@ -17,12 +17,26 @@
  */
 package taxonomy.resources.client;
 
+import java.util.List;
+
+import taxonomy.resources.client.model.FilterModel;
+
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
-public interface TxService {
+@RemoteServiceRelativePath("loader")
+public interface LoaderService extends RemoteService {
+  public List<FilterModel> load(String tableName) throws Exception;
 
-	public String getName();
+  /**
+   * Specify to load the locale name from VNaturalObject
+   * 
+   * @return
+   */
+  public List<String> localeName(String locale) throws Exception;
 }

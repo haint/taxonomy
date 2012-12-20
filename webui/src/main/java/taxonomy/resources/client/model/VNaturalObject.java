@@ -34,189 +34,193 @@ import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 
 public class VNaturalObject extends VModel {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private VKingdom king;
+  private VKingdom king;
 
-	private Set<VFamily> families;
+  private Set<VFamily> families;
 
-	private VGenus genus;
+  private VGenus genus;
 
-	private VSpecies species;
+  private VSpecies species;
 
-	private Set<VIndex> indecies;
+  private Set<VIndex> indecies;
 
-	private Set<VTag> tags;
+  private Set<VTag> tags;
 
-	private Set<String> enNames;
+  private Set<String> enNames;
 
-	private Set<String> vnNames;
+  private Set<String> vnNames;
 
-	private Date createDate;
+  private Date createDate;
 
-	private Date modifyDate;
+  private Date modifyDate;
 
-	private String references;
+  private String references;
 
-	private String desc;
+  private String desc;
 
-	private String avatar;
+  private String avatar;
 
-	public VKingdom getKingdom() {
-		return king;
-	}
+  public VKingdom getKingdom() {
+    return king;
+  }
 
-	public void setKingdom(VKingdom king) {
-		this.king = king;
-	}
+  public void setKingdom(VKingdom king) {
+    this.king = king;
+  }
 
-	public Set<VFamily> getFamilies() {
-		return families;
-	}
-	
-	public void setFamilies(Set<VFamily> families) {
-		this.families = families;
-	}
+  public Set<VFamily> getFamilies() {
+    return families;
+  }
 
-	public void addFamil(VFamily family) {
-		if (families == null) families = new HashSet<VFamily>();
-		families.add(family);
-	}
+  public void setFamilies(Set<VFamily> families) {
+    this.families = families;
+  }
 
-	public VGenus getGenus() {
-		return genus;
-	}
+  public void addFamil(VFamily family) {
+    if (families == null)
+      families = new HashSet<VFamily>();
+    families.add(family);
+  }
 
-	public void setGenus(VGenus genus) {
-		this.genus = genus;
-	}
+  public VGenus getGenus() {
+    return genus;
+  }
 
-	public VSpecies getSpecies() {
-		return species;
-	}
+  public void setGenus(VGenus genus) {
+    this.genus = genus;
+  }
 
-	public void setSpecies(VSpecies sp) {
-		this.species = sp;
-	}
+  public VSpecies getSpecies() {
+    return species;
+  }
 
-	public Set<VIndex> getIndecies() {
-		return indecies;
-	}
+  public void setSpecies(VSpecies sp) {
+    this.species = sp;
+  }
 
-	public void setIndecies(Set<VIndex> indecies) {
-		this.indecies = indecies;
-	}
+  public Set<VIndex> getIndecies() {
+    return indecies;
+  }
 
-	public void addIndex(VIndex index) {
-		if (indecies == null) indecies = new HashSet<VIndex>();
-		indecies.add(index);
-	}
+  public void setIndecies(Set<VIndex> indecies) {
+    this.indecies = indecies;
+  }
 
-	public Set<VTag> getTags() {
-		return tags;
-	}
+  public void addIndex(VIndex index) {
+    if (indecies == null)
+      indecies = new HashSet<VIndex>();
+    indecies.add(index);
+  }
 
-	public void setTags(Set<VTag> tags) {
-		this.tags = tags;
-	}
+  public Set<VTag> getTags() {
+    return tags;
+  }
 
-	public void addTag(VTag tag) {
-		if (tags == null) tags = new HashSet<VTag>();
-		tags.add(tag);
-	}
+  public void setTags(Set<VTag> tags) {
+    this.tags = tags;
+  }
 
-	public Set<String> getEnNameSet() {
-		return enNames;
-	}
+  public void addTag(VTag tag) {
+    if (tags == null)
+      tags = new HashSet<VTag>();
+    tags.add(tag);
+  }
 
-	public void setEnNames(String s) {
-		if (enNames == null) enNames = new HashSet<String>();
-		String[] arr = s.split("::");
-		Collections.addAll(enNames, arr);
-	}
+  public Set<String> getEnNameSet() {
+    return enNames;
+  }
 
-	public String getEnNames() {
-		if (enNames == null)
-			return null;
-		StringBuilder b = new StringBuilder();
-		Iterator<String> i = enNames.iterator();
-		while (i.hasNext()) {
-			b.append(i.next()).append("::");
-		}
-		return b.toString().substring(0, b.toString().length() - 2);
-	}
+  public void setEnNames(String s) {
+    if (enNames == null)
+      enNames = new HashSet<String>();
+    String[] arr = s.split("::");
+    Collections.addAll(enNames, arr);
+  }
 
-	public void addEnName(String name) {
-		if (enNames == null)
-			enNames = new HashSet<String>();
-		enNames.add(name);
-	}
+  public String getEnNames() {
+    if (enNames == null)
+      return null;
+    StringBuilder b = new StringBuilder();
+    Iterator<String> i = enNames.iterator();
+    while (i.hasNext()) {
+      b.append(i.next()).append("::");
+    }
+    return b.toString().substring(0, b.toString().length() - 2);
+  }
 
-	public Set<String> getVnNameSet() {
-		return vnNames;
-	}
+  public void addEnName(String name) {
+    if (enNames == null)
+      enNames = new HashSet<String>();
+    enNames.add(name);
+  }
 
-	public void setVnNames(String s) {
-		if (vnNames == null)
-			vnNames = new HashSet<String>();
-		String[] arr = s.split("::");
-		Collections.addAll(vnNames, arr);
-	}
+  public Set<String> getVnNameSet() {
+    return vnNames;
+  }
 
-	public String getVnNames() {
-		if (vnNames == null)
-			return null;
-		StringBuilder b = new StringBuilder();
-		Iterator<String> i = vnNames.iterator();
-		while (i.hasNext()) {
-			b.append(i.next()).append("::");
-		}
-		return b.toString().substring(0, b.toString().length() - 2);
-	}
+  public void setVnNames(String s) {
+    if (vnNames == null)
+      vnNames = new HashSet<String>();
+    String[] arr = s.split("::");
+    Collections.addAll(vnNames, arr);
+  }
 
-	public void addVnName(String name) {
-		if (vnNames == null)
-			vnNames = new HashSet<String>();
-		vnNames.add(name);
-	}
+  public String getVnNames() {
+    if (vnNames == null)
+      return null;
+    StringBuilder b = new StringBuilder();
+    Iterator<String> i = vnNames.iterator();
+    while (i.hasNext()) {
+      b.append(i.next()).append("::");
+    }
+    return b.toString().substring(0, b.toString().length() - 2);
+  }
 
-	public String getCreateDate() {
-		return createDate != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).format(createDate) : null;
-	}
+  public void addVnName(String name) {
+    if (vnNames == null)
+      vnNames = new HashSet<String>();
+    vnNames.add(name);
+  }
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
+  public String getCreateDate() {
+    return createDate != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).format(createDate) : null;
+  }
 
-	public String getModifyDate() {
-		return modifyDate != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).format(modifyDate) : null;
-	}
+  public void setCreateDate(Date createDate) {
+    this.createDate = createDate;
+  }
 
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
+  public String getModifyDate() {
+    return modifyDate != null ? DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM).format(modifyDate) : null;
+  }
 
-	public String getReferences() {
-		return references;
-	}
+  public void setModifyDate(Date modifyDate) {
+    this.modifyDate = modifyDate;
+  }
 
-	public void setReferences(String references) {
-		this.references = references;
-	}
+  public String getReferences() {
+    return references;
+  }
 
-	public String getDesc() {
-		return desc;
-	}
+  public void setReferences(String references) {
+    this.references = references;
+  }
 
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
+  public String getDesc() {
+    return desc;
+  }
 
-	public String getAvatar() {
-		return avatar;
-	}
+  public void setDesc(String desc) {
+    this.desc = desc;
+  }
 
-	public void setAvatar(String path) {
-		this.avatar = path;
-	}
+  public String getAvatar() {
+    return avatar;
+  }
+
+  public void setAvatar(String path) {
+    this.avatar = path;
+  }
 }

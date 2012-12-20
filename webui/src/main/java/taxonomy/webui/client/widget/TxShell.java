@@ -49,168 +49,178 @@ import com.sencha.gxt.widget.core.client.tree.Tree;
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
 public class TxShell extends BorderLayoutContainer {
 
-   /** .*/
-	private ContentPanel west;
-	
-	/** .*/
-	static TabPanel center;
+  /** . */
+  private ContentPanel west;
 
-	@Inject
-	public TxShell() {
-		monitorWindowResize = true;
-		Window.enableScrolling(false);
-		setPixelSize(Window.getClientWidth(), Window.getClientHeight());
+  /** . */
+  static TabPanel center;
 
-		setStateful(false);
-		setStateId("explorerLayout");
+  @Inject
+  public TxShell() {
+    monitorWindowResize = true;
+    Window.enableScrolling(false);
+    setPixelSize(Window.getClientWidth(), Window.getClientHeight());
 
-//		BorderLayoutStateHandler state = new BorderLayoutStateHandler(this);
-//		state.loadState();
+    setStateful(false);
+    setStateId("explorerLayout");
 
-		HTML north = new HTML();
-		north.setHTML("<div id='demo-theme'></div><div id=demo-title>Taxonomy Web Base Application</div>");
-		north.getElement().setId("demo-header");
+    // BorderLayoutStateHandler state = new BorderLayoutStateHandler(this);
+    // state.loadState();
 
-		BorderLayoutData northData = new BorderLayoutData(35);
-		setNorthWidget(north, northData);
+    HTML north = new HTML();
+    north.setHTML("<div id='demo-theme'></div><div id=demo-title>Taxonomy Web Base Application</div>");
+    north.getElement().setId("demo-header");
 
-		BorderLayoutData westData = new BorderLayoutData(250);
-		westData.setMargins(new Margins(5, 0, 5, 5));
-		westData.setSplit(true);
-		westData.setCollapsible(true);
-		westData.setCollapseHidden(true);
-		westData.setCollapseMini(true);
+    BorderLayoutData northData = new BorderLayoutData(35);
+    setNorthWidget(north, northData);
 
-		west = new ContentPanel();
-		west.setHeadingText("Navigation");
-		west.setBodyBorder(true);
-		VerticalLayoutContainer westContainer = new VerticalLayoutContainer();
-		west.add(westContainer);
-		
-		final Tree<String, String> tree = buildTreeNavigation();
-		ToolBar toolbar = new ToolBar();
-		toolbar.add(new TextButton("Expand All", new SelectHandler()
-      {
-         @Override
-         public void onSelect(SelectEvent event)
-         {
-            tree.expandAll();
-         }
-      }));
-		toolbar.add(new TextButton("Collapse All", new SelectHandler()
-		{
-         @Override
-         public void onSelect(SelectEvent event)
-         {
-            tree.collapseAll();
-         }
-		}));
-		westContainer.add(toolbar, new VerticalLayoutData(1, -1));
-		westContainer.add(tree, new VerticalLayoutData(1, 1));
-		tree.expandAll();
-		MarginData centerData = new MarginData();
-		centerData.setMargins(new Margins(5));
+    BorderLayoutData westData = new BorderLayoutData(250);
+    westData.setMargins(new Margins(5, 0, 5, 5));
+    westData.setSplit(true);
+    westData.setCollapsible(true);
+    westData.setCollapseHidden(true);
+    westData.setCollapseMini(true);
 
-		center = new TabPanel();
-		center.setTabScroll(true);
-		center.setCloseContextMenu(true);
-		
-		TabItemConfig tabConfig = new TabItemConfig(Tables.NATURALOBJECT.getName(), true);
-		ModelGridPanel<VNaturalObject> panel = ModelGridFactory.createNObject();
-      center.add(panel, tabConfig);
-      center.setActiveWidget(panel);
-      
-		setWestWidget(west, westData);
-		setCenterWidget(center, centerData);
-	}
-	
-	private Tree<String, String> buildTreeNavigation() {
-		TreeStore<String> store = new TreeStore<String>(new ModelKeyProvider<String>() {
-			@Override
-			public String getKey(String item) {
-				return item;
-			}
-		});
-		
-		String main = "Main";
-		store.add(main);
-		List<String> child1 = new ArrayList<String>();
-		Collections.addAll(child1, "[Kingdom]", "[Family]", "[Genus]", "[Species]", "[NaturalObject]");
-		store.add(main, child1);
-		
-		String ext = "Extension";
-		store.add(ext);
-		List<String> child2	= new ArrayList<String>();
-		Collections.addAll(child2, "[Index]", "[Tag]", "[Glossary]", "[Variant]", "[Locales]");
-		store.add(ext, child2);
-		
-		final Tree<String, String> tree = new Tree<String, String>(store, new ValueProvider<String, String>() {
-			@Override
-			public String getValue(String object) { return object; }
-			@Override
-			public void setValue(String object, String value) {}
-			@Override
-			public String getPath() { return null; }
-		});
-		
-		tree.getStyle().setLeafIcon(ExampleImages.INSTANCE.table());
-		tree.getSelectionModel().addSelectionHandler(new SelectionHandler<String>() {
-			
-			@Override
-			public void onSelection(SelectionEvent<String> event) {
-				final String item = event.getSelectedItem();
-				ModelGridPanel panel = null;
-				if("Main".equals(item) || "Extension".equals(item)) 
-				{
-				   tree.setExpanded(item, true, true);
-				   return;
-				}
-				
-				Tables table = Tables.valueOf(item.substring(1, item.length() - 1).toUpperCase());
-				switch (table)
-            {
-               case KINGDOM :
-                  panel = ModelGridFactory.createKingdom(); break;
-               case FAMILY:
-                  panel = ModelGridFactory.createFamily(); break;
-               case GENUS:
-                  panel = ModelGridFactory.createGenus(); break;
-               case SPECIES:
-                  panel = ModelGridFactory.createSpecies(); break;
-               case NATURALOBJECT:
-                  panel = ModelGridFactory.createNObject(); break;
-               case VARIANT:
-                  panel = ModelGridFactory.createVariant(); break;
-               case LOCALES:
-                  panel = ModelGridFactory.createLocale(); break;
-               case GLOSSARY:
-                  panel = ModelGridFactory.createGlossary(); break;
-               case INDEX:
-                  panel = ModelGridFactory.createIndex(); break;
-               case TAG:
-                  panel = ModelGridFactory.createTag(); break;
-               default :
-                  break;
-            }
-				
-				if(center.getWidgetIndex(panel) < 0)
-				{
-				   TabItemConfig tabConfig = new TabItemConfig(item, true);
-				   center.add(panel, tabConfig);
-				}
-				center.setActiveWidget(panel);
-				tree.getSelectionModel().deselect(item);
-			};
-		});
-		return tree;
-	}
-	
-	@Override
-	protected void onWindowResize(int width, int height) {
-		setPixelSize(width, height);
-	}
+    west = new ContentPanel();
+    west.setHeadingText("Navigation");
+    west.setBodyBorder(true);
+    VerticalLayoutContainer westContainer = new VerticalLayoutContainer();
+    west.add(westContainer);
+
+    final Tree<String, String> tree = buildTreeNavigation();
+    ToolBar toolbar = new ToolBar();
+    toolbar.add(new TextButton("Expand All", new SelectHandler() {
+      @Override
+      public void onSelect(SelectEvent event) {
+        tree.expandAll();
+      }
+    }));
+    toolbar.add(new TextButton("Collapse All", new SelectHandler() {
+      @Override
+      public void onSelect(SelectEvent event) {
+        tree.collapseAll();
+      }
+    }));
+    westContainer.add(toolbar, new VerticalLayoutData(1, -1));
+    westContainer.add(tree, new VerticalLayoutData(1, 1));
+    tree.expandAll();
+    MarginData centerData = new MarginData();
+    centerData.setMargins(new Margins(5));
+
+    center = new TabPanel();
+    center.setTabScroll(true);
+    center.setCloseContextMenu(true);
+
+    TabItemConfig tabConfig = new TabItemConfig(Tables.NATURALOBJECT.getName(), true);
+    ModelGridPanel<VNaturalObject> panel = ModelGridFactory.createNObject();
+    center.add(panel, tabConfig);
+    center.setActiveWidget(panel);
+
+    setWestWidget(west, westData);
+    setCenterWidget(center, centerData);
+  }
+
+  private Tree<String, String> buildTreeNavigation() {
+    TreeStore<String> store = new TreeStore<String>(new ModelKeyProvider<String>() {
+      @Override
+      public String getKey(String item) {
+        return item;
+      }
+    });
+
+    String main = "Main";
+    store.add(main);
+    List<String> child1 = new ArrayList<String>();
+    Collections.addAll(child1, "[Kingdom]", "[Family]", "[Genus]", "[Species]", "[NaturalObject]");
+    store.add(main, child1);
+
+    String ext = "Extension";
+    store.add(ext);
+    List<String> child2 = new ArrayList<String>();
+    Collections.addAll(child2, "[Index]", "[Tag]", "[Glossary]", "[Variant]", "[Locales]");
+    store.add(ext, child2);
+
+    final Tree<String, String> tree = new Tree<String, String>(store, new ValueProvider<String, String>() {
+      @Override
+      public String getValue(String object) {
+        return object;
+      }
+
+      @Override
+      public void setValue(String object, String value) {
+      }
+
+      @Override
+      public String getPath() {
+        return null;
+      }
+    });
+
+    tree.getStyle().setLeafIcon(ExampleImages.INSTANCE.table());
+    tree.getSelectionModel().addSelectionHandler(new SelectionHandler<String>() {
+
+      @Override
+      public void onSelection(SelectionEvent<String> event) {
+        final String item = event.getSelectedItem();
+        ModelGridPanel panel = null;
+        if ("Main".equals(item) || "Extension".equals(item)) {
+          tree.setExpanded(item, true, true);
+          return;
+        }
+
+        Tables table = Tables.valueOf(item.substring(1, item.length() - 1).toUpperCase());
+        switch (table) {
+          case KINGDOM :
+            panel = ModelGridFactory.createKingdom();
+            break;
+          case FAMILY :
+            panel = ModelGridFactory.createFamily();
+            break;
+          case GENUS :
+            panel = ModelGridFactory.createGenus();
+            break;
+          case SPECIES :
+            panel = ModelGridFactory.createSpecies();
+            break;
+          case NATURALOBJECT :
+            panel = ModelGridFactory.createNObject();
+            break;
+          case VARIANT :
+            panel = ModelGridFactory.createVariant();
+            break;
+          case LOCALES :
+            panel = ModelGridFactory.createLocale();
+            break;
+          case GLOSSARY :
+            panel = ModelGridFactory.createGlossary();
+            break;
+          case INDEX :
+            panel = ModelGridFactory.createIndex();
+            break;
+          case TAG :
+            panel = ModelGridFactory.createTag();
+            break;
+          default :
+            break;
+        }
+
+        if (center.getWidgetIndex(panel) < 0) {
+          TabItemConfig tabConfig = new TabItemConfig(item, true);
+          center.add(panel, tabConfig);
+        }
+        center.setActiveWidget(panel);
+        tree.getSelectionModel().deselect(item);
+      };
+    });
+    return tree;
+  }
+
+  @Override
+  protected void onWindowResize(int width, int height) {
+    setPixelSize(width, height);
+  }
 }

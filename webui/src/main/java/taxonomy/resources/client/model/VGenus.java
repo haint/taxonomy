@@ -21,26 +21,24 @@ import java.util.Set;
 
 /**
  * @author <a href="mailto:haint@exoplatform.com">Nguyen Thanh Hai</a>
- *
+ * 
  */
-public class VGenus extends VFamily
-{
-	private static final long serialVersionUID = 1L;
-	
-	private Set<VVariant> variant;
-   
-   public void addVariant(VVariant variant)
-   {
-      if(this.variant == null) this.variant = new HashSet<VVariant>();
-      this.variant.add(variant);
-   }
-   
-   public void setVariants(Set<VVariant> variant) {
-   	this.variant = variant;
-   }
-   
-   public Set<VVariant> getVariants()
-   {
-      return variant;
-   }
+public class VGenus extends VFamily {
+  private static final long serialVersionUID = 1L;
+
+  private Set<VVariant> variant;
+
+  public void addVariant(VVariant variant) {
+    if (this.variant == null)
+      this.variant = new HashSet<VVariant>();
+    this.variant.add(variant);
+  }
+
+  public void setVariants(Set<VVariant> variant) {
+    this.variant = variant;
+  }
+
+  public Set<VVariant> getVariants() {
+    return variant;
+  }
 }

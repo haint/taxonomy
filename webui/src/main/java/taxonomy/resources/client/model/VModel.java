@@ -22,29 +22,31 @@ import java.io.Serializable;
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
 public abstract class VModel implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private Integer id;
-	
-	public String getDisplayName() {
-		String clazz = getClass().getName();
-		return clazz.substring(1);
-	}
-	
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	public Integer getId() {
-		return id;
-	}
-	
-	public boolean equals(Object obj) {
-		VModel other = (VModel) obj;
-      if(this.getId() == other.getId()) return true;
-      return false;
-	}
+  private static final long serialVersionUID = 1L;
+
+  private Integer id;
+
+  public String getDisplayName() {
+    String clazz = getClass().getName();
+    return clazz.substring(1);
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public boolean equals(Object obj) {
+    VModel other = (VModel)obj;
+    if (this.getId() == other.getId())
+      return true;
+    return false;
+  }
 }

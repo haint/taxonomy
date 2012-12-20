@@ -20,39 +20,36 @@ package taxonomy.webui.client.widget;
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
-public enum Tables
-{
-   KINGDOM("[Kingdom]"),
-   
-   FAMILY("[Family]"),
-   
-   GENUS("[Genus]"),
-   
-   GLOSSARY("[Glossary]"),
-   
-   INDEX("[Index]"),
-   
-   LOCALES("[Locales]"),
-   
-   SPECIES("[Species]"),
-   
-   TAG("[Tag]"),
-   
-   VARIANT("[Variant]"),
-   
-   NATURALOBJECT("[NaturalObject]");
-   
-   private String name;
-   
-   private Tables(String name)
-   {
-      this.name = name;
-   }
-   
-   public String getName()
-   {
-      return name;
-   }
+public enum Tables {
+  KINGDOM("[Kingdom]"),
+
+  FAMILY("[Family]"),
+
+  GENUS("[Genus]"),
+
+  GLOSSARY("[Glossary]"),
+
+  INDEX("[Index]"),
+
+  LOCALES("[Locales]"),
+
+  SPECIES("[Species]"),
+
+  TAG("[Tag]"),
+
+  VARIANT("[Variant]"),
+
+  NATURALOBJECT("[NaturalObject]");
+
+  private String name;
+
+  private Tables(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
 }

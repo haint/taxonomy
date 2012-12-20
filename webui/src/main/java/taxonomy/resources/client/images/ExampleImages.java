@@ -17,28 +17,28 @@ public interface ExampleImages extends ClientBundle {
 
   @Source("Cancel2.png")
   ImageResource deselectAll();
-  
+
   @Source("wikipedia.png")
   ImageResource wikipedia();
-  
+
   @Source("google.png")
   ImageResource google();
-  
+
   @Source("Search.png")
   ImageResource search();
-  
+
   @Source("OKShield.png")
   ImageResource addNew();
-  
+
   @Source("Favorites.png")
   ImageResource update();
-  
+
   @Source("ErrorCircle.png")
   ImageResource remove();
-  
+
   @Source("Search2.png")
   ImageResource filter();
-  
+
   @Source("add16.gif")
   ImageResource add16();
 
@@ -47,13 +47,13 @@ public interface ExampleImages extends ClientBundle {
 
   @Source("add32.gif")
   ImageResource add32();
-  
+
   @Source("table.png")
   ImageResource table();
 
   @Source("application_side_list.png")
   ImageResource side_list();
-  
+
   @Source("list.gif")
   ImageResource list();
 
@@ -95,35 +95,34 @@ public interface ExampleImages extends ClientBundle {
 
   @Source("plugin.png")
   ImageResource plugin();
-  
+
   @Source("music.png")
   ImageResource music();
-  
-  
+
   @Source("user.png")
   ImageResource user();
-  
+
   @Source("user_kid.png")
   ImageResource userKid();
-  
+
   @Source("user_female.png")
   ImageResource userFemale();
-  
+
   @Source("css.png")
   ImageResource css();
-  
+
   @Source("java.png")
   ImageResource java();
-  
+
   @Source("text.png")
   ImageResource json();
-  
+
   @Source("html.png")
   ImageResource html();
-  
+
   @Source("xml.png")
   ImageResource xml();
-  
+
   @Source("folder.png")
   ImageResource folder();
 }

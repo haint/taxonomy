@@ -22,9 +22,9 @@ import com.google.gwt.inject.client.Ginjector;
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- *
+ * 
  */
 public interface TxGinjector extends Ginjector {
 
-	TxApplication getApplication();
+  TxApplication getApplication();
 }
