@@ -70,16 +70,15 @@ public class TxShell extends BorderLayoutContainer {
     center = new TabPanel();
     center.setTabScroll(true);
     center.setCloseContextMenu(true);
-    center.addCloseHandler(new CloseHandler<Widget>() {
-      @Override
-      public void onClose(CloseEvent<Widget> event) {
-        OperatorToolbar.disableModifyButton();
-      }
-    });
     center.addSelectionHandler(new SelectionHandler<Widget>() {
       @Override
       public void onSelection(SelectionEvent<Widget> event) {
-        OperatorToolbar.disableModifyButton();
+        if(event.getSelectedItem() instanceof ModelGridPanel) {
+          OperatorToolbar.rootPanel = (ModelGridPanel)event.getSelectedItem();
+          if(OperatorToolbar.rootPanel.getCheckBoxSelectionModel().getSelectedItems().size() == 0) {
+            OperatorToolbar.disableModifyButton();
+          }
+        }
       }
     });
 

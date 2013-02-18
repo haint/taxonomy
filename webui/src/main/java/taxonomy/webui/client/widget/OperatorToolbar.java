@@ -76,7 +76,7 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
         if (items.size() == 0)
           return;
 
-        ConfirmMessageBox confirmBox = new ConfirmMessageBox("Confirm", "Are you sure you want to remove some items");
+        ConfirmMessageBox confirmBox = new ConfirmMessageBox("Confirm", "Are you sure you want to remove some items in " + rootPanel.getName());
         confirmBox.addHideHandler(new HideEvent.HideHandler() {
           @Override
           public void onHide(HideEvent event) {
