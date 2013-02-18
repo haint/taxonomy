@@ -18,20 +18,14 @@
 package taxonomy.webui.client.widget.form;
 
 import java.util.Collection;
-import java.util.List;
 
-import taxonomy.resources.client.LoaderServiceAsync;
 import taxonomy.resources.client.model.FilterModel;
-import taxonomy.webui.client.widget.Tables;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.sencha.gxt.cell.core.client.form.ComboBoxCell.TriggerAction;
 import com.sencha.gxt.data.shared.LabelProvider;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.widget.core.client.FramedPanel;
-import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
-import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData;
 import com.sencha.gxt.widget.core.client.form.ComboBox;
 import com.sencha.gxt.widget.core.client.form.FieldLabel;
 

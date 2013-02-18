@@ -15,34 +15,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package taxonomy.resources.client.model;
+package taxonomy.webui.client.widget.form;
 
-import java.io.Serializable;
+import taxonomy.resources.client.model.VModel;
+
+import com.sencha.gxt.widget.core.client.TabPanel;
+import com.sencha.gxt.widget.core.client.Window;
 
 /**
  * @author <a href="mailto:haithanh0809@gmail.com">Nguyen Thanh Hai</a>
  * @version $Id$
- * 
+ *
  */
-public abstract class VModel implements Serializable {
+public class ModelPanel<M extends VModel> extends Window {
 
-  private static final long serialVersionUID = 1L;
-
-  private Integer id;
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public Integer getId() {
-    return id;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    VModel other = (VModel)obj;
-    if (this.getId() == other.getId())
-      return true;
-    return false;
+  /** .*/
+  private final M model;
+  
+  public ModelPanel(M model) {
+    this.model = model;
+    setPixelSize(500, 400);
+    setModal(true);
+    setBlinkModal(true);
+    
+    TabPanel tabPanel = new TabPanel();
+    
   }
 }

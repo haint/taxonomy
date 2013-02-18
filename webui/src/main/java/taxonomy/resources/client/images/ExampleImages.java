@@ -18,6 +18,9 @@ public interface ExampleImages extends ClientBundle {
   @Source("Cancel2.png")
   ImageResource deselectAll();
 
+  @Source("menu.png")
+  ImageResource menu();
+  
   @Source("wikipedia.png")
   ImageResource wikipedia();
 

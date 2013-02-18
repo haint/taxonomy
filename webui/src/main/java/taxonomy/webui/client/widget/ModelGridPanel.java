@@ -107,18 +107,18 @@ public class ModelGridPanel<M extends VModel> extends FramedPanel {
 
     //
     sm = new CheckBoxSelectionModel<M>(new IdentityValueProvider<M>());
-    final OperatorToolbar<M> operatorTool = new OperatorToolbar<M>(this);
+    OperatorToolbar.rootPanel = this;
     sm.addSelectionHandler(new SelectionHandler<M>() {
       @Override
       public void onSelection(SelectionEvent<M> event) {
-        operatorTool.enableModifyButton();
+        OperatorToolbar.enableModifyButton();
       }
     });
     sm.addSelectionChangedHandler(new SelectionChangedHandler<M>() {
       @Override
       public void onSelectionChanged(SelectionChangedEvent<M> event) {
         if (event.getSelection().size() == 0)
-          operatorTool.disableModifyButton();
+          OperatorToolbar.disableModifyButton();
       };
     });
 
@@ -164,7 +164,6 @@ public class ModelGridPanel<M extends VModel> extends FramedPanel {
     con.setBorders(true);
     con.add(toolbar, new VerticalLayoutData(1, -1));
     con.add(grid, new VerticalLayoutData(1, 1));
-    con.add(operatorTool, new VerticalLayoutData(1, -1));
     con.getScrollSupport().setScrollMode(ScrollMode.AUTOY);
     setWidget(con);
   }

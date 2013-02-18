@@ -17,6 +17,8 @@
  */
 package taxonomy.webui.client.widget;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,6 +28,8 @@ import taxonomy.resources.client.model.Utils;
 import taxonomy.resources.client.model.VModel;
 import taxonomy.webui.client.widget.form.FilterPanel;
 
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Frame;
 import com.sencha.gxt.widget.core.client.Dialog;
@@ -36,6 +40,10 @@ import com.sencha.gxt.widget.core.client.box.ConfirmMessageBox;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.HideEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.menu.Item;
+import com.sencha.gxt.widget.core.client.menu.Menu;
+import com.sencha.gxt.widget.core.client.menu.MenuItem;
+import com.sencha.gxt.widget.core.client.menu.SeparatorMenuItem;
 import com.sencha.gxt.widget.core.client.toolbar.FillToolItem;
 import com.sencha.gxt.widget.core.client.toolbar.SeparatorToolItem;
 import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
@@ -47,18 +55,18 @@ import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
  */
 public class OperatorToolbar<M extends VModel> extends ToolBar {
   /** . */
-  private final TextButton btnWikipedia;
+  private static TextButton btnWikipedia;
 
   /** . */
-  private final TextButton btnGoogle;
+  private static TextButton btnGoogle;
 
   /** . */
-  private final TextButton btnRemove;
+  private static TextButton btnRemove;
 
-  /** . */
-  private final TextButton btnUpdate;
-
-  public OperatorToolbar(final ModelGridPanel<M> rootPanel) {
+  /** .*/
+  static ModelGridPanel rootPanel;
+  
+  public OperatorToolbar() {
     // create remove btn.
     btnRemove = new TextButton("Remove", ExampleImages.INSTANCE.remove());
     btnRemove.addSelectHandler(new SelectEvent.SelectHandler() {
@@ -106,14 +114,6 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
     // create add btn.
     TextButton btnAdd = new TextButton("Add", ExampleImages.INSTANCE.addNew());
     btnAdd.addSelectHandler(new SelectEvent.SelectHandler() {
-      @Override
-      public void onSelect(SelectEvent event) {
-      }
-    });
-
-    // create update btn.
-    btnUpdate = new TextButton("Update", ExampleImages.INSTANCE.update());
-    btnUpdate.addSelectHandler(new SelectEvent.SelectHandler() {
       @Override
       public void onSelect(SelectEvent event) {
       }
@@ -172,9 +172,9 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
     });
     btnDeselectAll.setIcon(ExampleImages.INSTANCE.deselectAll());
 
-    add(btnAdd);
+    addMenuButton();
     add(new SeparatorToolItem());
-    add(btnUpdate);
+    add(btnAdd);
     add(new SeparatorToolItem());
     add(btnRemove);
     add(new SeparatorToolItem());
@@ -190,17 +190,92 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
     setHeight(50);
     disableModifyButton();
   }
+  
+  private void addMenuButton() {
+    SelectionHandler<Item> handler = new SelectionHandler<Item>() {
+      @Override
+      public void onSelection(SelectionEvent<Item> event) {
+        MenuItem item = (MenuItem)event.getSelectedItem();
+        String text = item.getText();
+        
+        ModelGridPanel panel = null;
+        Tables table = Tables.valueOf(text.substring(1, text.length() - 1).toUpperCase());
+        switch (table) {
+          case KINGDOM :
+            panel = ModelGridFactory.createKingdom();
+            break;
+          case FAMILY :
+            panel = ModelGridFactory.createFamily();
+            break;
+          case GENUS :
+            panel = ModelGridFactory.createGenus();
+            break;
+          case SPECIES :
+            panel = ModelGridFactory.createSpecies();
+            break;
+          case NATURALOBJECT :
+            panel = ModelGridFactory.createNObject();
+            break;
+          case VARIANT :
+            panel = ModelGridFactory.createVariant();
+            break;
+          case LOCALES :
+            panel = ModelGridFactory.createLocale();
+            break;
+          case GLOSSARY :
+            panel = ModelGridFactory.createGlossary();
+            break;
+          case INDEX :
+            panel = ModelGridFactory.createIndex();
+            break;
+          case TAG :
+            panel = ModelGridFactory.createTag();
+            break;
+          default :
+            break;
+        }
 
-  public void disableModifyButton() {
+        if (TxShell.center.getWidgetIndex(panel) < 0) {
+          TabItemConfig tabConfig = new TabItemConfig(text, true);
+          TxShell.center.add(panel, tabConfig);
+        }
+        TxShell.center.setActiveWidget(panel);
+      }
+    };
+    
+    List<String> child1 = new ArrayList<String>();
+    Collections.addAll(child1, "[Kingdom]", "[Family]", "[Genus]", "[Species]", "[NaturalObject]");
+    
+    List<String> child2 = new ArrayList<String>();
+    Collections.addAll(child2, "[Index]", "[Tag]", "[Glossary]", "[Variant]", "[Locales]");
+
+    TextButton menuTextItem = new TextButton("Menu");
+    menuTextItem.setIcon(ExampleImages.INSTANCE.menu());
+    
+    Menu modelsMenu = new Menu();
+    modelsMenu.addSelectionHandler(handler);
+    
+    for (String s : child1) {
+      MenuItem item = new MenuItem(s);
+      modelsMenu.add(item);
+    }
+    modelsMenu.add(new SeparatorMenuItem());
+    for (String s : child2) {
+      MenuItem item = new MenuItem(s);
+      modelsMenu.add(item);
+    }
+    menuTextItem.setMenu(modelsMenu);
+    add(menuTextItem);
+  }
+
+  static void disableModifyButton() {
     btnRemove.disable();
-    btnUpdate.disable();
     btnWikipedia.disable();
     btnGoogle.disable();
   }
 
-  public void enableModifyButton() {
+  static void enableModifyButton() {
     btnRemove.enable();
-    btnUpdate.enable();
     btnWikipedia.enable();
     btnGoogle.enable();
   }
