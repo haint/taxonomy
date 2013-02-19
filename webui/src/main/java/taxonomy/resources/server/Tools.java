@@ -56,12 +56,12 @@ import taxonomy.resources.client.model.VVariant;
 public class Tools {
 
   /** . */
-  static Map<Class<? extends Serializable>, Class<? extends Serializable>> deserializeHolder =
-    new HashMap<Class<? extends Serializable>, Class<? extends Serializable>>();
+  static Map<Class<? extends VModel>, Class<? extends Model>> deserializeHolder =
+    new HashMap<Class<? extends VModel>, Class<? extends Model>>();
 
   /** . */
-  static Map<Class<? extends Serializable>, Class<? extends Serializable>> serializeHolder =
-    new HashMap<Class<? extends Serializable>, Class<? extends Serializable>>();
+  static Map<Class<? extends Model>, Class<? extends VModel>> serializeHolder =
+    new HashMap<Class<? extends Model>, Class<? extends VModel>>();
 
   static {
     deserializeHolder.put(VFamily.class, Family.class);
@@ -123,8 +123,8 @@ public class Tools {
     return vmodel;
   }
 
-  public static Model deserialize(String clazz, VModel vmodel) throws Exception {
-    Model model = (Model)Class.forName(clazz).newInstance();
+  public static Model deserialize(Class<? extends Model> clazz, VModel vmodel) throws Exception {
+    Model model = (Model)clazz.newInstance();
     Method[] methods = model.getClass().getMethods();
     for (Method m : methods) {
       String methodName = m.getName();
@@ -134,13 +134,13 @@ public class Tools {
       Method invokeMethod = vmodel.getClass().getMethod(invokeMethodName, null);
       Object invokeResult = invokeMethod.invoke(vmodel, new Object[]{});
       if (invokeResult instanceof VModel) {
-        m.invoke(model, deserialize(deserializeHolder.get(invokeResult.getClass()).getName(), vmodel));
+        m.invoke(model, deserialize(deserializeHolder.get(invokeResult.getClass()), vmodel));
       } else if (invokeResult instanceof Set) {
         Set<Model> holder = new HashSet<Model>();
         Iterator<VModel> i = ((Set<VModel>)invokeResult).iterator();
         while (i.hasNext()) {
           VModel sel = i.next();
-          holder.add(deserialize(deserializeHolder.get(sel.getClass()).getName(), sel));
+          holder.add(deserialize(deserializeHolder.get(sel.getClass()), sel));
         }
         m.invoke(model, holder);
       } else {

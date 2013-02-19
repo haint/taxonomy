@@ -16,7 +16,6 @@
  */
 package taxonomy.resources.client.model;
 
-import java.text.ParseException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
