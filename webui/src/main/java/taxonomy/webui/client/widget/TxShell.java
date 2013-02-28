@@ -75,6 +75,8 @@ public class TxShell extends BorderLayoutContainer {
           OperatorToolbar.rootPanel = (ModelGridPanel)event.getSelectedItem();
           if(OperatorToolbar.rootPanel.getCheckBoxSelectionModel().getSelectedItems().size() == 0) {
             OperatorToolbar.disableModifyButton();
+          } else {
+            OperatorToolbar.enableModifyButton();
           }
         }
       }
