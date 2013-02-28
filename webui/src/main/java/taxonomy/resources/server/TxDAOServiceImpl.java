@@ -60,34 +60,42 @@ public class TxDAOServiceImpl extends RemoteServiceServlet implements TxDAOServi
   @Override
   public VResult query(String query) throws Exception {
     Connection con = ORMTools.getConnection();
-    ResultSet rs = con.createStatement().executeQuery(query);
-    VResult vresult = new VResult();
-    while (rs.next()) {
-      LinkedList<Object> holder = new LinkedList<Object>();
-      int i = 1;
-      while (true) {
-        try {
-          holder.addLast(rs.getObject(i));
-          i++;
-        } catch (SQLException e) {
-          vresult.set(holder);
-          break;
+    try {
+      ResultSet rs = con.createStatement().executeQuery(query);
+      VResult vresult = new VResult();
+      while (rs.next()) {
+        LinkedList<Object> holder = new LinkedList<Object>();
+        int i = 1;
+        while (true) {
+          try {
+            holder.addLast(rs.getObject(i));
+            i++;
+          } catch (SQLException e) {
+            vresult.set(holder);
+            break;
+          }
         }
       }
+      return vresult;
+    } finally {
+      con.close();
     }
-    return vresult;
   }
 
   @Override
   public void update(String query) throws Exception {
     Connection con = ORMTools.getConnection();
-    con.createStatement().executeUpdate(query);
+    try {
+      con.createStatement().executeUpdate(query);
+    } finally {
+      con.close();
+    }
   }
 
   @Override
-  public List<VModel> select(String tableName, Integer from, Integer to) {
+  public List<VModel> select(String tableName, Integer from, Integer to) throws Exception {
+    Connection con = ORMTools.getConnection();
     try {
-      Connection con = ORMTools.getConnection();
       ResultSet rs = null;
       if (from != null && to != null) {
         rs =
@@ -108,18 +116,24 @@ public class TxDAOServiceImpl extends RemoteServiceServlet implements TxDAOServi
       return holder;
     } catch (Throwable e) {
       throw new RuntimeException(e);
+    } finally {
+      con.close();
     }
   }
 
   @Override
   public <M extends VModel> PagingLoadResult<M> select(String tableName, PagingLoadConfig config) throws Exception {
     Connection con = ORMTools.getConnection();
-    ResultSet rs = con.createStatement().executeQuery("Select count(ID) from " + tableName);
-    rs.next();
-    int totalSize = rs.getInt(1);
-    int offset = config.getOffset();
-    int limit = config.getLimit();
-    List<M> models = (List<M>)select(tableName, offset, limit);
-    return models == null ? null : new PagingLoadResultBean<M>(models, totalSize, config.getOffset());
+    try {
+      ResultSet rs = con.createStatement().executeQuery("Select count(ID) from " + tableName);
+      rs.next();
+      int totalSize = rs.getInt(1);
+      int offset = config.getOffset();
+      int limit = config.getLimit();
+      List<M> models = (List<M>)select(tableName, offset, limit);
+      return models == null ? null : new PagingLoadResultBean<M>(models, totalSize, config.getOffset());
+    } finally {
+      con.close();
+    }
   }
 }
