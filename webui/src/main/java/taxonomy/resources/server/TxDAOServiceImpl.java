@@ -20,6 +20,7 @@ package taxonomy.resources.server;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -104,13 +105,11 @@ public class TxDAOServiceImpl extends RemoteServiceServlet implements TxDAOServi
       } else {
         rs = con.createStatement().executeQuery("select * from " + tableName);
       }
-      LinkedList<VModel> holder = null;
+      List<VModel> holder = new ArrayList<VModel>();
       while (rs.next()) {
-        Class clazz = TableMap.INSTANCE.get(tableName);
-        Model model = ORMTools.map(Tools.deserializeHolder.get(clazz), rs);
+        Class<?> clazz = TableMap.INSTANCE.get(tableName);
+        Model<?> model = ORMTools.map(Tools.deserializeHolder.get(clazz), rs);
         VModel vmodel = Tools.serialize(clazz.getName(), model);
-        if (holder == null)
-          holder = new LinkedList<VModel>();
         holder.add(vmodel);
       }
       return holder;
@@ -131,7 +130,7 @@ public class TxDAOServiceImpl extends RemoteServiceServlet implements TxDAOServi
       int offset = config.getOffset();
       int limit = config.getLimit();
       List<M> models = (List<M>)select(tableName, offset, limit);
-      return models == null ? null : new PagingLoadResultBean<M>(models, totalSize, config.getOffset());
+      return new PagingLoadResultBean<M>(models, totalSize, config.getOffset());
     } finally {
       con.close();
     }
