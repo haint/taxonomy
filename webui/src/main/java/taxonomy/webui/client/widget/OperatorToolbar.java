@@ -28,16 +28,25 @@ import taxonomy.resources.client.model.Utils;
 import taxonomy.resources.client.model.VModel;
 import taxonomy.webui.client.widget.form.FilterPanel;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Frame;
+import com.google.gwt.user.client.ui.Label;
+import com.sencha.gxt.core.client.XTemplates;
+import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.Dialog;
 import com.sencha.gxt.widget.core.client.TabItemConfig;
 import com.sencha.gxt.widget.core.client.Window;
 import com.sencha.gxt.widget.core.client.box.AlertMessageBox;
 import com.sencha.gxt.widget.core.client.box.ConfirmMessageBox;
 import com.sencha.gxt.widget.core.client.button.TextButton;
+import com.sencha.gxt.widget.core.client.container.AbstractHtmlLayoutContainer.HtmlData;
+import com.sencha.gxt.widget.core.client.container.HtmlLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.HideEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.menu.Item;
@@ -189,6 +198,9 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
     add(btnDeselectAll);
     setHeight(50);
     disableModifyButton();
+    
+    //Temporary
+    foo();
   }
   
   private void addMenuButton() {
@@ -278,5 +290,50 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
     btnRemove.enable();
     btnWikipedia.enable();
     btnGoogle.enable();
+  }
+  
+  public interface CodeSnippetStyle extends CssResource {
+    String cell1();
+    String cell2();
+    String cell3();
+  }
+  
+  public interface CodeSnippetHtml extends XTemplates {
+    @XTemplate(source = "CodeSnippet.html")
+    SafeHtml getTemplate(CodeSnippetStyle style);
+  }
+  
+  public interface CodeSnippetCss extends ClientBundle {
+    @Source("CodeSnippet.css")
+    CodeSnippetStyle style();
+  }
+  
+  private void foo() {
+    TextButton demo = new TextButton("Demo", new SelectEvent.SelectHandler() {
+      public void onSelect(SelectEvent event) {
+        final Window complex = new Window();
+        complex.setBodyBorder(false);
+        complex.setHeadingText("Hello world Dialog");
+        complex.setMaximizable(true);
+        complex.setWidth(600);
+        complex.setHeight(425);
+
+        ContentPanel panel = new ContentPanel();
+        panel.setHeaderVisible(false);
+
+        CodeSnippetHtml html = GWT.create(CodeSnippetHtml.class);
+        CodeSnippetCss css = GWT.create(CodeSnippetCss.class);
+        css.style().ensureInjected();
+        HtmlLayoutContainer c = new HtmlLayoutContainer(html.getTemplate(css.style()));
+        c.add(new Label("Label 1"), new HtmlData("." + css.style().cell1()));
+        c.add(new Label("Label 2"), new HtmlData("." + css.style().cell2()));
+        c.add(new Label("Label 3"), new HtmlData("." + css.style().cell3()));
+        panel.add(c);
+        
+        complex.add(panel);
+        complex.show();
+      }
+    });
+    add(demo);
   }
 }

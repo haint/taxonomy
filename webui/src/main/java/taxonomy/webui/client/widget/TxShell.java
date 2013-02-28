@@ -82,10 +82,11 @@ public class TxShell extends BorderLayoutContainer {
       }
     });
 
-    TabItemConfig tabConfig = new TabItemConfig(Tables.NATURALOBJECT.getName(), true);
-    ModelGridPanel<VNaturalObject> panel = ModelGridFactory.createNObject();
-    center.add(panel, tabConfig);
-    center.setActiveWidget(panel);
+    //comment for test faster
+//    TabItemConfig tabConfig = new TabItemConfig(Tables.NATURALOBJECT.getName(), true);
+//    ModelGridPanel<VNaturalObject> panel = ModelGridFactory.createNObject();
+//    center.add(panel, tabConfig);
+//    center.setActiveWidget(panel);
     setCenterWidget(center, centerData);
   }
 
