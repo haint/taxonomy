@@ -50,16 +50,13 @@ public class TxShell extends BorderLayoutContainer {
     setStateful(false);
     setStateId("explorerLayout");
 
-    // BorderLayoutStateHandler state = new BorderLayoutStateHandler(this);
-    // state.loadState();
-
-    HTML north = new HTML();
-    north.setHTML("<div id='demo-theme'></div><div id=demo-title>Taxonomy Web Base Application</div>");
-    north.getElement().setId("demo-header");
-
-    BorderLayoutData northData = new BorderLayoutData(35);
-    setNorthWidget(north, northData);
-
+//    HTML north = new HTML();
+//    north.setHTML("<div id='demo-theme'></div><div id=demo-title>Taxonomy Web Base Application</div>");
+//    north.getElement().setId("demo-header");
+//
+//    BorderLayoutData northData = new BorderLayoutData(35);
+//    setNorthWidget(north, northData);
+//
     setSouthWidget(new OperatorToolbar(), new BorderLayoutData(40));
     
     MarginData centerData = new MarginData();
@@ -87,7 +84,7 @@ public class TxShell extends BorderLayoutContainer {
 //    ModelGridPanel<VNaturalObject> panel = ModelGridFactory.createNObject();
 //    center.add(panel, tabConfig);
 //    center.setActiveWidget(panel);
-    setCenterWidget(center, centerData);
+//    setCenterWidget(center, centerData);
   }
 
   @Override
