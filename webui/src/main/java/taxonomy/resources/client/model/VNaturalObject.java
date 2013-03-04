@@ -16,10 +16,12 @@
  */
 package taxonomy.resources.client.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -71,6 +73,10 @@ public class VNaturalObject extends VModel {
 
   public Set<VFamily> getFamilies() {
     return families;
+  }
+  
+  public List<VFamily> getListFamily() {
+    return new ArrayList<VFamily>(families);
   }
 
   public void setFamilies(Set<VFamily> families) {
