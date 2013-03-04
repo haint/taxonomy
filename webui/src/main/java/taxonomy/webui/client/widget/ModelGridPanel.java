@@ -78,7 +78,8 @@ public class ModelGridPanel<M extends VModel> extends FramedPanel {
   public ModelGridPanel(String tableName, List<ColumnConfig<M, ?>> cf) {
     //
     this.name = tableName;
-
+    setHeaderVisible(false);
+    
     //
     DataProxy<PagingLoadConfig, PagingLoadResult<M>> proxy = new RpcProxy<PagingLoadConfig, PagingLoadResult<M>>() {
       @Override

@@ -50,13 +50,13 @@ public class TxShell extends BorderLayoutContainer {
     setStateful(false);
     setStateId("explorerLayout");
 
-//    HTML north = new HTML();
-//    north.setHTML("<div id='demo-theme'></div><div id=demo-title>Taxonomy Web Base Application</div>");
-//    north.getElement().setId("demo-header");
-//
-//    BorderLayoutData northData = new BorderLayoutData(35);
-//    setNorthWidget(north, northData);
-//
+    HTML north = new HTML();
+    north.setHTML("<div id='demo-theme'></div><div id=demo-title>Taxonomy Web Base Application</div>");
+    north.getElement().setId("demo-header");
+
+    BorderLayoutData northData = new BorderLayoutData(35);
+    setNorthWidget(north, northData);
+
     setSouthWidget(new OperatorToolbar(), new BorderLayoutData(40));
     
     MarginData centerData = new MarginData();

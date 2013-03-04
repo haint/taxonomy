@@ -307,7 +307,7 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
         window.setHeadingText("Hello world Dialog");
         window.setMaximizable(true);
         window.setModal(true);
-        window.setWidth("auto");
+        window.setWidth(500);
         window.setHeight("auto");
         
         TxDAOServiceAsync.Util.getInstance().getGeneric(VNaturalObject.class.getName(), 1, new AsyncCallback<VModel>() {
