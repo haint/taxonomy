@@ -19,6 +19,7 @@ package taxonomy.webui.client.widget;
 
 import taxonomy.resources.client.model.VNaturalObject;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.Window;
@@ -26,9 +27,11 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.sencha.gxt.core.client.util.Margins;
+import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.TabItemConfig;
 import com.sencha.gxt.widget.core.client.TabPanel;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.HtmlLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.MarginData;
 
 /**
@@ -50,18 +53,31 @@ public class TxShell extends BorderLayoutContainer {
     setStateful(false);
     setStateId("explorerLayout");
 
+    /** The north widget. */
     HTML north = new HTML();
     north.setHTML("<div id='demo-theme'></div><div id=demo-title>Taxonomy Web Base Application</div>");
     north.getElement().setId("demo-header");
 
     BorderLayoutData northData = new BorderLayoutData(35);
     setNorthWidget(north, northData);
-
-    setSouthWidget(new OperatorToolbar(), new BorderLayoutData(40));
     
-    MarginData centerData = new MarginData();
-    centerData.setMargins(new Margins(5));
+    /** The west widget. */
+    WestMenuTemplate template = GWT.create(WestMenuTemplate.class);
+    ContentPanel west = new ContentPanel();
+    west.setHeaderVisible(false);
+    west.add(new HtmlLayoutContainer(template.get()));
+    
+    BorderLayoutData westData = new BorderLayoutData(250);
+    westData.setCollapseHidden(true);
+    westData.setCollapsible(true);
+    westData.setCollapseMini(true);
+    westData.setSplit(true);
+    setWestWidget(west, westData);
+    
+    /** The south widget. */
+    setSouthWidget(new OperatorToolbar(), new BorderLayoutData(40));
 
+    /** The center widget. */
     center = new TabPanel();
     center.setTabScroll(true);
     center.setCloseContextMenu(true);
@@ -79,11 +95,14 @@ public class TxShell extends BorderLayoutContainer {
       }
     });
 
+    MarginData centerData = new MarginData();
+    centerData.setMargins(new Margins(5));
+
     //comment for test faster
-    TabItemConfig tabConfig = new TabItemConfig(Tables.NATURALOBJECT.getName(), true);
-    ModelGridPanel<VNaturalObject> panel = ModelGridFactory.createNObject();
-    center.add(panel, tabConfig);
-    center.setActiveWidget(panel);
+//    TabItemConfig tabConfig = new TabItemConfig("[Main]", true);
+//    ModelGridPanel<VNaturalObject> panel = ModelGridFactory.createNObject();
+//    center.add(panel, tabConfig);
+//    center.setActiveWidget(panel);
     setCenterWidget(center, centerData);
   }
 
