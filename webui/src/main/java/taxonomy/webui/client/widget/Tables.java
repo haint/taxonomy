@@ -41,7 +41,7 @@ public enum Tables {
 
   VARIANT("[Variant]"),
 
-  NATURALOBJECT("[NaturalObject]");
+  OBJECT("[NaturalObject]");
 
   private String name;
 

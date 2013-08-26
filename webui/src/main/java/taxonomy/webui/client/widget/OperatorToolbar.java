@@ -221,7 +221,7 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
           case SPECIES :
             panel = ModelGridFactory.createSpecies();
             break;
-          case NATURALOBJECT :
+          case OBJECT :
             panel = ModelGridFactory.createNObject();
             break;
           case VARIANT :
@@ -252,7 +252,7 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
     };
     
     List<String> child1 = new ArrayList<String>();
-    Collections.addAll(child1, "[Kingdom]", "[Family]", "[Genus]", "[Species]", "[NaturalObject]");
+    Collections.addAll(child1, "[Kingdom]", "[Family]", "[Genus]", "[Species]", "[Object]");
     
     List<String> child2 = new ArrayList<String>();
     Collections.addAll(child2, "[Index]", "[Tag]", "[Glossary]", "[Variant]", "[Locales]");

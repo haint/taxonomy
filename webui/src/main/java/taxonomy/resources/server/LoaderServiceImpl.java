@@ -59,7 +59,7 @@ public class LoaderServiceImpl extends RemoteServiceServlet implements LoaderSer
     Connection con = ORMTools.getConnection();
     try {
       ResultSet rs =
-        con.createStatement().executeQuery("select " + locale + "_names, id from " + Tables.NATURALOBJECT.getName());
+        con.createStatement().executeQuery("select " + locale + "_names, id from " + Tables.OBJECT.getName());
       List<String> holder = new ArrayList<String>();
       while (rs.next()) {
         String values = rs.getString(1).trim();

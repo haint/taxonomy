@@ -281,7 +281,7 @@ public class ModelGridFactory {
         }, 50, "Modify Date");
       modifyDate.setCell(new DateCell(DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_SHORT)));
       cf.add(modifyDate);
-      objects = new ModelGridPanel<VNaturalObject>(Tables.NATURALOBJECT.getName(), cf);
+      objects = new ModelGridPanel<VNaturalObject>(Tables.OBJECT.getName(), cf);
       foo(desc, objects);
     }
     return objects;

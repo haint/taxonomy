@@ -39,7 +39,7 @@ public class Utils {
     map.put(Tables.INDEX.getName(), VIndex.class);
     map.put(Tables.KINGDOM.getName(), VKingdom.class);
     map.put(Tables.LOCALES.getName(), VLocale.class);
-    map.put(Tables.NATURALOBJECT.getName(), VNaturalObject.class);
+    map.put(Tables.OBJECT.getName(), VNaturalObject.class);
     map.put(Tables.SPECIES.getName(), VSpecies.class);
     map.put(Tables.TAG.getName(), VTag.class);
     map.put(Tables.VARIANT.getName(), VVariant.class);
@@ -61,7 +61,7 @@ public class Utils {
     map.put(VIndex.class, Tables.INDEX.getName());
     map.put(VKingdom.class, Tables.KINGDOM.getName());
     map.put(VLocale.class, Tables.LOCALES.getName());
-    map.put(VNaturalObject.class, Tables.NATURALOBJECT.getName());
+    map.put(VNaturalObject.class, Tables.OBJECT.getName());
     map.put(VSpecies.class, Tables.SPECIES.getName());
     map.put(VTag.class, Tables.TAG.getName());
     map.put(VVariant.class, Tables.VARIANT.getName());

@@ -231,7 +231,7 @@ public class ORMTools {
 				for (String id : ids) {
 					if(id.trim().isEmpty() || id == null || "null".equals(id)) continue;
 					Model model = map(bar.model(), Integer.parseInt(id.trim()));
-					holder.add(model);
+					if(model != null) holder.add(model);
 				}
 				m.invoke(obj, holder);
 			}
