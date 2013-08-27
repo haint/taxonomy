@@ -257,7 +257,7 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
     List<String> child2 = new ArrayList<String>();
     Collections.addAll(child2, "[Index]", "[Tag]", "[Glossary]", "[Variant]", "[Locales]");
 
-    TextButton menuTextItem = new TextButton("Menu");
+    TextButton menuTextItem = new TextButton("Explorer");
     menuTextItem.setIcon(ExampleImages.INSTANCE.menu());
     
     Menu modelsMenu = new Menu();
@@ -320,7 +320,6 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
 
           @Override
           public void onSuccess(VModel result) {
-            System.out.println(result);
             ModelViewPanel panel = new ModelViewPanel((VNaturalObject)result);
             window.add(panel);
             window.show();

@@ -17,7 +17,6 @@
  */
 package taxonomy.webui.client.widget;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.Window;
@@ -25,10 +24,8 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.sencha.gxt.core.client.util.Margins;
-import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.TabPanel;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
-import com.sencha.gxt.widget.core.client.container.HtmlLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.MarginData;
 
 /**
@@ -59,11 +56,7 @@ public class TxShell extends BorderLayoutContainer {
     setNorthWidget(north, northData);
     
     /** The west widget. */
-    WestMenuTemplate template = GWT.create(WestMenuTemplate.class);
-    ContentPanel west = new ContentPanel();
-    west.setHeaderVisible(false);
-    west.add(new HtmlLayoutContainer(template.get()));
-    
+    WestMenuPanel west = new WestMenuPanel();
     BorderLayoutData westData = new BorderLayoutData(250);
     westData.setCollapseHidden(true);
     westData.setCollapsible(true);
@@ -82,7 +75,7 @@ public class TxShell extends BorderLayoutContainer {
       @Override
       public void onSelection(SelectionEvent<Widget> event) {
         if(event.getSelectedItem() instanceof ModelGridPanel) {
-          OperatorToolbar.rootPanel = (ModelGridPanel)event.getSelectedItem();
+          OperatorToolbar.rootPanel = (ModelGridPanel<?>)event.getSelectedItem();
           if(OperatorToolbar.rootPanel.getCheckBoxSelectionModel().getSelectedItems().size() == 0) {
             OperatorToolbar.disableModifyButton();
           } else {
