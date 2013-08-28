@@ -38,4 +38,9 @@ public class VIndex extends VModel {
   public String toString() {
     return value;
   }
+
+  @Override
+  public String getName() {
+    return value;
+  }
 }

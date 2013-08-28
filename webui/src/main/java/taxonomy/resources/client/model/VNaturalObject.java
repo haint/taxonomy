@@ -228,4 +228,9 @@ public class VNaturalObject extends VModel {
   public void setAvatar(String path) {
     this.avatar = path;
   }
+
+  @Override
+  public String getName() {
+    return getVnNames() + " - " + getEnNames();
+  }
 }

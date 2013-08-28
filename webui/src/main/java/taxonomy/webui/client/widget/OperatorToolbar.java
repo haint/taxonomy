@@ -304,7 +304,6 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
       public void onSelect(SelectEvent event) {
         final Window window = new Window();
         window.setBodyBorder(false);
-        window.setHeadingText("Hello world Dialog");
         window.setMaximizable(true);
         window.setModal(true);
         window.setWidth(500);
@@ -322,6 +321,7 @@ public class OperatorToolbar<M extends VModel> extends ToolBar {
           public void onSuccess(VModel result) {
             ModelViewPanel panel = new ModelViewPanel((VNaturalObject)result);
             window.add(panel);
+            window.setHeadingText(result.getName());
             window.show();
           }
         });

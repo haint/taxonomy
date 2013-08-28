@@ -37,6 +37,8 @@ public abstract class VModel implements Serializable {
   public Integer getId() {
     return id;
   }
+  
+  public abstract String getName();
 
   @Override
   public boolean equals(Object obj) {

@@ -49,4 +49,9 @@ public class VVariant extends VModel {
   public String toString() {
     return value;
   }
+
+  @Override
+  public String getName() {
+    return value;
+  }
 }
